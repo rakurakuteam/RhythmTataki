@@ -20,3 +20,8 @@
 
 # Progress state
 - Currently under development
+
+# Game Screenshot
+<div>
+  <img width="500" src="https://user-images.githubusercontent.com/32589504/54412452-11908200-4736-11e9-9462-d7efc144ceb8.png"/>  
+</div>
