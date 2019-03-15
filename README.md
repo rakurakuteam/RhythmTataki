@@ -17,3 +17,6 @@
 1. Download unity source and apply it.
 2. Download Arduino source and upload it to Uno board(Need Piezo Sensor)
 3. Make sure the game works properly.
+
+# Progress state
+- Currently under development
