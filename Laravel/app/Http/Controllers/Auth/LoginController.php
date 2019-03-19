@@ -40,12 +40,12 @@ class LoginController extends Controller
     
     public function redirectToProvider()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('Google')->redirect();
     }
 
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('Google')->user();
 
         return redirect('/');
         // $user->token;
