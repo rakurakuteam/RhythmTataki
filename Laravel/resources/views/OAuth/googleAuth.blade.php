@@ -14,7 +14,7 @@
             defer="defer"></script>
     </head>
     <body>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn" onclick="location.href='/login/google'"></div>
         <script>
             function onSignIn(googleUser) {
                 var profile = googleUser.getBasicProfile();
