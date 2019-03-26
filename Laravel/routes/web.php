@@ -10,13 +10,22 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+Route::get('/', function(){
+    return view('welcome');
+});
+Route::get('/about', function(){
+    return view('welcome');
+});
+Route::get('/workshop', function(){
     return view('welcome');
 });
 
-Route::get('login', function(){
-    return view('OAuth.googleAuth');
+Route::prefix('login/google')->group(function () {
+    Route::get('google', 'GoogleLoginController@googleLogin')->name('google.login');
+    Route::get('google/callback', 'GoogleLoginController@googleCallback')->name('google.callback');
 });
-Route::get('login/google', 'Auth\LoginController@redirectToProvider');
-Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
