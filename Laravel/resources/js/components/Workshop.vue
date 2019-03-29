@@ -36,7 +36,7 @@ export default {
                             'font-size': '10px'
                         }
                     }),
-                    WaveSurfer.regions.create({}) // 영역 생성
+                    WaveSurfer.regions.create() // 영역 생성
                 ]
             }),
             this.wavesurfer.load('http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3');
@@ -46,6 +46,7 @@ export default {
                 end: 40,
                 drag: true,
                 resize: true,
+                color: "rgba(200, 100, 0, 0.1)"	
             })
             this.wavesurfer.getCurrentTime();
             // this.wavesurfer.addRegion();

@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </form>
-                    @component('components.googleAuth')
+                    @component('components.auth.googleAuth')
                     @endcomponent
                 </div>
             </div>

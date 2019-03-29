@@ -17,7 +17,7 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->integer('zip_code')->comment('우편번호');
             $table->string('addr_1', 100)->comment('주소');
-            $table->string('addr_2', 100)->comment('상세');
+            $table->string('addr_2', 100)->comment('상세주소');
             $table->timestamps();
         });
     }
@@ -29,9 +29,6 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::table('addresses', function(Blueprint $table){
-            $table->dropForeign('addresses_user_id_foreign');
-        });
         Schema::dropIfExists('addresses');
     }
 }

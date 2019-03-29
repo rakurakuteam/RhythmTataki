@@ -15,12 +15,13 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('board_id')->comment('게시글번호');
-            $table->foreign('board_id')->references('id')->on('boards')
+            $table->unsignedInteger('user_id')->comment('회원번호');
+            $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->string('route', 255)->comment('파일경로');
-            $table->string('name', 255)->comment('파일이름');
+            $table->string('name', 100)->comment('파일이름');
             $table->string('type', 20)->comment('파일타입');
+            $table->unsignedInteger('size')->comment('파일사이즈');
             $table->timestamps();
         });
     }

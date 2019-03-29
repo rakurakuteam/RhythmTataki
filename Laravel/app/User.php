@@ -11,7 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'nickName', 'phone', 'point', 
+        'name', 'email', 'password', 'confirm' , 'token', 'token_exp',
     ];
 
     protected $hidden = [
@@ -20,5 +20,9 @@ class User extends Authenticatable
 
     public function address(){
         return $this->belongsToMany('App\Address', 'user_addr', 'user_id', 'addr_id');
+    }
+
+    public function getRememberTokenName(){
+        return null; // not supported
     }
 }

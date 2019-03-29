@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserAddrTable extends Migration
+class CreateUserAddrsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserAddrTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_addr', function (Blueprint $table) {
+        Schema::create('user_addrs', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->comment('회원번호');
             $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')->onDelete('cascade');
@@ -30,10 +30,10 @@ class CreateUserAddrTable extends Migration
      */
     public function down()
     {
-        Schema::table('addresses', function(Blueprint $table){
-            $table->dropForeign('user_addr_user_id_foreign');
-            $table->dropForeign('user_addr_addr_id_foreign');
+        Schema::table('user_addrs', function(Blueprint $table){
+            $table->dropForeign('user_addrs_user_id_foreign');
+            $table->dropForeign('user_addrs_addr_id_foreign');
         });
-        Schema::dropIfExists('user_addr');
+        Schema::dropIfExists('user_addrs');
     }
 }
