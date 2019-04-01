@@ -11,7 +11,6 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @stack('scripts')
-    
 </head>
 <body>
     @yield('nav')

@@ -77,6 +77,7 @@ function selectFile(fileObject) {
 
     if($.inArray(ext, ['mp3', 'wav'])){
         alert("등록 불가 확장자");
+        return;
     };
 
     uploadFile(files);

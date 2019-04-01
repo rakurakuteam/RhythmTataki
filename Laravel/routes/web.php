@@ -10,20 +10,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+
 Route::get('/', function(){
     return view('master');
 });
 
-Route::prefix('login')->group(function () {
-    Route::get('google', 'GoogleLoginController@googleLogin')->name('google.login');
-    Route::get('google/callback', 'GoogleLoginController@googleCallback')->name('google.callback');
+// 구글 로그인
+Route::prefix('/login')->group(function () {
+    Route::get('/google', 'GoogleLoginController@googleLogin')->name('google.login');
+    Route::get('/google/callback', 'GoogleLoginController@googleCallback')->name('google.callback');
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/workshop', 'WorkshopController@index')->name('workshop.main');
-Route::post('/workshop/upload', 'WorkshopController@upload')->name('workshop.upload');
-Route::post('/workshop/cutter', 'WorkshopController@cutter')->name('workshop.cutter');
-
+// 소리공방
+Route::prefix('/workshop')->group(function () {
+    Route::get('/', 'WorkshopController@index')->name('workshop.main');
+    Route::post('/upload', 'WorkshopController@upload')->name('workshop.upload');
+    Route::post('/cutter', 'WorkshopController@cutter')->name('workshop.cutter');
+});
