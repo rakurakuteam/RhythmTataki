@@ -18,7 +18,7 @@ class CreateFilesTable extends Migration
             $table->unsignedInteger('user_id')->comment('회원번호');
             $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->string('route', 255)->comment('파일경로');
+            $table->string('path', 255)->comment('파일경로');
             $table->string('name', 100)->comment('파일이름');
             $table->string('type', 20)->comment('파일타입');
             $table->unsignedInteger('size')->comment('파일사이즈');
@@ -34,7 +34,7 @@ class CreateFilesTable extends Migration
     public function down()
     {
         Schema::table('files', function(Blueprint $table){
-            $table->dropForeign('files_board_id_foreign');
+            $table->dropForeign('files_user_id_foreign');
         });
         Schema::dropIfExists('files');
     }

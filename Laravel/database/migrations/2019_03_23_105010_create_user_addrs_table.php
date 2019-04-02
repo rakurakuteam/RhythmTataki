@@ -14,6 +14,7 @@ class CreateUserAddrsTable extends Migration
     public function up()
     {
         Schema::create('user_addrs', function (Blueprint $table) {
+            $table->increments('id')->comment('배송지번호');
             $table->unsignedInteger('user_id')->comment('회원번호');
             $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')->onDelete('cascade');

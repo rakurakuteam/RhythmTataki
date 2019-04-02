@@ -14,13 +14,14 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->integer('id')->comment('주문번호');
+            $table->increments('id');
+            $table->string('order_num', 20)->comment('주문번호');
             $table->unsignedInteger('product_id')->comment('상품번호');
             $table->foreign('product_id')->references('id')->on('products')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('quantity')->comment('수량');
-            $table->unsignedInteger('addr_id')->comment('배송지');
-            $table->foreign('addr_id')->references('id')->on('addresses')
+            $table->unsignedInteger('user_addr_id')->comment('배송지');
+            $table->foreign('user_addr_id')->references('id')->on('user_addrs')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->string('request', 255)->nullable()->comment('요청사항');
             $table->unsignedInteger('status_id')->comment('배송상태');
@@ -40,7 +41,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropForeign('orders_product_id_foreign');
-            $table->dropForeign('orders_addr_id_foreign');
+            $table->dropForeign('orders_user_addr_id_foreign');
             $table->dropForeign('orders_status_id_foreign');
         });
         Schema::dropIfExists('orders');

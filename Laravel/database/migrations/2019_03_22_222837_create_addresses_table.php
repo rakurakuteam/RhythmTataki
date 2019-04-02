@@ -15,7 +15,7 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('zip_code')->comment('우편번호');
+            $table->string('zip_code', 20)->comment('우편번호');
             $table->string('addr_1', 100)->comment('주소');
             $table->string('addr_2', 100)->comment('상세주소');
             $table->timestamps();

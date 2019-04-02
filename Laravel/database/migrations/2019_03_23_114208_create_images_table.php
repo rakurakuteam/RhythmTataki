@@ -17,7 +17,7 @@ class CreateImagesTable extends Migration
             $table->unsignedInteger('product_id')->comment('상품번호');
             $table->foreign('product_id')->references('id')->on('products')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->string('route', 255)->comment('이미지경로');
+            $table->string('path', 255)->comment('이미지경로');
             $table->string('name', 255)->comment('이미지이름');
         });
     }
