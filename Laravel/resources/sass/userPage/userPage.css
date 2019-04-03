@@ -1,0 +1,122 @@
+#logo {
+    margin-left: 80px;
+    height: 50px;
+    float: left;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#login-logo {
+    height: 40px;
+    cursor: pointer;
+    margin-top: 16px;
+
+}
+
+#topMenu {
+    height: 70px;
+    width: 1400px;
+    background-color: #4aa3fd;
+    border-radius: 8px;
+}
+
+#li-1 {
+    margin-left: 200px;
+}
+
+#topMenu ul li {
+    list-style: none;
+    color: white;
+    background-color: #4aa3fd;
+    float: left;
+    line-height: 70px;
+    text-align: right
+}
+
+#topMenu .menuLink {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 150px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "NanumSquare", "Dotum", "Arial";
+}
+
+#topMenu .menuLink:hover {
+    color: #000000;
+}
+
+#profile {
+    float: left;
+    width: 100px;
+}
+
+#title {
+    width: 250px;
+    float: left;
+}
+
+#title_area {
+    
+    width: 400px;
+    height: 120px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+
+.content_box {
+    margin-left: 100px;
+    background-color: #d4e9f7;
+    width: 1300px;
+    height: 400px;
+}
+
+.sub_photo {
+    width: 350px;
+    margin-top: 50px;
+    margin-left: 75px;
+    float: left;
+}
+
+.picture {
+    width: 300px;
+}
+.view {
+    margin-left: 3px;
+    margin-top: -3px;
+    width:25px;
+    margin-right: 3px;
+}
+
+#title_text {
+    cursor: pointer;
+    height: 5px;
+}
+
+.like {
+    width: 20px;
+    margin-left: 30px;
+    margin-right: 3px;
+}
+
+.download {
+    width: 18px;
+    margin-left: 30px;
+    margin-top: -5px;
+}
+
+.view, .view_text, .like, .like_text {
+    float: left;
+}
+
+.view_text, .like_text {
+    margin-top: -3px;
+}
+
+a {
+    text-decoration: none;
+    color: #4aa3fd;
+}
+

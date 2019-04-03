@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +8,12 @@
 
     <title>@yield('title', "메인페이지")</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+    @yield('style')
     @stack('scripts')
 </head>
 <body>
+    @yield('header')
     @yield('nav')
     @yield('body')
     @yield('footer')
