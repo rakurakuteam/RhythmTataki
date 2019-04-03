@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/userPage';
 
     /**
      * Create a new controller instance.
@@ -36,18 +36,5 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-    
-    public function redirectToProvider()
-    {
-        return Socialite::driver('Google')->redirect();
-    }
-
-    public function handleProviderCallback()
-    {
-        $user = Socialite::driver('Google')->user();
-
-        return redirect('/');
-        // $user->token;
     }
 }
