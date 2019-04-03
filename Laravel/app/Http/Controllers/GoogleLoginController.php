@@ -39,7 +39,7 @@ class GoogleLoginController extends Controller
 
         if(Auth::loginUsingId(User::where('email', $gooUser->getEmail())->value('id'), true))
         {
-            return redirect('/workshop');
+            return redirect('/userPage');
         }
 
         return response()->json($gooUser, 200, [], JSON_PRETTY_PRINT);
