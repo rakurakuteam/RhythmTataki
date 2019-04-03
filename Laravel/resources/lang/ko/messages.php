@@ -1,8 +1,10 @@
 <?php
 
 return [
-
-    'navbar' => '네비게이션바',
-    'footer' => '푸터',
-
+    'intro' => '소개',
+    'soundGarden' => '소리마당',
+    'workshop' => '소리공방',
+    'localization' => '한국어',
+    'store' => '스토어',
+    'login' => '로그인',
 ];
