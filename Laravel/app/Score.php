@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Delivery_status extends Model
+class Score extends Model
 {
     public $timestamps = false;
 }
