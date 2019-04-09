@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoardFilesTable extends Migration
+class CreateBoardFileTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBoardFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('board_files', function (Blueprint $table) {
+        Schema::create('board_file', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('board_id')->comment('게시글번호');
             $table->foreign('board_id')->references('id')->on('boards')
@@ -31,10 +31,10 @@ class CreateBoardFilesTable extends Migration
      */
     public function down()
     {
-        Schema::table('board_files', function(Blueprint $table){
+        Schema::table('board_file', function(Blueprint $table){
             $table->dropForeign('board_files_file_id_foreign');
             $table->dropForeign('board_files_board_id_foreign');
         });
-        Schema::dropIfExists('board_files');
+        Schema::dropIfExists('board_file');
     }
 }

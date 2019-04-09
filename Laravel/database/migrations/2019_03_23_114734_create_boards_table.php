@@ -21,6 +21,7 @@ class CreateBoardsTable extends Migration
             $table->string('title', 100)->comment('제목');
             $table->text('content')->comment('내용');
             $table->unsignedInteger('hits')->default(0)->comment('조회수');
+            $table->unsignedInteger('total_heart')->default(0)->comment('추천수');
             $table->timestamps();
         });
     }
