@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-    //
+    public function boards(){
+        $this->belongsToMany('App\Board');
+    }
 }

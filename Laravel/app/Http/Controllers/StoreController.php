@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Image;
+use App\Product;
 
-class ProductController extends Controller
+class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // $products = Product::all();
+        
+        $products = Product::all()->load(['images' => function($query){
+            $query->where('type', 'thumbnail');
+        }]);
+        
+        // $path = $products->images[0]->path;
+        // $image = $products->images[0]->name;
+
+        // return response()->json($products, 200, [], JSON_PRETTY_PRINT);
+        return view('page.store')->with('products', $products);
     }
 
     /**
@@ -45,7 +57,18 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id)->load(['images' => function($query){
+            $query->where('type', 'original');
+        }]);
+        
+        $path = $product->images[0]->path;
+        $image = $product->images[0]->name;
+
+        // return response()->json($path.$image, 200, [], JSON_PRETTY_PRINT);
+        return view('page.product')
+        ->with('product', $product)
+        ->with('path', $path)
+        ->with('image', $image);
     }
 
     /**

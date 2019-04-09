@@ -18,4 +18,8 @@ class Board extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    public function files(){
+        return $this->belongsToMany('App\File');
+    }
 }
