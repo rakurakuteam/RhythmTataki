@@ -1,11 +1,11 @@
 @extends('master')
 
 @section('title')
-    마이페이지
+    상품상세
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/userPage/userPage.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/board/board.css')}}" />
 @endsection
 
 @section('header')
@@ -17,7 +17,7 @@
 @endsection
 
 @section('body')
-    @include('components.userPage.content')
+    @include('components.store.product')
 @endsection
 
 @section('footer')
@@ -25,5 +25,5 @@
 @endsection
 
 @push('scripts')
-
+    
 @endpush

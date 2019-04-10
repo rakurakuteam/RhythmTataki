@@ -13738,7 +13738,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
@@ -13755,6 +13755,16 @@ if (window.location.pathname === '/workshop') {
     __webpack_require__(36);
     __webpack_require__(37);
 }
+
+/* store/* 에서만 불러오기 */
+var path = window.location.pathname.split('/');
+if (path.length > 2 && path[1] == 'store') {
+    __webpack_require__(38);
+}
+
+// if(path[1] == 'home'){
+//     require('./heart.js');
+// }
 
 /***/ }),
 /* 12 */
@@ -36697,6 +36707,34 @@ $(document).ajaxComplete(function () {
 
 /***/ }),
 /* 38 */
+/***/ (function(module, exports) {
+
+console.log('cartJs load');
+
+document.getElementById("addCart").onclick = function () {
+    var id = $(this).val();
+    console.log(id);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        data: { 'id': id },
+        type: "POST",
+        url: "/store/addCart",
+        success: function success(data) {
+            console.log(data);
+        },
+        error: function error(data) {
+            console.log(data.status);
+        }
+    });
+};
+
+/***/ }),
+/* 39 */,
+/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

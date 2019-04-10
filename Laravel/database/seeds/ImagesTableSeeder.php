@@ -16,12 +16,12 @@ class ImagesTableSeeder extends Seeder
 
         $name = [1 => 'piano.jpg', 2 => 'guitar.jpg', 3 => 'phone.jpg'];
 
-        for($i=1; $i<=3; $i++){
-            for($j=1; $j<3; $j++){
+        for($i=1; $i<3; $i++){
+            for($j=1; $j<=3; $j++){
                 DB::table('images')->insert([
-                    'product_id' => random_int(1, DB::table('products')->count()),
-                    'path' => $path[$j],
-                    'name' => $name[$i],
+                    'product_id' => $j,
+                    'path' => $path[$i],
+                    'name' => $name[$j],
                 ]);
             }
         }

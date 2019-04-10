@@ -18,11 +18,16 @@ class User extends Authenticatable
         'password', 'token',
     ];
 
+    // 리멤버 토큰x
+    public function getRememberTokenName(){
+        return null; 
+    }
+
     public function address(){
         return $this->belongsToMany('App\Address', 'user_addr', 'user_id', 'addr_id');
     }
 
-    public function getRememberTokenName(){
-        return null; // not supported
+    public function products(){
+        return $this->belongsToMany('App\Product', 'carts');
     }
 }
