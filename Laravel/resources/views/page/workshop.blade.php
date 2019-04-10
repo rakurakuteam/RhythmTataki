@@ -4,9 +4,16 @@
     소리공방
 @endsection
 
-@section('nav')
+@section('style')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/board/board.css')}}" />
+@endsection
+
+@section('header')
+    @include('layouts.header')
 <div id="dropZone">
-    <div>{{__('messages.navbar')}}</div>
+@endsection
+
+@section('nav')
 @endsection
 
 @section('body')
@@ -16,7 +23,6 @@
 @endsection
 
 @section('footer')
-    <div>{{__('messages.footer')}}</div>
 </div>
 @endsection
 

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    사용자 페이지
+    스토어
 @endsection
 
 @section('style')
@@ -17,7 +17,7 @@
 @endsection
 
 @section('body')
-    @include('components.userPage.content')
+    @include('components.store.index')
 @endsection
 
 @section('footer')
