@@ -8,6 +8,7 @@
 
     <title>@yield('title', "메인페이지")</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+
     {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     @yield('style')
     @stack('scripts')
