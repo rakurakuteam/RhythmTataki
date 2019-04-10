@@ -22,4 +22,5 @@ class Board extends Model
     public function files(){
         return $this->belongsToMany('App\File');
     }
+
 }
