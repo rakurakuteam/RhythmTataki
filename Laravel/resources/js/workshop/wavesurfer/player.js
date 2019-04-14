@@ -65,6 +65,7 @@ $(document).ajaxComplete(function(){
         });
     });
 
+    // 시간 정보
     function timeInfo(time){
         var min = Math.floor(time/60);
         var sec = Math.floor(time-60*min)
