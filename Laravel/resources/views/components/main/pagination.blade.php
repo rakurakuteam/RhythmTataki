@@ -22,7 +22,7 @@
                     @endif
                 </a>
             </p>
-            <div class="view_like" id="view_like_{{{$board->id}}}">
+            <div class="view_like_{{{$board->id}}}" id="view_like_{{{$board->id}}}">
                 @include('components.heart', ['board' => $board])
             </div>
             <a href="{{route('board', $board->id)}}">
