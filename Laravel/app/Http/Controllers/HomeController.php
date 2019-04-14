@@ -24,29 +24,41 @@ class HomeController extends Controller
     public function index()
     {
         /* 상위 3개 조회수 게시글 */
-        $rankings = Board::with(['files:path,name', 'user:id,name',
-         'hearts' => function($query){
-            $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
-        }])->orderBy('hits', 'desc')->take(3)->get();
-        
-        $boards = $this->paginate(1);
+        if(\Auth::check()){
+            $rankings = Board::with(['files:path,name', 'user:id,name',
+            'hearts' => function($query){
+                $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
+            }])->orderBy('total_heart', 'desc')->take(3)->get();
+        }else{
+            $rankings = Board::with(['files:path,name', 'user:id,name'])
+            ->orderBy('total_heart', 'desc')->take(3)->get();
+        }
+
+        $boards = $this->paginate(1, 'latest');
         $page_link_first = 1;
         $page_link_last = 5;
+        $currentPage = 1;
 
-        // return response()->json($page_link_first , 200, [], JSON_PRETTY_PRINT);
+        // return response()->json($test , 200, [], JSON_PRETTY_PRINT);
         return view('page.main')
             ->with('rankings', $rankings)
             ->with('boards', $boards)
             ->with('page_link_first', $page_link_first)
-            ->with('page_link_last', $page_link_last);
+            ->with('page_link_last', $page_link_last)
+            ->with('current_page', $currentPage)
+            ->with('sort', 'latest');
     }
 
-    public function paginate($page){
+    public function paginate($page, $sort){
         // 게시글 조회
-        $boards = Board::with(['files:path,name', 'user:id,name',
-        'hearts' => function($query){
-            $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
-        }]);
+        if(\Auth::check()){
+            $boards = Board::with(['files:path,name', 'user:id,name',
+            'hearts' => function($query){
+                $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
+            }]);
+        }else{
+            $boards = Board::with(['files:path,name', 'user:id,name']);
+        }
 
         //페이지네이션 세팅
         $currentPage = $page;
@@ -57,8 +69,19 @@ class HomeController extends Controller
         }elseif($currentPage > $max_page){
             $currentPage = $max_page;
         }
+        Log::info('sort: '.$sort);
+        $boards = $boards->skip(($currentPage-1)*POSTS)->take(POSTS);
 
-        $boards = $boards->orderBy('hits', 'desc')->skip(SKIP+($currentPage-1)*POSTS)->take(POSTS)->get();
+        if(!strcmp($sort, 'hearts')){
+            Log::info('추천순');
+            $boards = $boards->orderBy('total_heart', 'desc')->get();
+        }elseif(!strcmp($sort, 'hits')){
+            Log::info('조회순');
+            $boards = $boards->orderBy('hits', 'desc')->get();
+        }elseif(!strcmp($sort, 'latest')){
+            Log::info('최신순');
+            $boards = $boards->orderBy('created_at', 'desc')->get();
+        }
         return $boards;
     }
 
@@ -67,7 +90,7 @@ class HomeController extends Controller
     {
         Log::info('pagination ajax data :'. $request->page);
         // if($request->ajax()){
-        $boards = $this->paginate($request->page);
+        $boards = $this->paginate($request->page, $request->sort);
         // $page_link_first = floor(($request->page-1)/5)+1;
         $page_link_first = $request->page-LINK;
         $page_link_last = $request->page+LINK;
@@ -83,8 +106,9 @@ class HomeController extends Controller
         return view('components.main.pagination')
         ->with('boards', $boards)
         ->with('page_link_first', $page_link_first)
-        ->with('page_link_last', $page_link_last);
-        // }
+        ->with('page_link_last', $page_link_last)
+        ->with('current_page', $request->page)
+        ->with('sort', $request->sort);
     }
 
     // 게시글 상세보기
@@ -93,6 +117,26 @@ class HomeController extends Controller
         $board = Board::with('files:path,name')->find($id); // 게시글 상세 내용
         $video = $board->files[0]->path.$board->files[0]->name;
 
+        if(\Auth::check()){
+            $heart = Heart::where('board_id', $id)->where('user_id', \Auth::user()->id);
+            Log::info('user_id: '. \Auth::user()->id);
+            Log::info('board hits: '. $board->hits);
+            
+            if(!$heart->exists()){
+                $heart->create([
+                    'board_id' => $id,
+                    'user_id' => \Auth::user()->id,
+                    'hits' => 1,
+                ]);
+                $board->update(['hits' => $board->hits+1]);
+            }elseif($heart->first()->hits == false){
+                $heart->update([
+                    'hits' => 1,
+                ]);
+                $board->update(['hits' => $board->hits+1]);
+            }
+            Log::info('heart hits: '. $heart->first()->hits);
+        }
         // return response()->json($board, 200, [], JSON_PRETTY_PRINT);
         return view('page.board')
         ->with('board', $board)
