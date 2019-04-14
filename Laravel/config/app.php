@@ -161,6 +161,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         \SocialiteProviders\Manager\ServiceProvider::class,
+
+        /* AWS SDK */
+        Aws\Laravel\AwsServiceProvider::class,
     ],
 
     /*
@@ -210,6 +213,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'AWS' => Aws\Laravel\AwsFacade::class,
     ],
 
 ];
