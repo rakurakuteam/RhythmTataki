@@ -16,7 +16,7 @@
                 @if(\Auth::check())
                     <img src="{{asset('images/pic/user.png')}}" id="login-logo" />
                 @else
-                    <li><a class="menuLink" href="#"><strong>{{__('messages.login')}}</strong></a></li>
+                    <li><a class="menuLink" href="{{route('login')}}"><strong>{{__('messages.login')}}</strong></a></li>
                 @endif
             </ul>
         </nav>
