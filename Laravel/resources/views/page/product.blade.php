@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-    @include('layouts.header')
+    @include('layouts.header.store')
 @endsection
 
 @section('nav')

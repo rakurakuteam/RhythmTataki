@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-    @include('layouts.header')
+    @include('layouts.header.main')
 <div id="dropZone">
 @endsection
 
@@ -18,7 +18,7 @@
 
 @section('body')
     <div class="container" id="workshop">
-        @include('layouts.workshop.body')
+        @include('layouts.body.workshop')
     </div>
 @endsection
 
