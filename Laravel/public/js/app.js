@@ -13738,7 +13738,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(40);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -36683,6 +36683,7 @@ $(document).ajaxComplete(function () {
         });
     });
 
+    // 시간 정보
     function timeInfo(time) {
         var min = Math.floor(time / 60);
         var sec = Math.floor(time - 60 * min);
@@ -36733,8 +36734,7 @@ document.getElementById("addCart").onclick = function () {
 };
 
 /***/ }),
-/* 39 */,
-/* 40 */
+/* 39 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
