@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Aws\Laravel\AwsFacade;
 
 class WorkshopController extends Controller
 {
@@ -15,7 +16,7 @@ class WorkshopController extends Controller
         $audioName = time().'.'.$request->audio->getClientOriginalExtension();
         
         $path = $request->file('audio')->storeAs(
-            'temporarySound',$audioName, 's3'
+            'workshop/temporarySound',$audioName, 's3'
         );
 
         $url = Storage::disk('s3')->url($path);
@@ -30,10 +31,16 @@ class WorkshopController extends Controller
         $audioName = $tss[count($tss)-1];
         shell_exec("ffmpeg -i ".$ts." -c copy -ss ".$request->start_sec." -t ".$request->end_sec." -y /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3"); 
         Storage::disk('s3')->delete('temporarySound/'.$audioName);
-        // shell_exec("aws s3 mv /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/tgun.mp3 s3://capstone.rhythmtataki.bucket/drumSoundClip/");
-        // shell_exec("aws s3 mv /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/tgun.mp3 s3://capstone.rhythmtataki.bucket/drumSoundClip/");
-        // shell_exec("mkdir /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/test");
-        shell_exec("testshell ".$request->clip_name);
-        return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);
+
+        $s3 = AwsFacade::createClient('s3');
+        $s3->putObject(array(
+            'Bucket' => 'capstone.rhythmtataki.bucket',
+            'Key' => 'workshop/drumSoundClip/'.$request->clip_name.'.mp3',
+            'SourceFile' => 'song/clip/'.$request->clip_name.".mp3",
+        ));
+        Shell_exec("rm /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
+
+        // return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);
+        return redirect('/workshop');
     }
 }

@@ -33,7 +33,7 @@
                             @endif
                         </a>
                     </p>
-                    <div class="view_like" id="view_like_{{$ranking->id}}">
+                    <div class="view_like_{{$ranking->id}}" id="view_like_{{$ranking->id}}">
                         @include('components.heart', ['board' => $ranking])
                     </div>
                     <a href="{{route('board', $ranking->id)}}">
@@ -49,16 +49,8 @@
         </div>
         @endforeach
     </div>
+    @include('components.main.selectBox', ['current_page' => $current_page])
 
-    <div class="select_box">
-        <div class="select">
-            <select name="job">
-                <option value="인기순">인기순</option>
-                <option value="최근순" selected="selected">최근순</option>
-                <option value="조회순">조회순</option>
-            </select>
-        </div>
-    </div>
     <div class="contents_2" id="paging">
         @include('components.main.pagination')
     </div>

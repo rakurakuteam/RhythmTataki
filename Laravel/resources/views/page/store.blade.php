@@ -5,15 +5,15 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/userPage/userPage.css?s')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main/main_2.css?s')}}" />
 @endsection
 
 @section('header')
-    @include('layouts.header')
+    @include('layouts.header.store')
 @endsection
 
 @section('nav')
-
+    @include('components.main.slide')
 @endsection
 
 @section('body')
@@ -25,5 +25,4 @@
 @endsection
 
 @push('scripts')
-
 @endpush

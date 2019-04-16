@@ -1,21 +1,18 @@
 console.log('paginationJs load');
 
 function pagination(page){
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    let sort = $('#sort').val();
 
-    console.log(page);
-    
+    console.log(page+" / "+sort);
+
     $.ajax({
-        data: { 'page': page },
-        type: "POST",
+        data: { 'page' : page,
+                'sort' : sort},
+        type: "GET",
         url: "/pagination",
         success: function (data) {
             $('#paging').html(data);
-            console.log(data);
+            // console.log(data);
         },
         error: function (data) {
             console.log(data.status);

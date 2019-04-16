@@ -10,11 +10,11 @@ class ScoresTableSeeder extends Seeder
      * @return void
      */
     public function run(){
-        for($i=1; $i<=10; $i++){
+        for($i=1; $i<=11; $i++){
             DB::table('scores')->insert([
-                'user_id' => random_int(1, DB::table('users')->count()),
-                'song' => '',
-                'score' => random_int(50000, 999999),
+                'user_id' => 25,
+                'song_id' => $i,
+                'score' => 0,
                 'created_at' => now()
             ]);
         }

@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-    @include('layouts.header')
+    @include('layouts.header.main')
 <div id="dropZone">
 @endsection
 
@@ -18,7 +18,7 @@
 
 @section('body')
     <div class="container" id="workshop">
-        @include('layouts.workshop.body')
+        @include('layouts.body.workshop')
     </div>
 @endsection
 
@@ -30,4 +30,6 @@
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
     <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js"></script>
+    <script src="{{asset('js/workshop/player.js')}}"></script>
+    <script src="{{asset('js/workshop/upload.js')}}"></script>
 @endpush

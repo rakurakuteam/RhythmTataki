@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-    @include('layouts.header')
+    @include('layouts.header.store')
 @endsection
 
 @section('nav')
@@ -25,5 +25,5 @@
 @endsection
 
 @push('scripts')
-    
+    <script src="{{asset('js/store/cart.js')}}"></script>
 @endpush

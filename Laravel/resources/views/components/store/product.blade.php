@@ -12,8 +12,8 @@
                 </div>
                 <div>{{number_format($product->price)}}원</div>
                 <div>{{$product->content}}</div>
-                <button id="addCart" value="{{$product->id}}">장바구니</button>
-                <input type="button" value="구매하기">
+                <button id="addCart" onclick="addCart({{$product->id}})">{{__('messages.cart')}}</button>
+                <button id="buy" onclick="location.href='{{route('orderListPage', ['id' => $product->id])}}'">{{__('messages.buy')}}</button>
             </div>
         </div>
     </center>
