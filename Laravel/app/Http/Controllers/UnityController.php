@@ -68,24 +68,27 @@ class UnityController extends Controller
         return 0;
     }
 
+    //점수 기록
+    //최고 기록이면 1 / DB 점수 업데이트
+    //아니면 0
     public function setScore(Request $request){
+        $user = User::where('email', $request->email)->value('id');
+        $song = Song::where('name', $request->song)->value('id');
+        $score = Score::where('user_id', $user)->where('song_id', $song);
 
-        return response()->json($request->all(), 200, [], JSON_PRETTY_PRINT);
+        if($score->where('score', '<', $request->score)->exists()){
+            $score->update(['score' => $request->score,
+                            'created_at' => now()]);
+            return 1;
+        }
+        return 0;
     }
 
-    public function getScore(Request $request){
-        $user = User::where('email', $request->email)->value('id');
-        $score = Score::with('song:id,name')
-        ->where('user_id', $user)->where('song_id', 1)->select('user_id','song_id', 'score')->first();
+    public function getScores($email){
+        $user = User::where('email', $email)->value('id');
+        $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
+        ->select('name', 'score')->where('user_id', $user)->get();
 
-        return json_encode($score);
-    }
-
-    public function getScores(Request $request){
-        $user = User::where('email', $request->email)->value('id');
-        $scores = Score::with('song:id,name')
-        ->where('user_id', $user)->select('user_id','song_id', 'score')->get();
-        
-        return 1;
+        return json_encode($scores);
     }
 }
