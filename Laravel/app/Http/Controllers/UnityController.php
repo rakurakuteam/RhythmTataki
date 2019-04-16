@@ -88,7 +88,16 @@ class UnityController extends Controller
         $user = User::where('email', $email)->value('id');
         $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
         ->select('name', 'score')->where('user_id', $user)->get();
+        
+        // key     :  value
+        // 노래제목 :  점수
 
-        return json_encode($scores);
+        $k_v_score = [];
+        foreach($scores as $score){
+            $k_v_score[$score->name] = $score->score; 
+        }
+
+        // return response()->json($k_v_score, 200, [], JSON_PRETTY_PRINT);
+        return json_encode($k_v_score);
     }
 }
