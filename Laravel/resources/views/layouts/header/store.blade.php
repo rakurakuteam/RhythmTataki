@@ -15,12 +15,12 @@
                 </a>
             </li>
             <li>
-                <a class="menuLink" href="#">
+                <a class="menuLink" href="{{route('cartPage')}}">
                     <strong>{{__('messages.cart')}}</strong>
                 </a>
             </li>
             <li>
-                <a class="menuLink" href="#">
+                <a class="menuLink" href="{{route('login')}}">
                     <strong>{{__('messages.login')}}</strong>
                 </a>
             </li>

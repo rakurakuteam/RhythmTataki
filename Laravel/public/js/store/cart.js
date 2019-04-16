@@ -1,7 +1,6 @@
 console.log('cartJs load');
 
-document.getElementById("addCart").onclick = function(){
-    let id = $(this).val();
+function addCart(id){
     console.log(id);
     $.ajaxSetup({
         headers: {

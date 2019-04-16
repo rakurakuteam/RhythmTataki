@@ -46,7 +46,7 @@
                     </div>
                     <!--주문버튼-->
                     <div class="button">
-                        <button id="shop_button">
+                        <button id="shop_button" onclick="location.href='{{route('orderListPage')}}'">
                             <b>{{__('messages.orderRequest')}}</b>
                         </button>
                     </div>

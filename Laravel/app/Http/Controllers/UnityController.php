@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\User;
+use App\Score;
+use App\Song;
 
 class UnityController extends Controller
 {
@@ -19,11 +21,20 @@ class UnityController extends Controller
             Log::info('이메일 중복');
             return 0;
         }
-        User::create([
+        $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->pw),
             'name' => $request->name,
         ]);
+
+        for($i=1; $i<=Song::count(); $i++){
+            Score::create([
+                'user_id' => $user->id,
+                'song_id' => $i,
+                'score' => 0,
+                'created_at' => now(),
+            ]);
+        }
         Log::info('회원가입 성공');
         return 1;
     }
@@ -35,12 +46,46 @@ class UnityController extends Controller
         Log::info('login email: '.$request->email.' / login pw: '. $request->pw);
         
         $hashedValue = User::where('email', $request->email)->value('password');
+        $user = User::where('email', $request->email);
 
-        if(User::where('email', $request->email)->exists() && Hash::check($request->pw, $hashedValue)){
+        if($user->exists() && Hash::check($request->pw, $hashedValue)){
             Log::info('로그인 성공');
+            $song_count = Song::count();
+            $score_count = Score::where('user_id', $user->first()->id)->count();
+            if($song_count > $score_count){
+                for($i=$score_count+1; $i<=$song_count; $i++){
+                    Score::create([
+                        'user_id' => $user->first()->id,
+                        'song_id' => $i,
+                        'score' => 0,
+                        'created_at' => now(),
+                    ]);
+                }
+            }
             return 1;
         }
         Log::info('비밀번호가 틀렸습니다.');
         return 0;
+    }
+
+    public function setScore(Request $request){
+
+        return response()->json($request->all(), 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function getScore(Request $request){
+        $user = User::where('email', $request->email)->value('id');
+        $score = Score::with('song:id,name')
+        ->where('user_id', $user)->where('song_id', 1)->select('user_id','song_id', 'score')->first();
+
+        return json_encode($score);
+    }
+
+    public function getScores(Request $request){
+        $user = User::where('email', $request->email)->value('id');
+        $scores = Score::with('song:id,name')
+        ->where('user_id', $user)->select('user_id','song_id', 'score')->get();
+        
+        return 1;
     }
 }

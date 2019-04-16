@@ -10,4 +10,9 @@ return [
     'latest' => '최신순',
     'hearts' => '추천순',
     'hits' => '조회순',
+    'order' => '주문',
+    'delivery' => '배송',
+    'cart' => '장바구니',
+    'orderRequest' => '주문하기',
+    'buy' => '구매하기'
 ];

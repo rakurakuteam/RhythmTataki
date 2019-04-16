@@ -9,7 +9,6 @@
     <title>@yield('title', "메인페이지")</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     @yield('style')
     @stack('scripts')
 </head>
@@ -18,6 +17,5 @@
     @yield('nav')
     @yield('body')
     @yield('footer')
-    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

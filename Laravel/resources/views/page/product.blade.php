@@ -25,5 +25,5 @@
 @endsection
 
 @push('scripts')
-    
+    <script src="{{asset('js/store/cart.js')}}"></script>
 @endpush
