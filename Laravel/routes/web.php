@@ -22,9 +22,8 @@ Route::prefix('login')->group(function() {
 Route::prefix('unity')->group(function() {
     Route::post('/join', 'UnityController@join')->name('unity.join');
     Route::post('/login', 'UnityController@login')->name('unity.login');
-    Route::get('/setScore', 'UnityController@setScore')->name('unity.setScore');
-    Route::get('/getScore', 'UnityController@getScore')->name('unity.getsScore');
-    Route::get('/getScores', 'UnityController@getScores')->name('unity.getsScores');
+    Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore');
+    Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getsScores');
 });
 
 // 로그인 관련
