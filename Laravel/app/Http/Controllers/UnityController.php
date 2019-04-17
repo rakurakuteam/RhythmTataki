@@ -84,6 +84,23 @@ class UnityController extends Controller
         return 0;
     }
 
+    public function getScore($email, $song){
+        $user = User::where('email', $email)->value('id');
+        $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
+        ->select('name', 'score')->where('user_id', $user)->where('name', $song)->get();
+        
+        // key     :  value
+        // 노래제목 :  점수
+        $k_v_score = [];
+        foreach($scores as $score){
+            $k_v_score[$score->name] = $score->score; 
+        }
+
+        // return response()->json($k_v_score, 200, [], JSON_PRETTY_PRINT);
+        return json_encode($k_v_score);
+    }
+
+    //점수들
     public function getScores($email){
         $user = User::where('email', $email)->value('id');
         $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
@@ -91,7 +108,6 @@ class UnityController extends Controller
         
         // key     :  value
         // 노래제목 :  점수
-
         $k_v_score = [];
         foreach($scores as $score){
             $k_v_score[$score->name] = $score->score; 
