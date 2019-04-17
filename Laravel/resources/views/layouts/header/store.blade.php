@@ -2,14 +2,15 @@
 <center>
     <nav id="topMenu">
         <div id="logoBox">
-            <a href="{{route('home')}}">
+            <a href="main.html">
                 <img src="{{asset('images/pic/rythmStore5.png')}}" id="logo"/>
             </a>
         </div>
         <ul>
             <li>
                 <a class="menuLink" id="li-1" href="#">
-                    <strong>{{__('messages.order')}}
+                    <strong>
+                        {{__('messages.order')}}
                         /
                         {{__('messages.delivery')}}</strong>
                 </a>

@@ -23,7 +23,8 @@ Route::prefix('unity')->group(function() {
     Route::post('/join', 'UnityController@join')->name('unity.join');
     Route::post('/login', 'UnityController@login')->name('unity.login');
     Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore');
-    Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getsScores');
+    Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore');
+    Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores');
 });
 
 // 로그인 관련
@@ -54,8 +55,8 @@ Route::prefix('store')->group(function() {
     Route::get('cart', 'ProductsController@cartPage')->name('cartPage'); // 장바구니
     Route::get('orderSheet', 'ProductsController@orderSheet')->name('orderSheetPage'); // 장바구니
     Route::get('payPage', 'ProductsController@payPage')->name('payPage'); // 장바구니
-    Route::post('order', 'ProduttsController@order')->name('order'); // 주문처리
-    Route::post('pay', 'ProduttsController@pay')->name('pay'); // 결제처리
+    Route::post('order', 'ProductsController@order')->name('order'); // 주문처리
+    Route::post('pay', 'ProductsController@pay')->name('pay'); // 결제처리
 });
 
 // 스토어 관련
