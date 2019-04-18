@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{asset('css/board/board.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/board/board.css')}}" />
 @endsection
 
 @section('header')

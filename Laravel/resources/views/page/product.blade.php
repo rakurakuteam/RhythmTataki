@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="shopDetail.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeDetail.css')}}" />
 @endsection
 
 @section('header')
@@ -21,7 +21,7 @@
 @endsection
 
 @section('footer')
-
+    @include('components.store.footer')
 @endsection
 
 @push('scripts')
