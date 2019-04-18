@@ -45,10 +45,10 @@ class UnityController extends Controller
         // 비밀번호 틀린 경우만 false
         Log::info('login email: '.$request->email.' / login pw: '. $request->pw);
         
-        $hashedValue = User::where('email', $request->email)->value('password');
+        $password = User::where('email', $request->email)->value('password');
         $user = User::where('email', $request->email);
 
-        if($user->exists() && Hash::check($request->pw, $hashedValue)){
+        if($user->exists() && Hash::check($request->pw, $password)){
             Log::info('로그인 성공');
             $song_count = Song::count();
             $score_count = Score::where('user_id', $user->first()->id)->count();

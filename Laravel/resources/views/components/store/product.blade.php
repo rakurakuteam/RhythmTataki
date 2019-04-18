@@ -1,21 +1,23 @@
 <contents>
     <center>
         <div class="content_box">
-            <div class="sub_photo" id="photo_gallery">
-                <p class="thmb">
-                    <img src="{{$path.$image}}" class="picture" href="#">
-                </p>
-                <div>
-                    <h3>
-                        {{$product->name}}
-                    </h3>
+            <!--이미지-->
+            <div class="shop_top">
+                <div class="image">
+                    <img src="{{asset('images/pic/drumpad.png')}}" id="shop_img" />
                 </div>
-                <div>{{number_format($product->price)}}원</div>
-                <div>{{$product->content}}</div>
-                <button id="addCart" onclick="addCart({{$product->id}})">{{__('messages.cart')}}</button>
-                <button id="buy" onclick="location.href='{{route('orderListPage', ['id' => $product->id])}}'">{{__('messages.buy')}}</button>
+                <!--텍스트-->
+                <div class="text">
+                    <h1>드럼패드</h1>
+                    <p id="price_text">000000원</p>
+                </div>
+            </div>
+            <div class="tag">
+                <b><p id="tag_text">상세설명</p></b>
+            </div>
+            <div class="detail_img">
+                <img src="{{asset('images/pic/shop_detail_img.png')}}" id="detail_img">
             </div>
         </div>
     </center>
 </contents>
-

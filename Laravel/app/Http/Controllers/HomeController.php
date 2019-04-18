@@ -39,7 +39,7 @@ class HomeController extends Controller
         $page_link_last = 5;
         $currentPage = 1;
 
-        // return response()->json($test , 200, [], JSON_PRETTY_PRINT);
+        // return response()->json($rankings, 200, [], JSON_PRETTY_PRINT);
         return view('page.main')
             ->with('rankings', $rankings)
             ->with('boards', $boards)
