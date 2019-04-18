@@ -2,7 +2,7 @@
 <center>
     <nav id="topMenu">
         <div id="logoBox">
-            <a href="main.html">
+            <a href="{{route('home')}}">
                 <img src="{{asset('images/pic/rythmStore5.png')}}" id="logo"/>
             </a>
         </div>
