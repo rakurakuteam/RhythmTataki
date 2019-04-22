@@ -31,7 +31,7 @@
             {{-- / 로그아웃 --}}
             @else
                 <li>
-                    <a class="menuLink" href="{{route('login')}}">
+                    <a class="menuLink" href="{{route('unity.loginPage')}}">
                         <strong>{{__('messages.login')}}
                         </strong>
                     </a>
