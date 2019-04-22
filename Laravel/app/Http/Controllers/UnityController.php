@@ -39,6 +39,10 @@ class UnityController extends Controller
         return 1;
     }
 
+    public function loginForm(){
+        return view('page.unityAuth');
+    }
+
     public function login(Request $request)
     {
         //['email' : email_value, 'pw' : pw_value]

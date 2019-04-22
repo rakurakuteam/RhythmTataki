@@ -14,6 +14,7 @@ Route::get('/', 'HomeController@index');
 
 // 유니티 관련
 Route::prefix('unity')->group(function() {
+    Route::get('/login', 'UnityController@loginForm')->name('unity.loginPage');
     Route::post('/join', 'UnityController@join')->name('unity.join');
     Route::post('/login', 'UnityController@login')->name('unity.login');
     Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore');
@@ -23,6 +24,7 @@ Route::prefix('unity')->group(function() {
 
 // 로그인 관련
 Auth::routes();
+
 // 구글 로그인
 Route::prefix('login')->group(function() {
     Route::get('/google', 'GoogleLoginController@googleLogin')->name('google.login');
