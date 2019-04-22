@@ -13,6 +13,12 @@ use App\User_addr;
 
 class ProductsController extends Controller
 {
+    // 로그인 한 사용자만 이용가능
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // 장바구니 담기
     public function addCart(Request $request)
     {
@@ -97,9 +103,14 @@ class ProductsController extends Controller
         'product' => function($query){
             $query->with(['images' => function($query){
                 $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
-            }]);
+            }])->select('id', 'name', 'price')->get();
         }])->whereIn('user_addr_id', $addr)->get();
         
         return response()->json($orders, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function quantity(Request $request){
+        Log::info('$request : '. $request->quantity);
+        return 1;
     }
 }

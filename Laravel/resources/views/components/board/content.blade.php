@@ -9,16 +9,13 @@
             </div>
             <div class="sub_photo" id="photo_gallery">
                 <p class="thmb">
-                    @if($video)
+                    @if(isset($video))
                     <video width="90%" controls controlsList="nodownload" preload="metadata">
                             <source src="{{$video}}#t=0.1" type="video/mp4">
                             Your browser does not support HTML5 video.
                     </video>
                     @else
-                    <img src="{{asset('images/pic/free.png')}}"></div>
-                    <div id="playButton_box">
-                        <img src="{{asset('images/pic/playButton.png')}}" id="play_button"/>
-                    </div>
+                    <img src="{{asset('images/pic/free.png')}}">
                     @endif
                 </p>
                 <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
