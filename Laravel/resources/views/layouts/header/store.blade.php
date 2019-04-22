@@ -20,11 +20,23 @@
                     <strong>{{__('messages.cart')}}</strong>
                 </a>
             </li>
-            <li>
-                <a class="menuLink" href="{{route('login')}}">
-                    <strong>{{__('messages.login')}}</strong>
+            @if(\Auth::check())
+            {{-- 로그아웃 --}}
+                <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    <img src="{{asset('images/pic/user.png')}}" id="login-logo" />
                 </a>
-            </li>
+                <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            {{-- / 로그아웃 --}}
+            @else
+                <li>
+                    <a class="menuLink" href="{{route('login')}}">
+                        <strong>{{__('messages.login')}}
+                        </strong>
+                    </a>
+                </li>
+            @endif
         </ul>
     </nav>
 </center>

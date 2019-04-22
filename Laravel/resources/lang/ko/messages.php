@@ -14,5 +14,6 @@ return [
     'delivery' => '배송',
     'cart' => '장바구니',
     'orderRequest' => '주문하기',
-    'buy' => '구매하기'
+    'buy' => '구매하기',
+    'TOP' => 'TOP'
 ];

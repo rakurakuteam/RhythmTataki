@@ -10,9 +10,10 @@ use App\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-define('LINK', 2);
+define('LINK', 3);
 define('SKIP', 3);
-define('POSTS', 3);
+define('POSTS', 4);
+define('RANKING', 4);
 
 class HomeController extends Controller
 {
@@ -28,15 +29,15 @@ class HomeController extends Controller
             $rankings = Board::with(['files:path,name', 'user:id,name',
             'hearts' => function($query){
                 $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
-            }])->orderBy('total_heart', 'desc')->take(3)->get();
+            }])->orderBy('total_heart', 'desc')->take(RANKING)->get();
         }else{
             $rankings = Board::with(['files:path,name', 'user:id,name'])
-            ->orderBy('total_heart', 'desc')->take(3)->get();
+            ->orderBy('total_heart', 'desc')->take(RANKING)->get();
         }
 
         $boards = $this->paginate(1, 'latest');
         $page_link_first = 1;
-        $page_link_last = 5;
+        $page_link_last = 2*LINK+1;
         $currentPage = 1;
 
         // return response()->json($rankings, 200, [], JSON_PRETTY_PRINT);
@@ -88,18 +89,28 @@ class HomeController extends Controller
     //페이지네이션
     public function pagination(Request $request)
     {
-        Log::info('pagination ajax data :'. $request->page);
-        // if($request->ajax()){
-        $boards = $this->paginate($request->page, $request->sort);
-        // $page_link_first = floor(($request->page-1)/5)+1;
+        $current_page = $request->page;
+
+        $boards = $this->paginate($current_page, $request->sort);
         $page_link_first = $request->page-LINK;
         $page_link_last = $request->page+LINK;
+        
+        Log::info('pagination ajax data :'. $request->page);
 
-        if($request->page <= 3){
+        if(LINK+1 > $current_page || $page_link_first < 1){
             $page_link_first = 1;
-            $page_link_last = 5;
+            $page_link_last = $page_link_last = 2*LINK+1;
         }elseif($page_link_last > ceil(Board::count()/POSTS)){
             $page_link_last = ceil(Board::count()/POSTS);
+            if($page_link_last < $current_page+LINK){
+                $page_link_first = -2*LINK+$page_link_last;
+            }
+        }
+
+        if($current_page < 1){
+            $current_page = 1;
+        }elseif($current_page > $page_link_last){
+            $current_page = $page_link_last;
         }
 
         // return response()->json(ceil(Board::count()/POSTS), 200, [], JSON_PRETTY_PRINT);
@@ -107,7 +118,7 @@ class HomeController extends Controller
         ->with('boards', $boards)
         ->with('page_link_first', $page_link_first)
         ->with('page_link_last', $page_link_last)
-        ->with('current_page', $request->page)
+        ->with('current_page', $current_page)
         ->with('sort', $request->sort);
     }
 
@@ -115,7 +126,9 @@ class HomeController extends Controller
     public function show($id)
     {
         $board = Board::with('files:path,name')->find($id); // 게시글 상세 내용
-        $video = $board->files[0]->path.$board->files[0]->name;
+        if(isset($board->files[0])){
+            $video = $board->files[0]->path.$board->files[0]->name;
+        }
 
         if(\Auth::check()){
             $heart = Heart::where('board_id', $id)->where('user_id', \Auth::user()->id);
@@ -138,9 +151,14 @@ class HomeController extends Controller
             Log::info('heart hits: '. $heart->first()->hits);
         }
         // return response()->json($board, 200, [], JSON_PRETTY_PRINT);
-        return view('page.board')
-        ->with('board', $board)
-        ->with('video', $video);
+        if(isset($board->files[0])){
+            return view('page.board')
+            ->with('board', $board)
+            ->with('video', $video);
+        }else{
+            return view('page.board')
+            ->with('board', $board);
+        }
     }
 
     // 마이 페이지

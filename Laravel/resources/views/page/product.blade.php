@@ -5,7 +5,8 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeDetail.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css?s')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeDetail.css?ss')}}" />
 @endsection
 
 @section('header')
@@ -26,4 +27,5 @@
 
 @push('scripts')
     <script src="{{asset('js/store/cart.js')}}"></script>
+    <script src="{{asset('js/store/quantity.js')}}"></script>
 @endpush

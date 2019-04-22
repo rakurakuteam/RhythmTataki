@@ -24,6 +24,7 @@
 
 @section('footer')
 </div>
+    @include('layouts.footer.footer')
 @endsection
 
 @push('scripts')

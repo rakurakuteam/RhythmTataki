@@ -12,12 +12,6 @@
 */
 Route::get('/', 'HomeController@index');
 
-// 구글 로그인
-Route::prefix('login')->group(function() {
-    Route::get('/google', 'GoogleLoginController@googleLogin')->name('google.login');
-    Route::get('/google/callback', 'GoogleLoginController@googleCallback')->name('google.callback');
-});
-
 // 유니티 관련
 Route::prefix('unity')->group(function() {
     Route::post('/join', 'UnityController@join')->name('unity.join');
@@ -29,6 +23,11 @@ Route::prefix('unity')->group(function() {
 
 // 로그인 관련
 Auth::routes();
+// 구글 로그인
+Route::prefix('login')->group(function() {
+    Route::get('/google', 'GoogleLoginController@googleLogin')->name('google.login');
+    Route::get('/google/callback', 'GoogleLoginController@googleCallback')->name('google.callback');
+});
 
 // 페이지 관련
 Route::prefix('home')->group(function() {
@@ -49,15 +48,17 @@ Route::prefix('workshop')->group(function() {
     Route::post('/cutter', 'WorkshopController@cutter')->name('workshop.cutter');
 });
 
+// 주문관련
 Route::prefix('store')->group(function() {
     Route::post('addCart', 'ProductsController@addCart')->name('cart.add'); // 장바구니 등록
     Route::get('orderList', 'ProductsController@orderList')->name('orderListPage'); // 주문 페이지
     Route::get('cart', 'ProductsController@cartPage')->name('cartPage'); // 장바구니
-    Route::get('orderSheet', 'ProductsController@orderSheet')->name('orderSheetPage'); // 장바구니
-    Route::get('payPage', 'ProductsController@payPage')->name('payPage'); // 장바구니
+    Route::get('orderSheet', 'ProductsController@orderSheet')->name('orderSheetPage'); // 주문 페이지
+    Route::get('payPage', 'ProductsController@payPage')->name('payPage'); // 결제 페이지
     Route::post('order', 'ProductsController@order')->name('order'); // 주문처리
     Route::post('pay', 'ProductsController@pay')->name('pay'); // 결제처리
 });
+Route::get('quantity', 'ProductsController@quantity')->name('quantity'); // 결제처리
 
 // 스토어 관련
 Route::resource('store', 'StoreController');

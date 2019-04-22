@@ -14,7 +14,14 @@
                 <li><a class="menuLink" href="{{route('store.index')}}"><strong>{{__('messages.store')}}</strong></a></li>
                 <li></li>
                 @if(\Auth::check())
-                    <img src="{{asset('images/pic/user.png')}}" id="login-logo" />
+                {{-- 로그아웃 --}}
+                    <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <img src="{{asset('images/pic/user.png')}}" id="login-logo" />
+                    </a>
+                    <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                {{-- / 로그아웃 --}}
                 @else
                     <li><a class="menuLink" href="{{route('login')}}"><strong>{{__('messages.login')}}</strong></a></li>
                 @endif

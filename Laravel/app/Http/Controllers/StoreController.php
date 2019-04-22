@@ -8,11 +8,7 @@ use App\Product;
 
 class StoreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // 상품 목록
     public function index()
     {
         // $products = Product::all();
@@ -48,13 +44,8 @@ class StoreController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+    // 상품 상세보기
     public function show($id)
     {
         $product = Product::find($id)->load(['images' => function($query){
@@ -64,7 +55,7 @@ class StoreController extends Controller
         $path = $product->images[0]->path;
         $image = $product->images[0]->name;
 
-        // return response()->json($path.$image, 200, [], JSON_PRETTY_PRINT);
+        // return response()->json($product, 200, [], JSON_PRETTY_PRINT);
         return view('page.product')
         ->with('product', $product)
         ->with('path', $path)
