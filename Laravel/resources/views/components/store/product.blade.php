@@ -4,12 +4,12 @@
             <!--이미지-->
             <div class="shop_top">
                 <div class="image">
-                    <img src="{{asset('images/pic/drumpad.png')}}" id="shop_img" />
+                    <img src="{{$path.$image}}" id="shop_img" />
                 </div>
                 <!--텍스트-->
                 <div class="text">
-                    <h1>드럼패드</h1>
-                    <p id="price_text">000000원</p>
+                    <h1>{{$product->name}}</h1>
+                    <p id="price_text">{{$product->price}}</p>
                 </div>
             </div>
             <div class="tag">

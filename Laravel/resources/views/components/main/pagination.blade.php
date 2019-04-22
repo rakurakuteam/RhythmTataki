@@ -5,18 +5,18 @@
     </h2>
 </div>
 @foreach($boards as $board)
-<div class="sub_photo" id="photo_gallery">
+<div class="sub_photo">
     <ul>
         <li>
             <p class="thmb">
                 <a href="{{route('board', $board->id)}}">
                     @if(isset($board->files[0]))
-                    <video width="100%">
+                    <video class="picture">
                         <source src="{{$board->files[0]->path.$board->files[0]->name}}#t=0.1" type="video/mp4">
                         Your browser does not support HTML5 video.
                     </video>
                     @else
-                    <div id="playButton_box">    
+                    <div class="playButton_box">    
                     <img src="{{asset('images/pic/free.png')}}" class="picture"/>
                     </div>
                     @endif
@@ -26,7 +26,7 @@
                 @include('components.heart', ['board' => $board])
             </div>
             <a href="{{route('board', $board->id)}}">
-                <h4 id="title_text">
+                <h4 class="title_text">
                     <strong>
                         {{$board->title}}
                     </strong>
@@ -40,9 +40,25 @@
 
 <!--페이지네이션-->
 <center>
-    <div class="pagination">
-        @for($i=$page_link_first; $i<=$page_link_last; $i++)
-            <li onclick="pagination({{$i}})" style="cursor:pointer">{{$i}}</li>
-        @endfor
-    </div>
+    <nav class="pagination pagination_type1">
+        <ol class="pagination__list">
+            <li class="pagination__group pagination__control_prev" onclick="pagination({{$current_page-1}})">
+                prev
+            </li>
+            @for($i=$page_link_first; $i<=$page_link_last; $i++)
+                @if($i == $current_page)
+                <li class="pagination__group" onclick="pagination({{$i}})">
+                    <span class="pagination__item pagination__item_active">{{$i}}</span>
+                </li>
+                @else
+                <li class="pagination__group pagination__item" onclick="pagination({{$i}})">
+                    {{$i}}
+                </li>
+                @endif
+            @endfor
+            <li class="pagination__group pagination__control_next" onclick="pagination({{$current_page+1}})">
+                next
+            </li>
+        </ol>
+    </nav>
 </center>

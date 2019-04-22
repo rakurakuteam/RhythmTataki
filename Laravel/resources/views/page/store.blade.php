@@ -5,7 +5,8 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeMain.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeMain.css?ss')}}" />
 @endsection
 
 @section('header')
@@ -21,7 +22,7 @@
 @endsection
 
 @section('footer')
-
+    @include('layouts.footer.footer')
 @endsection
 
 @push('scripts')

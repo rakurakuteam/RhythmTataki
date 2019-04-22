@@ -22,9 +22,9 @@
                     <p class="thmb">
                         <a href="{{route('board', $ranking->id)}}">
                             @if($ranking->files[0])
-                            <video width="100%">
-                                    <source src="{{$ranking->files[0]->path.$ranking->files[0]->name}}#t=0.1" type="video/mp4">
-                                    Your browser does not support HTML5 video.
+                            <video class="picture">
+                                <source src="{{$ranking->files[0]->path.$ranking->files[0]->name}}#t=0.1" type="video/mp4">
+                                Your browser does not support HTML5 video.
                             </video>
                             @else
                             <div id="playButton_box">    
