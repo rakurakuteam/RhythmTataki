@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\User;
 use App\Cart;
 use App\Product;
 use App\Address;
@@ -48,11 +49,14 @@ class ProductsController extends Controller
         $address = User_addr::with('address')
         ->where('user_id', \Auth::user()->id)->where('rep', true)->get();
 
+        $user = User::where('id', \Auth::user()->id)->select('id', 'name', 'phone')->first();
+        
         // return $products;
         return view('page.order')
         ->with('products', $products)
         ->with('address', $address)
-        ->with('count', 0);
+        ->with('count', 0)
+        ->with('user', $user);
     }
 
     // 주문처리
