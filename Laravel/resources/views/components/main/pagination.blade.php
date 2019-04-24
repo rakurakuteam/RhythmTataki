@@ -40,7 +40,7 @@
 
 <!--페이지네이션-->
 <center>
-    <nav class="pagination pagination_type1">
+    <nav class="pagination pagination_type">
         <ol class="pagination__list">
             <li class="pagination__group pagination__control_prev" onclick="pagination({{$current_page-1}})">
                 prev

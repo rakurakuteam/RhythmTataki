@@ -43,12 +43,16 @@ class ProductsController extends Controller
     {
         $products = Product::with(['images' => function($query){
             $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
-        }])->whereIn('id', $request)->get();
+        }])->where('id', $request->id)->get();
 
         $address = User_addr::with('address')
         ->where('user_id', \Auth::user()->id)->where('rep', true)->get();
 
-        return response()->json($address, 200, [], JSON_PRETTY_PRINT);
+        // return $products;
+        return view('page.order')
+        ->with('products', $products)
+        ->with('address', $address)
+        ->with('count', 0);
     }
 
     // 주문처리
@@ -86,11 +90,14 @@ class ProductsController extends Controller
     public function cartPage()
     {
         $carts = Cart::where('user_id', \Auth::user()->id)->pluck('product_id');
-        $producs = Product::with(['images' => function($query){
+        $products = Product::with(['images' => function($query){
             $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
         }])->whereIn('id', $carts)->select('id', 'name', 'price')->get();
         
-        return response()->json($producs, 200, [], JSON_PRETTY_PRINT);
+        // return $products;
+        return view('page.carts')
+        ->with('carts', $products)
+        ->with('count', 0);
     }
 
     // 주문 확인 페이지
