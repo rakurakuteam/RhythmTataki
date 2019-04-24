@@ -1,0 +1,47 @@
+#logo {
+    margin-left: 80px;
+    height: 50px;
+    float: left;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#login-logo {
+    height: 40px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+#topMenu {
+    height: 70px;
+    width: 1400px;
+    background-color: #4aa3fd;
+    border-radius: 8px;
+}
+
+#li-1 {
+    margin-left: 200px;
+}
+
+#topMenu ul li {
+    list-style: none;
+    color: white;
+    background-color: #4aa3fd;
+    float: left;
+    line-height: 70px;
+    text-align: right
+}
+
+#topMenu .menuLink {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 150px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "NanumSquare", "Dotum", "Arial";
+}
+
+#topMenu .menuLink:hover {
+    color: #000000;
+}

@@ -10,30 +10,36 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'confirm' , 'token', 'token_exp',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // 리멤버 토큰x
+    public function getRememberTokenName(){
+        return null; 
+    }
+
+    // 다대다
+    public function address(){
+        return $this->belongsToMany('App\Address', 'user_addr', 'user_id', 'addr_id');
+    }
+
+    // 다대다
+    public function products(){
+        return $this->belongsToMany('App\Product', 'carts');
+    }
+
+    // 다대다
+    public function boards(){
+        return $this->belongsToMany('App\Board', 'hearts');
+    }
+
+    // 일대다
+    public function board(){
+        return $this->hasMany('App\Board');
+    }
 }
