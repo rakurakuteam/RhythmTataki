@@ -39,12 +39,12 @@
 
             <div class="final_price_text">
                 <h2>주문금액</h2>
-                <h2 class="price_1">{{$product->price}}원</h2>
+                <h2 class="price_1">{{number_format($product->price)}}원</h2>
                 <h2>배송비</h2>
-                <h2 class="price_2">2,500원</h2>
+                <h2 class="price_2" id="price_2">2,500원</h2>
                 <hr>
                 <h2 class="all_price_text">총주문금액</h2>
-                <h2 class="price_3">00000원</h2>
+                <h2 class="price_3">{{number_format($product->price+2500)}}원</h2>
             </div>
 
         </div>
@@ -56,12 +56,12 @@
         <div class="order_under_box_3">
             <!--주문자이름박스-->
             <div class="buyer_box">
-                <p class="buyer_name_text"><b>주문자</b></p>
+                <p class="buyer_name_text" id="user"><b>주문자</b></p>
                 <div class="search_form">
-                    <input type="text" placeholder="이름">
+                    <input type="text" value="{{$user->name}}" id="name">
                 </div>
                 <div class="search_form">
-                    <input type="text" placeholder="연락처">
+                    <input type="text" value="{{$user->phone}}" id="phone">
                 </div>
             </div>
             <!--주소박스-->
@@ -73,10 +73,10 @@
                 <p class="cb_1_text">주문자와 같음</p>
 
                 <div class="name_form">
-                    <input type="text" placeholder="이름">
+                    <input type="text" placeholder="이름" id="delivery_name">
                 </div>
                 <div class="number_form">
-                    <input type="text" placeholder="연락처">
+                    <input type="text" placeholder="연락처" id="delivery_address">
                 </div>
 
                 <input type="checkbox" id="cb_2">
@@ -87,15 +87,12 @@
                     <b>주소찾기</b>
                 </button>
                 <div class="code_form">
-                    <input type="text" placeholder="우편번호">
+                    <input type="text" placeholder="우편번호" id="zip_code">
                 </div>
                 <div class="addr_form_1">
-                    <input type="text" placeholder="도로명주소">
+                    <input type="text" placeholder="주소" id="address">
                 </div>
                 <div class="addr_form_2">
-                    <input type="text" placeholder="지번주소">
-                </div>
-                <div class="addr_form_3">
                     <input type="text" placeholder="상세주소">
                 </div>
 

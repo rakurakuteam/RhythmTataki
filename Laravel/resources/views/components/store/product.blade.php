@@ -9,7 +9,7 @@
                 <!--텍스트-->
                 <div class="text">
                     <h1>{{$product->name}}</h1>
-                    <p id="price_text">{{$product->price}}</p>
+                    <p id="price_text">{{number_format($product->price)}}</p>
                 </div>
             </div>
             <div class="tag">
