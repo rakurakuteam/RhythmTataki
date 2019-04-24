@@ -29,7 +29,7 @@ class WorkshopController extends Controller
         $ts = $request->temporary_sound;
         $tss = explode('/', $ts);
         $audioName = $tss[count($tss)-1];
-        shell_exec("ffmpeg -i ".$ts." -c copy -ss ".$request->start_sec." -t ".$request->end_sec." -y /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3"); 
+        shell_exec("ffmpeg -i ".$ts." -c copy -ss ".$request->start_sec." -t ".$request->end_sec." -y /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3"); 
         Storage::disk('s3')->delete('temporarySound/'.$audioName);
 
         $s3 = AwsFacade::createClient('s3');
@@ -38,7 +38,7 @@ class WorkshopController extends Controller
             'Key' => 'workshop/drumSoundClip/'.$request->clip_name.'.mp3',
             'SourceFile' => 'song/clip/'.$request->clip_name.".mp3",
         ));
-        Shell_exec("rm /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
+        Shell_exec("rm /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
 
         // return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);
         return redirect('/workshop');
