@@ -114,7 +114,7 @@ body {
     bottom: 0;
 }
 
-#shop_button1, #shop_button2 {
+.shop_button {
     width: 140px;
     height: 50px;
     font-size: 20px;
@@ -128,11 +128,11 @@ body {
     margin-top: 8px;
 }
 
-#minus_btn {
+.minus_btn {
     margin-left: 1210px;
 }
 
-#minus_btn, #plus_btn {
+.minus_btn, .plus_btn {
     width: 25px;
     vertical-align: middle;
     cursor: pointer;
@@ -147,13 +147,13 @@ body {
     text-align: center;
 }
 
-#shop_button1 {
+.add_cart_button {
     background-color: #ffffff;
     color: #4aa3fd;
     border: 2px solid #4aa3fd;
 }
 
-#shop_button2 {
+.order_button {
     background-color: #4aa3fd;
     color: #ffffff;
     margin-right: 100px;

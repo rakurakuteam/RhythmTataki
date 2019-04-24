@@ -10,9 +10,8 @@ use App\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-define('LINK', 3);
-define('SKIP', 3);
-define('POSTS', 4);
+define('LINK', 2);
+define('POSTS', 12);
 define('RANKING', 4);
 
 class HomeController extends Controller

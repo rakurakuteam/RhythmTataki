@@ -334,6 +334,7 @@ h4 {
 .pagination__control_prev:before {
     content: "←";
     left: 0;
+    margin-left: 80px;
 }
 
 .pagination__control_next {

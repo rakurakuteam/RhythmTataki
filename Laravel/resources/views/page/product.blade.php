@@ -5,8 +5,8 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css?s')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeDetail.css?ss')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeDetail.css')}}" />
 @endsection
 
 @section('header')
