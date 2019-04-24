@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('title')
-    스토어
+    주문페이지
 @endsection
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeMain.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/order.css')}}" />
 @endsection
 
 @section('header')
@@ -14,11 +14,11 @@
 @endsection
 
 @section('nav')
-    @include('components.main.slide')
+    
 @endsection
 
 @section('body')
-    @include('components.store.index')
+    @include('components.store.order')
 @endsection
 
 @section('footer')
@@ -26,4 +26,7 @@
 @endsection
 
 @push('scripts')
+    <script src="{{asset('js/store/quantity.js')}}"></script>
+    <script src="{{asset('js/store/order.js')}}"></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 @endpush

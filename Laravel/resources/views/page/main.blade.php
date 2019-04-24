@@ -6,7 +6,7 @@
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/main/main_2.css?a123')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main/main_2.css')}}" />
 @endsection
 
 @section('header')

@@ -33,11 +33,11 @@ class WorkshopController extends Controller
         Storage::disk('s3')->delete('temporarySound/'.$audioName);
 
         $s3 = AwsFacade::createClient('s3');
-        $s3->putObject(array(
+        $s3->putObject([
             'Bucket' => 'capstone.rhythmtataki.bucket',
             'Key' => 'workshop/drumSoundClip/'.$request->clip_name.'.mp3',
             'SourceFile' => 'song/clip/'.$request->clip_name.".mp3",
-        ));
+        ]);
         Shell_exec("rm /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
 
         // return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);

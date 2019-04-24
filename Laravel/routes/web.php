@@ -20,6 +20,8 @@ Route::prefix('unity')->group(function() {
     Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore');
     Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore');
     Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores');
+    Route::post('/fileUpload', 'UnityController@fileUpload')->name('unity.fileUpload');
+    Route::get('/fileDownload/{email}/{fileName?}', 'UnityController@fileDownload')->name('unity.fileDownload');
 });
 
 // 로그인 관련

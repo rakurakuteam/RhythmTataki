@@ -179,7 +179,7 @@ input :: -moz-placeholder {
     width: 250px;
 }
 
-#shop_button {
+.shop_button {
     width: 200px;
     height: 60px;
     background-color: #4aa3fd;
