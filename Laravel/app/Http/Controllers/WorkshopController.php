@@ -37,13 +37,8 @@ class WorkshopController extends Controller
             'Bucket' => 'capstone.rhythmtataki.bucket',
             'Key' => 'workshop/drumSoundClip/'.$request->clip_name.'.mp3',
             'SourceFile' => 'song/clip/'.$request->clip_name.".mp3",
-<<<<<<< HEAD
-        ));
-        Shell_exec("rm /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
-=======
         ]);
         Shell_exec("rm /mnt/c/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
->>>>>>> 5a67ca2db087988f6188fdb2b2bc1fb882ab5cc8
 
         // return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);
         return redirect('/workshop');

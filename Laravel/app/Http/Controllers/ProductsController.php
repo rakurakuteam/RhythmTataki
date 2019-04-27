@@ -39,6 +39,20 @@ class ProductsController extends Controller
         return "로그인해 주세요";
     }
 
+    // 장바구니 지우기
+    public function removeCart(Request $request){
+        Cart::where('user_id', \Auth::user()->id)->where('product_id', $request->product_id)->delete();
+        $carts = Cart::where('user_id', \Auth::user()->id)->pluck('product_id');
+        $products = Product::with(['images' => function($query){
+            $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
+        }])->whereIn('id', $carts)->select('id', 'name', 'price')->get();
+        
+        // return $products;
+        return view('components.store.basketBox')
+        ->with('carts', $products)
+        ->with('count', 0);;
+    }
+
     // 주문 페이지
     public function orderList(Request $request)
     {
