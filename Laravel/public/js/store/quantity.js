@@ -10,9 +10,10 @@ function quantity(e){
     let target_num = id[id.length-1];
     let quantity = $('#quantity_'+target_num).val();
     let delivery = $('.price_2').text();
-    console.log($('#price_2').val());
+    
     delivery = delivery.replace(',','');
     delivery = Number(delivery.replace('원',''));
+    console.log($('#price_2').val());
     if(target_name == 'minus'){
         if(quantity>1){
             $('#quantity_'+target_num).val(--quantity);
@@ -29,7 +30,7 @@ function quantity(e){
         $('.price_2').text("0원");
         $('.price_3').text(numberWithCommas(prices*quantity)+"원");
     }
-    $('.price_4').text("합계"+numberWithCommas(total_price)+"원");
+    $('.price').text(numberWithCommas(total_price)+"원");
 }
 
 // 개별 금액 계산
@@ -50,6 +51,8 @@ function price2(){
         // $('#price_text_').text();
         let quantity = $('#quantity_'+i).val();
         let price = $('#price_text_'+i).text();
+        price = price.replace(',','');
+        price = Number(price.replace('원',''));
         // console.log($('#quantity_'+i).val())
         // console.log($('#price_text_'+i).text())
         total_price += quantity*price;

@@ -27,12 +27,5 @@
 
 @push('scripts')
     <script src="{{asset('js/store/quantity.js')}}"></script>
-    <script>
-        $( document ).ready( function() {
-                $( '#cb' ).click( function() {
-                  console.log(11);
-                  $( '.cb' ).prop( 'checked', this.checked );
-                } );
-              } );
-    </script>
+    <script src="{{asset('js/store/cart.js')}}"></script>
 @endpush
