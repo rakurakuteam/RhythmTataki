@@ -106,11 +106,12 @@ input[class="cb"] + label {
     width: 20px;
     height: 20px;
     border: 2px solid #4864ff;
+    background-color: #4aa3fd;
     cursor: pointer;
 }
 
 input[class="cb"]:checked + label {
-    background-color: #4aa3fd;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 input[class="cb"] {

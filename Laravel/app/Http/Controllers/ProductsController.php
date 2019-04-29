@@ -39,12 +39,26 @@ class ProductsController extends Controller
         return "로그인해 주세요";
     }
 
+    // 장바구니 지우기
+    public function removeCart(Request $request){
+        Cart::where('user_id', \Auth::user()->id)->where('product_id', $request->product_id)->delete();
+        $cart = Cart::where('user_id', \Auth::user()->id)->pluck('product_id');
+        $products = Product::with(['images' => function($query){
+            $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
+        }])->whereIn('id', $cart)->select('id', 'name', 'price')->get();
+        
+        // return $products;
+        return view('components.store.basketBox')
+        ->with('carts', $products)
+        ->with('count', 0);;
+    }
+
     // 주문 페이지
-    public function orderList(Request $request)
+    public function orderSheet(Request $request)
     {
         $products = Product::with(['images' => function($query){
             $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
-        }])->where('id', $request->id)->get();
+        }])->whereIn('id', $request->id)->get();
 
         $address = User_addr::with('address')
         ->where('user_id', \Auth::user()->id)->where('rep', true)->get();
@@ -52,7 +66,7 @@ class ProductsController extends Controller
         $user = User::where('id', \Auth::user()->id)->select('id', 'name', 'phone')->first();
         
         // return $products;
-        return view('page.order')
+        return view('page.orderSheet')
         ->with('products', $products)
         ->with('address', $address)
         ->with('count', 0)
@@ -79,7 +93,7 @@ class ProductsController extends Controller
         $orders = Order::with('product', 'delivery_status')
         ->whereIn('id', $request)->where('status_id', 0)->first();
 
-
+        return view('page.payPage');
         return response()->json($orders, 200, [], JSON_PRETTY_PRINT);
     }
 
@@ -98,14 +112,18 @@ class ProductsController extends Controller
             $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
         }])->whereIn('id', $carts)->select('id', 'name', 'price')->get();
         
-        // return $products;
+        $price = $products->map(function ($product){
+            return $product->price;
+        });
+
         return view('page.carts')
         ->with('carts', $products)
-        ->with('count', 0);
+        ->with('count', 0)
+        ->with('total_price', $price->sum());
     }
 
     // 주문 확인 페이지
-    public function orderSheet(){
+    public function orderList(){
         $addr = User_addr::where('user_id', \Auth::user()->id)->pluck('id');
 
         $orders = Order::with(['user_addr' => function($query){
@@ -117,11 +135,7 @@ class ProductsController extends Controller
             }])->select('id', 'name', 'price')->get();
         }])->whereIn('user_addr_id', $addr)->get();
         
-        return response()->json($orders, 200, [], JSON_PRETTY_PRINT);
-    }
-
-    public function quantity(Request $request){
-        Log::info('$request : '. $request->quantity);
-        return 1;
+        return view('page.orderList'); 
+        // return $orders; 
     }
 }

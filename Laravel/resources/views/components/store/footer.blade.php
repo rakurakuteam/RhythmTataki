@@ -8,7 +8,7 @@
         <input type="text" class="input" id="quantity_0" value="1">
         <img src="{{asset('images/pic/plus-button.png')}}" class="plus_btn" id="plus_btn_0" onclick="quantity(event)">
         <!--주문버튼-->
-        <button class="shop_button order_button" onclick="location.href='{{route('orderListPage', ['id' => $product->id])}}'">
+        <button class="shop_button order_button" onclick="location.href='{{route('orderSheetPage', ['id' => $product->id])}}'">
             <b>{{__('messages.orderRequest')}}</b>
         </button>
         <button class="shop_button add_cart_button" onclick="addCart({{$product->id}})">

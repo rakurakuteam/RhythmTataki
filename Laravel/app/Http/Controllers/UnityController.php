@@ -125,6 +125,7 @@ class UnityController extends Controller
         return json_encode($k_v_scores);
     }
 
+    //파일업로드
     public function fileUpload(Request $request)
     {
         $fileType = $request->file->getClientOriginalExtension();
@@ -136,11 +137,11 @@ class UnityController extends Controller
         $user = User::where('email', $request->email)->pluck('id')->first();
         $url = Storage::url('test/files/'.$fileName);
 
-        Log::info('file data:'. $path);
-        Log::info('file data:'. $url);
+        Log::info('file path:'. $path);
+        Log::info('file url:'. $url);
         Log::info('file name:'. $request->file->getClientOriginalName());
         Log::info('file type:'. $request->file->getClientOriginalExtension());
-        Log::info('file size:'. $request->file->ClientSize());
+        Log::info('file size:'. $request->file->getClientSize());
         Log::info('file size:'. $size);
 
         File::create([
@@ -157,7 +158,6 @@ class UnityController extends Controller
 
     // request URL 파일명, 이메일
     // return 파일, 확장자
-
     public function fileDownload(Request $request){
         Log::info('email: '.$request->email);
         Log::info('fileName: '.$request->fileName);
@@ -176,5 +176,11 @@ class UnityController extends Controller
         // $s3 = Storage::download($url, "somsatang.ogg");
         // return response()->download('capstone.rhythmtataki.bucket/'.$fileName, $fileName, $headers);
         return $result;
+    }
+
+    public function getMusicList(Request $request){
+        $user = User::where('email', $request->email)->pluck('id')->first();
+        $list = File::where('user_id', $user)->where('dl_check', false)->select('path', 'name')->get();
+        return $list;
     }
 }

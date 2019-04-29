@@ -6,7 +6,7 @@
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/workshop/workshop.css?ss')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/workshop/workshop.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/footer.css')}}" />
 @endsection
 

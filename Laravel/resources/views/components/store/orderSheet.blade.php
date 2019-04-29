@@ -9,9 +9,9 @@
             <img src="{{$product->images[0]->path.$product->images[0]->name}}" class="order_img">
             <div class="order_text_box">
                 <h2 class="product_name">{{$product->name}}</h2>
-                <p class="price_text">{{number_format($product->price)}}원</p>
+                <p class="price_text" id="price_text_{{$count}}">{{number_format($product->price)}}원</p>
             </div>
-            @include('components.store.quantityButton')
+            @include('components.store.quantityButton', ['count' => $count++])
         </div>
         @endforeach
         <!-- 2.금액 및 결제수단 -->
@@ -19,7 +19,7 @@
             <h3 class="title_text">금액 및 결제수단</h3>
         </div>
         <div class="order_under_box_2">
-
+        <form action="">
             <!-- 라디오박스 -->
             <div class="radio_box">
                 <div id="radio">
@@ -107,6 +107,7 @@
                     <b>주문완료</b>
                 </button>
             </div>
+        </form>
         </div>
     </center>
 </contents>
