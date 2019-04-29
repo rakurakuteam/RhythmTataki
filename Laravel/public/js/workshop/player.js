@@ -3,8 +3,8 @@ $(document).ajaxComplete(function(){
     wavesurfer = WaveSurfer.create({
         height: 300,
         container: '#waveform',
-        waveColor: "rgba(134, 229, 127, 1)", // 웨이브 색깔
-        progressColor: "rgba(134, 229, 200, 1)", // 재생후 색깔
+        waveColor: "rgba(243, 243, 244, 1)", // 웨이브 색깔
+        progressColor: "rgba(11,142,193, 1)", // 재생후 색깔
         pixelRatio: 1,
         scrollParent: false,
         normalize: true,
@@ -30,7 +30,7 @@ $(document).ajaxComplete(function(){
         $('#play_time').text(timeInfo(wavesurfer.getDuration()));
 
         wavesurfer.enableDragSelection({
-            color: "rgba(250, 244, 192, 0.5)",
+            color: "rgba(54,202,214, 0.5)",
         });
     });
 

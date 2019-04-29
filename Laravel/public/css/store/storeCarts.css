@@ -55,6 +55,7 @@ body {
 
 .contents_box {
     width: 1000px;
+    height: auto;
 }
 
 #basket_text {
@@ -64,7 +65,7 @@ body {
     margin-bottom: 70px;
 }
 
-.select_all_box {
+.select_all {
     margin-left: 275px;
     margin-top: 50px;
 }
@@ -81,21 +82,24 @@ body {
     margin-bottom: 40px;
 }
 
-input[id="cb"] + label {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #4864ff;
-    cursor: pointer;
+.select_2 {
+    width: 80px;
+    float: left;
 }
 
-input[id="cb"]:checked + label {
-    background-color: #4aa3fd;
+.no_id_1 {
+    width: 55px;
+    height: 50px;
+    float: left;
+    margin-top: 25px;
 }
 
-input[id="cb"] {
-    display: none;
+.no_id_2 {
+    width: 70px;
+    height: 85px;
+    float: right;
 }
+
 
 input[class="cb"] + label {
     display: inline-block;
@@ -156,6 +160,7 @@ input[class="cb"] {
     border: 2px solid #4aa3fd;
     text-align: center;
 }
+
 
 .price_box {
     font-size: 23px;
@@ -223,4 +228,35 @@ input[class="cb"] {
     float: left;
     color: #4aa3fd;
     margin-left: 1070px;
+}
+
+.total {
+    width: 100px;
+    float: left;
+}
+
+.price {
+    width: 200px;
+    margin-left: 120px;
+}
+
+.footer_box {
+    width: 100%;
+    height: 70px;
+    background-color: #4aa3fd;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.under_box {
+    height: 1000px;
+}
+
+#c_text {
+    font-size: 18px;
+    color: #ffffff;
+    vertical-align: middle;
+    float: right;
+    margin-right: 30px;
 }

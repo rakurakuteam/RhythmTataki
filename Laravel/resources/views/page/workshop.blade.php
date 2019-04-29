@@ -5,15 +5,14 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/board/board.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/workshop/workshop.css?ss')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/footer.css')}}" />
 @endsection
 
 @section('header')
     @include('layouts.header.main')
 <div id="dropZone">
-@endsection
-
-@section('nav')
 @endsection
 
 @section('body')
@@ -24,7 +23,7 @@
 
 @section('footer')
 </div>
-    @include('layouts.footer.footer')
+@include('layouts.footer.footer')
 @endsection
 
 @push('scripts')
