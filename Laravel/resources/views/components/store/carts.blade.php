@@ -15,9 +15,11 @@
     <div class="footer_menu">
         <div class="footer_total_text">
           <h2 class="total">합계</h2>
-              <h2 class="price">00000원</h2>
+              <h2 class="price">{{number_format($total_price)}}원</h2>
         </div>
-        <button id="shop_button" href="#">
+        {{-- onclick="order()" --}}
+        {{-- onclick="location.href='{{route('orderSheetPage', ['id' => 1,2])}}'" --}}
+        <button id="shop_button" onclick="location.href='{{route('orderSheetPage', ['id' => [1, 2]])}}'">
             <b>주문하기</b>
         </button>
     </div>

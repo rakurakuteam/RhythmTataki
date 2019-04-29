@@ -3,33 +3,40 @@ console.log('quantityJs load');
 // 수량 카운트 && 가격 표시
 function quantity(e){
     let prices = price();
-    let total_price = price2();
     let target_id = e.target.id;
     let id = target_id.split('_');
     let target_name = id[0];
-    let target_num = id[id.length-1];
-    let quantity = $('#quantity_'+target_num).val();
+    let target_num = Number(id[id.length-1]);
+    let quantity = [];
+    
+    quantity[target_num] = $('#quantity_'+target_num).val();
+    
+    console.log(target_num);
+    console.log(prices);
+    console.log(quantity[target_num]);
     let delivery = $('.price_2').text();
     
     delivery = delivery.replace(',','');
     delivery = Number(delivery.replace('원',''));
-    console.log($('#price_2').val());
+    // console.log($('#price_2').val());
     if(target_name == 'minus'){
-        if(quantity>1){
-            $('#quantity_'+target_num).val(--quantity);
+        if(quantity[target_num]*prices>1){
+            $('#quantity_'+target_num).val(--quantity[target_num]);
         }
     }else{
-        $('#quantity_'+target_num).val(++quantity);
+        $('#quantity_'+target_num).val(++quantity[target_num]);
     }
-    $('.price_1').text(numberWithCommas(prices*quantity)+"원");
-    if(prices*quantity < 30000){
+    $('.price_1').text(numberWithCommas(prices*quantity[target_num])+"원");
+    if(quantity*1 < 30000){
         delivery = 2500;
         $('.price_2').text("2,500원");
-        $('.price_3').text(numberWithCommas(prices*quantity+delivery)+"원");
+        $('.price_3').text(numberWithCommas(prices*quantity[target_num]+delivery)+"원");
     }else{
         $('.price_2').text("0원");
-        $('.price_3').text(numberWithCommas(prices*quantity)+"원");
+        $('.price_3').text(numberWithCommas(prices*quantity[target_num])+"원");
     }
+    let total_price = price2();
+    $('.price_1').text(numberWithCommas(total_price)+"원");
     $('.price').text(numberWithCommas(total_price)+"원");
 }
 
@@ -45,7 +52,7 @@ function price(){
 // 장바구니 합계 계산
 function price2(){
     var total_price = 0;
-    for(var i=0; i<$('.price_box').length; i++){
+    for(var i=0; i<$('.quantity').length; i++){
         // console.log(i);
         // $('#quantity_').val();
         // $('#price_text_').text();

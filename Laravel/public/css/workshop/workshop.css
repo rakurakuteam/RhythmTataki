@@ -36,24 +36,37 @@ body {
   cursor: pointer;
   border-bottom-color: #e2e2e2;
   border-radius: 50px;
-  }
+}
 
-  #file_select_text {
-    margin-top: 10px;
-  }
+#file_select_text {
+  margin-top: 10px;
+}
 
-  .filebox input[type="file"] {
-    /* 파일 필드 숨기기 */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-  }
+.filebox input[type="file"] {
+  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
 
-  .wavesurfer-handle wavesurfer-handle-start {
-    background-color: #000;
-  }
+.wavesurfer-region{
+  z-index: 3;
+}
+.wavesurfer-handle-start {
+  z-index: 3;
+  width: 50%; 
+  max-width: 40px;
+  background-color: #000;
+}
+
+.wavesurfer-handle-end {
+  z-index: 3;
+  width: 50%; 
+  max-width: 40px;
+  background-color: #000;
+}

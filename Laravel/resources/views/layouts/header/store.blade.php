@@ -2,13 +2,13 @@
 <center>
     <nav id="topMenu">
         <div id="logoBox">
-            <a href="{{route('home')}}">
+            <a href="{{route('store.index')}}">
                 <img src="{{asset('images/pic/rythmStore5.png')}}" id="logo"/>
             </a>
         </div>
         <ul>
             <li>
-                <a class="menuLink" id="li-1" href="#">
+                <a class="menuLink" id="li-1" href="{{route('orderListPage')}}">
                     <strong>
                         {{__('messages.order')}}
                         /

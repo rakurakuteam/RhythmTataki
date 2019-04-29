@@ -1,5 +1,6 @@
 @foreach($carts as $cart)
     <div class="basket_box">
+        <input type="text" id="product_id_{{$count}}" value="{{$cart->id}}" style="display:none">
         <div class="select_2">
         <div class="no_id_2"></div>
         <div class="no_id_1">&nbsp;</div>

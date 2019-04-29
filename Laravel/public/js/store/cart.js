@@ -40,6 +40,14 @@ function removeCart(product_id){
     })
 }
 
+function order(){
+    var product_id = [];
+    for(let i=0; i<$('.select_2').length; i++){
+        product_id.push($('#product_id_'+i).val());
+    }
+    location.href="/store/orderSheetPage?id="+product_id;
+}
+
 $( document ).ready( function() {
     $('#cb').click( function() {
       console.log(11);

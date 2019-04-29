@@ -10,18 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// 메인 페이지
 Route::get('/', 'HomeController@index');
 
 // 유니티 관련
 Route::prefix('unity')->group(function() {
-    Route::get('/login', 'UnityController@loginForm')->name('unity.loginPage');
-    Route::post('/join', 'UnityController@join')->name('unity.join');
-    Route::post('/login', 'UnityController@login')->name('unity.login');
-    Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore');
-    Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore');
-    Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores');
-    Route::post('/fileUpload', 'UnityController@fileUpload')->name('unity.fileUpload');
-    Route::get('/fileDownload/{email}/{fileName?}', 'UnityController@fileDownload')->name('unity.fileDownload');
+    Route::get('/login', 'UnityController@loginForm')->name('unity.loginPage'); // 로그인 페이지
+    Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore'); // 스코어 등록
+    Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore'); // 점수 조회 
+    Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores'); // 점수들 조회
+    Route::get('/fileDownload/{email}/{fileName?}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
+    Route::get('/getMusicList', 'UnityController@getMusicList')->name('unity.getMusicList'); // 음악 목록
+
+    Route::post('/join', 'UnityController@join')->name('unity.join'); // 회원가입
+    Route::post('/login', 'UnityController@login')->name('unity.login'); // 로그인
+    Route::post('/fileUpload', 'UnityController@fileUpload')->name('unity.fileUpload'); // 파일 업로드
 });
 
 // 로그인 관련
@@ -29,8 +32,8 @@ Auth::routes();
 
 // 구글 로그인
 Route::prefix('login')->group(function() {
-    Route::get('/google', 'GoogleLoginController@googleLogin')->name('google.login');
-    Route::get('/google/callback', 'GoogleLoginController@googleCallback')->name('google.callback');
+    Route::get('/google', 'GoogleLoginController@googleLogin')->name('google.login'); // 구글 로그인
+    Route::get('/google/callback', 'GoogleLoginController@googleCallback')->name('google.callback'); // 구글 로그인 콜백
 });
 
 // 페이지 관련
@@ -47,19 +50,20 @@ Route::get('/pagination', 'HomeController@pagination')->name('pagination'); // �
 
 // 소리공방
 Route::prefix('workshop')->group(function() {
-    Route::get('/', 'WorkshopController@index')->name('workshop.main');
-    Route::post('/upload', 'WorkshopController@upload')->name('workshop.upload');
-    Route::post('/cutter', 'WorkshopController@cutter')->name('workshop.cutter');
+    Route::get('/', 'WorkshopController@index')->name('workshop.main'); // 소리공방 메인
+    Route::post('/upload', 'WorkshopController@upload')->name('workshop.upload'); // 소리 업로드
+    Route::post('/cutter', 'WorkshopController@cutter')->name('workshop.cutter'); // 소리 자르기
 });
 
 // 주문관련
 Route::prefix('store')->group(function() {
-    Route::post('addCart', 'ProductsController@addCart')->name('cart.add'); // 장바구니 등록
-    Route::post('removeCart', 'ProductsController@removeCart')->name('cart.remove'); // 장바구니 삭제
-    Route::get('orderList', 'ProductsController@orderList')->name('orderListPage'); // 주문 페이지
-    Route::get('cart', 'ProductsController@cartPage')->name('cartPage'); // 장바구니
+    Route::get('orderList', 'ProductsController@orderList')->name('orderListPage'); // 주문확인 페이지
     Route::get('orderSheet', 'ProductsController@orderSheet')->name('orderSheetPage'); // 주문 페이지
     Route::get('payPage', 'ProductsController@payPage')->name('payPage'); // 결제 페이지
+    Route::get('cart', 'ProductsController@cartPage')->name('cartPage'); // 장바구니
+
+    Route::post('removeCart', 'ProductsController@removeCart')->name('cart.remove'); // 장바구니 삭제
+    Route::post('addCart', 'ProductsController@addCart')->name('cart.add'); // 장바구니 등록
     Route::post('order', 'ProductsController@order')->name('order'); // 주문처리
     Route::post('pay', 'ProductsController@pay')->name('pay'); // 결제처리
 });
