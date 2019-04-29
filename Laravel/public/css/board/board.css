@@ -1,0 +1,68 @@
+#posts {
+    margin-top: 60px;
+    width: 800px;
+    height: 1000px;
+}
+
+#profile {
+    cursor: pointer;
+    float: left;
+    width: 100px;
+}
+
+#title {
+    width: 250px;
+    float: left;
+}
+
+#title_area {
+    width: 450px;
+    height: 120px;
+}
+
+#video_box{
+    position: absolute;
+    width: 760px;
+    height: 370px;
+}
+
+#playButton_box {
+    position: relative;
+    width: 760px;
+    height: 370px;
+}
+
+#play_button {
+    position: relative;
+    width: 100px;
+    margin-top: 130px;
+}
+
+.view_like {
+    width: 750px;
+    height: 80px;
+}
+
+.view {
+    width: 40px;
+    float: left;
+    margin-left: 25px;
+    margin-top: 7px;
+    margin-right: 15px;
+}
+
+.like, .download {
+    width: 32px;
+    float: left;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+.view_text, .like_text {
+    float: left;
+    margin-right: 15px;
+}
+
+#write_box {
+    display: inline-block;
+}

@@ -1,0 +1,263 @@
+body {
+    padding-top: 0px;
+    padding: 0;
+    margin: 0;
+    height: auto;
+}
+
+#logo {
+    margin-left: 300px;
+    height: 30px;
+    float: left;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#login-logo {
+    height: 40px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+#topMenu {
+    height: 70px;
+    width: 100%;
+    background-color: #4aa3fd;
+    margin-top: -16px;
+}
+
+#li-1 {
+    margin-left: 600px;
+}
+
+#topMenu ul li {
+    list-style: none;
+    color: white;
+    background-color: #4aa3fd;
+    float: left;
+    line-height: 70px;
+    text-align: right
+}
+
+#topMenu .menuLink {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 150px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "NanumSquare", "Dotum", "Arial";
+}
+
+#topMenu .menuLink:hover {
+    color: #000000;
+}
+
+.contents_box {
+    width: 1000px;
+    height: auto;
+}
+
+#basket_text {
+    margin-top: 50px;
+    margin-left: 270px;
+    color: #4aa3fd;
+    margin-bottom: 70px;
+}
+
+.select_all {
+    margin-left: 275px;
+    margin-top: 50px;
+}
+
+.basket_box {
+    background-color: #D4E9F7;
+    height: 210px;
+    ;
+    width: 1300px;
+    margin-left: 270px;
+    margin-top: 20px;
+    vertical-align: middle;
+    float: left;
+    margin-bottom: 40px;
+}
+
+.select_2 {
+    width: 80px;
+    float: left;
+}
+
+.no_id_1 {
+    width: 55px;
+    height: 50px;
+    float: left;
+    margin-top: 25px;
+}
+
+.no_id_2 {
+    width: 70px;
+    height: 85px;
+    float: right;
+}
+
+
+input[class="cb"] + label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4864ff;
+    background-color: #4aa3fd;
+    cursor: pointer;
+}
+
+input[class="cb"]:checked + label {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+input[class="cb"] {
+    display: none;
+}
+
+#shop_name_text {
+    font-size: 27px;
+    width: 350px;
+    margin-left: 340px;
+    margin-top: 77px;
+    display: block;
+}
+
+#basket_img {
+    width: 120px;
+    margin-left: 40px;
+    vertical-align: middle;
+    margin-top: 44px;
+    margin-bottom: 44px;
+    float: left;
+    position: absolute;
+    border: 2px solid #4aa3fd;
+}
+
+.input_box {
+    margin-top: -60px;
+    float: left;
+    margin-left: 50px;
+}
+
+.minus_btn {
+    margin-left: 650px;
+}
+
+.minus_btn,
+.plus_btn {
+    width: 25px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.input {
+    width: 50px;
+    height: 30px;
+    border-radius: 8px;
+    border: 2px solid #4aa3fd;
+    text-align: center;
+}
+
+
+.price_box {
+    font-size: 23px;
+    width: 200px;
+    float: right;
+    margin-top: -80px;
+    margin-right: 160px;
+}
+
+.remove_button {
+    float: right;
+    margin-right: 120px;
+    margin-top: -55px;
+    width: 28px;
+    cursor: pointer;
+}
+
+.select_all {
+    margin-left: 325px;
+}
+
+.select_all_text {
+    position: relative;
+    margin-top: -27px;
+    margin-left: 30px;
+    width: 100px;
+}
+
+.select_box {
+    margin-left: 54px;
+    width: 50px;
+    float: left;
+    margin-top: 85px;
+}
+
+.footer_menu {
+    width: 100%;
+    height: 70px;
+    background-color: #ffffff;
+    border-top: 1px solid #b0b0b0;
+    position: fixed;
+    bottom: 0;
+}
+
+#shop_button {
+    width: 140px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #4aa3fd;
+    color: #ffffff;
+}
+
+.busket {
+    width: 1400px;
+    height: 600px;
+    display: block
+}
+
+.footer_total_text {
+    width: 365px;
+    float: left;
+    color: #4aa3fd;
+    margin-left: 1070px;
+}
+
+.total {
+    width: 100px;
+    float: left;
+}
+
+.price {
+    width: 200px;
+    margin-left: 120px;
+}
+
+.footer_box {
+    width: 100%;
+    height: 70px;
+    background-color: #4aa3fd;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.under_box {
+    height: 1000px;
+}
+
+#c_text {
+    font-size: 18px;
+    color: #ffffff;
+    vertical-align: middle;
+    float: right;
+    margin-right: 30px;
+}

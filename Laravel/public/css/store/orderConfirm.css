@@ -1,0 +1,147 @@
+body {
+    padding-top: 0px;
+    padding: 0;
+    margin: 0;
+    height: auto;
+}
+
+/**컨텐츠**/
+.left_box {
+    float: left;
+    margin-left: 400px;
+}
+
+.order_box_1 {
+    width: 500px;
+    height: 60px;
+    background-color: #D4E9F7;
+    /** display: table-cell; **/
+    margin-top: 80px;
+}
+
+.title_text {
+    height: 50px;
+    margin-left: 20px;
+    float: left;
+}
+
+.order_under_box_1 {
+    width: 496px;
+    height: 160px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    
+}
+
+.order_under_box_2  {
+    width: 496px;
+    height: 300px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.order_text_box_1 {
+    height: 100px;
+    width: auto;
+    float: left;
+    padding: 20px;
+    text-align: left;
+    margin-left: -60px;
+}
+
+.name, .number, .email {
+    width: 200px;
+}
+
+.order_under_box_2 {
+    border-bottom: 1px solid black;
+}
+
+.order_box_2 {
+    width: 500px;
+    height: 60px;
+    background-color: #D4E9F7;
+}
+
+.order_text_box_2, .order_text_box_3 {
+    height: 100px;
+    width: 390px;
+    float: left;
+    padding: 20px;
+    text-align: left;
+    margin-left: -60px;
+}
+
+.order_text_box_3 {
+    margin-left: 15px;
+}
+
+.right_box {
+    width: 500px;
+    height: 580px;
+    float: right;
+    margin-right: 400px;
+    margin-top: 120px;
+}
+
+.order_img {
+    margin: 20px;
+    width: 130px;
+    float: left;
+    border: 2px solid #4aa3fd;
+}
+
+.order_text_box {
+    width: 350px;
+    height: 85px;
+    margin-top: 50px;
+    text-align: left;
+}
+
+.hr {
+    width: 470px;
+}
+
+.text_box {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width: 500px;
+    height: 200px;
+}
+
+.text_box p {
+    float: left;
+    width: 200px;
+    margin-left: 30px;
+}
+
+.total, .total_price {
+    width: 200px;
+    color: #4aa3fd;
+}
+
+.total {
+    float: left;
+    margin-left: 30px;
+}
+
+.total_price {
+    float: right;
+    margin-right: 35px;
+}
+
+.final_btn_box {
+    width: 900px;
+    padding-top: 730px;
+}
+
+.final_btn {
+    font-size: 25px;
+    background-color: #4aa3fd;
+    color: #ffffff;
+    border: 2px solid #4aa3fd;
+    width: 250px;
+    height: 75px;
+    cursor: pointer;
+    border-radius: 50px;
+}
