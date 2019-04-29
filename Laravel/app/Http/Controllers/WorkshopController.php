@@ -38,6 +38,7 @@ class WorkshopController extends Controller
             'Key' => 'workshop/drumSoundClip/'.$request->clip_name.'.mp3',
             'SourceFile' => 'song/clip/'.$request->clip_name.".mp3",
         ]);
+
         Shell_exec("rm /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".mp3");
 
         // return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);

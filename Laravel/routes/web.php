@@ -55,6 +55,7 @@ Route::prefix('workshop')->group(function() {
 // 주문관련
 Route::prefix('store')->group(function() {
     Route::post('addCart', 'ProductsController@addCart')->name('cart.add'); // 장바구니 등록
+    Route::post('removeCart', 'ProductsController@removeCart')->name('cart.remove'); // 장바구니 삭제
     Route::get('orderList', 'ProductsController@orderList')->name('orderListPage'); // 주문 페이지
     Route::get('cart', 'ProductsController@cartPage')->name('cartPage'); // 장바구니
     Route::get('orderSheet', 'ProductsController@orderSheet')->name('orderSheetPage'); // 주문 페이지
