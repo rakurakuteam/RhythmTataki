@@ -3,7 +3,7 @@ $(document).ajaxComplete(function(){
     wavesurfer = WaveSurfer.create({
         height: 300,
         container: '#waveform',
-        waveColor: "rgba(134, 229, 127, 1)", // 웨이브 색깔
+        waveColor: "rgba(0,30,139, 1)", // 웨이브 색깔
         progressColor: "rgba(134, 229, 200, 1)", // 재생후 색깔
         pixelRatio: 1,
         scrollParent: false,
