@@ -59,11 +59,17 @@ body {
     max-width: 10
   }
 
+  .body_box {
+    height: 850px;
+    width: 1400px;
+  }
+
   .top_box {
     width: 1400px;
     height: 700px;
-    padding-top: 200px;
-    padding-left: 220px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 80px;
   }
 
   .wave_box {
@@ -76,22 +82,25 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#10127f', endColorstr='#1000a0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     box-shadow: 3px 3px 15px 3px #838383;
     margin-bottom: 50px;
-    padding: 20px;
-
+    width: 1500px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    position: absolute;
+    transform: translate(13%, 35%);
   }
 
   .waveform {
-    width: 100%;
+    width: 1400px;
     margin-bottom: 100px;
     }
 
   #music_btn_box {
     width: 105%;
-    margin-left: -30px;
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-left: 200px;
   }
 
-  #play_btn, #pause_btn {
+  #play_btn {
     width: 160px;
     height: 50px;
     border-radius: 50px;
@@ -100,18 +109,31 @@ body {
     color: #fff;
     border: 1px solid #4aa3fd;
     cursor: pointer;
-    float: right;
-    margin-right: 40px;
-    margin-top: -15px;
+    float: left;
+    margin-left: 20px;
+    margin-top: -502px;
+  }
+
+  #pause_btn {
+    width: 160px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #fff;
+    font-size: 20px;
+    color: #4aa3fd;
+    border: 3px solid #4aa3fd;
+    cursor: pointer;
+    float: left;
+    margin-left: 210px;
+    margin-top: -502px;
   }
 
   .timer_box {
-    width: 400px;
-    margin-left: 20px;
+    width: 300px;
     height: 35px;
     margin-bottom: 40px;
-    display: inline-block;
-    margin-top: -15px;
+    margin-bottom: 50px;
+    margin-left: 215px;
   }
 
   #current_time {
@@ -124,6 +146,7 @@ body {
   #play_time {
     float: left;
     width: 100px;
+    position: relative;
   }
 
   #play_time, #icon {
@@ -132,6 +155,12 @@ body {
 
   #icon {
     float: left;
+  }
+
+  .cutter_box {
+    width: 800px;
+    margin-left: 900px;
+    margin-top: -90px;
   }
 
   #start_sec, #end_sec {
@@ -164,4 +193,8 @@ body {
     color: #fff;
     border: 2px solid #4aa3fd;
     cursor: pointer;
+  }
+
+  .under_box {
+    margin-top: 550px;
   }
