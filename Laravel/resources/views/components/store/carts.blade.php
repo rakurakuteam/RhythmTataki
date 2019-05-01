@@ -17,9 +17,8 @@
           <h2 class="total">합계</h2>
               <h2 class="price">{{number_format($total_price)}}원</h2>
         </div>
-        {{-- onclick="order()" --}}
-        {{-- onclick="location.href='{{route('orderSheetPage', ['id' => 1,2])}}'" --}}
-        <button id="shop_button" onclick="location.href='{{route('orderSheetPage', ['id' => [1, 2]])}}'">
+
+        <button id="shop_button" onclick="location.href='{{route('orderSheetPage', ['id' => $product_id])}}'">
             <b>주문하기</b>
         </button>
     </div>
