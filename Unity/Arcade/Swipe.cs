@@ -15,8 +15,10 @@ public class Swipe : MonoBehaviour
     public GameObject canvas;
     int height;
     //int height2;
-    public GameObject perfect;
+    //public GameObject perfect;
     public static Swipe instance;
+
+    Transform Canvas;
 
     //public GameObject spectrum;
 
@@ -25,19 +27,18 @@ public class Swipe : MonoBehaviour
     {
         DOTween.Init();
         instance = this;
+        Canvas = canvas.transform;
     }
 
 
     private void FixedUpdate()
     {
-        
+        //PBlock.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         if (inTrigger && Input.GetKeyDown(KeyCode.Space))
         {
             inTrigger = false;
             GameObject miss = Instantiate(MBlock);
             miss.transform.position = new Vector2(-0.5f, 5);
-
-            
         }
         else if (inTrigger2 && Input.GetKeyDown(KeyCode.Space))
         {
@@ -47,21 +48,14 @@ public class Swipe : MonoBehaviour
         }
         else if(inTrigger3 && Input.GetKeyDown(KeyCode.Space))
         {
-            
             inTrigger3 = false;
-           perfect = Instantiate(PBlock);
-     
-            perfect.transform.position = new Vector2(0, Blocks.instance.height2);
-                //perfect.transform.position = new Vector2(0, transform.position.y);
-                Debug.Log(transform.position.y);
-                //inTrigger4 = false;
-          
+            GameObject perfect = Instantiate(PBlock);
+            perfect.transform.SetParent(Canvas,false);
+            perfect.transform.localPosition = new Vector3(0, 541,0);
+            Debug.Log(perfect.transform.position.y);
+            Debug.Log(perfect.transform.localPosition.y);
         }
     }
-
- 
-    
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -81,7 +75,5 @@ public class Swipe : MonoBehaviour
             inTrigger = false;
             inTrigger2 = false;
         }
-
     }
-
 }
