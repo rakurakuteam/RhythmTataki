@@ -15,6 +15,7 @@ use App\File;
 
 class UnityController extends Controller
 {
+    // 유니티 회원가입
     public function join(Request $request)
     {
         //['email' : email_value, 'pw' : pw_value, 'nmae' : name_value]
@@ -43,9 +44,10 @@ class UnityController extends Controller
     }
 
     public function loginForm(){
-        return view('page.unityAuth');
+        return view('components.auth.unityAuth');
     }
 
+    // 유니티 로그인
     public function login(Request $request)
     {
         //['email' : email_value, 'pw' : pw_value]
@@ -178,8 +180,8 @@ class UnityController extends Controller
         return $result;
     }
 
-    public function getMusicList(Request $request){
-        $user = User::where('email', $request->email)->pluck('id')->first();
+    public function getMusicList($email){
+        $user = User::where('email', $email)->pluck('id')->first();
         $list = File::where('user_id', $user)->where('dl_check', false)->select('path', 'name')->get();
         return $list;
     }

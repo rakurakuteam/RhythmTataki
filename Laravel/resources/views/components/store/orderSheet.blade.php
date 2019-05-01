@@ -18,7 +18,8 @@
         <div class="order_box_2">
             <h3 class="title_text">금액 및 결제수단</h3>
         </div>
-        <form action="">
+        <form action="{{route('store.order')}}" method="POST">
+        @csrf
         <div class="order_under_box_2">
             <!-- 라디오박스 -->
             <div class="radio_box">
@@ -40,12 +41,14 @@
 
             <div class="final_price_text">
                 <h2>주문금액</h2>
-                <h2 class="price_1">{{number_format($product->price)}}원</h2>
+                <h2 class="price_1">{{number_format($total_price)}}원</h2>
                 <h2>배송비</h2>
-                <h2 class="price_2" id="price_2">2,500원</h2>
+                <h2 class="price_2" id="price_2">{{number_format($delivery)}}원</h2>
                 <hr>
                 <h2 class="all_price_text">총주문금액</h2>
-                <h2 class="price_3">{{number_format($product->price+2500)}}원</h2>
+                
+                <input type="hidden" name="price" id="total_price" value="{{$total_price}}">
+                <h2 class="price_3">{{number_format($total_price)}}원</h2>
             </div>
 
         </div>
@@ -70,7 +73,7 @@
                 <p class="address_name_text"><b>배송지</b></p>
                 <div class="address_under_box"></div>
                 <!-- 체크 할 경우  -->
-                <input type="checkbox" id="cb_1" name="">
+                <input type="checkbox" id="cb_1" name="" onclick="check_same_order()">
                 <label for="cb_1"></label>
                 <p class="cb_1_text">주문자와 같음</p>
 
@@ -81,10 +84,10 @@
                     <input type="text" placeholder="연락처" id="delivery_address" name="delivery_address">
                 </div>
                 <!-- 체크 할 경우  -->
-                <input type="checkbox" id="cb_2">
+                <input type="checkbox" id="cb_2" name="cb_2">
                 <label for="cb_2"></label>
                 <p class="cb_2_text">기본 배송지로</p>
-                <button class="addr_find_btn" onclick="sample4_execDaumPostcode()">
+                <button type="button" class="addr_find_btn" onclick="sample4_execDaumPostcode()">
                     <img src="{{asset("images/pic/finder.png")}}" class="finder_icon"/>
                     <b>주소찾기</b>
                 </button>
@@ -100,12 +103,12 @@
 
                 <p class="message_text"><b>배송 메세지</b></p>
                 <div class="message_form">
-                    <input type="text" placeholder="배송메세지" name="message_text">
+                    <input type="text" placeholder="배송메세지" name="order_request">
                 </div>
             </div>
 
             <div class="final_btn_box">
-                <button type="submit" class="final_btn" href="#">
+                <button type="submit" class="final_btn">
                     <b>주문완료</b>
                 </button>
             </div>

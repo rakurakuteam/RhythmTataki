@@ -20,7 +20,7 @@ Route::prefix('unity')->group(function() {
     Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore'); // 점수 조회 
     Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores'); // 점수들 조회
     Route::get('/fileDownload/{email}/{fileName?}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
-    Route::get('/getMusicList', 'UnityController@getMusicList')->name('unity.getMusicList'); // 음악 목록
+    Route::get('/getMusicList/{email}', 'UnityController@getMusicList')->name('unity.getMusicList'); // 음악 목록
 
     Route::post('/join', 'UnityController@join')->name('unity.join'); // 회원가입
     Route::post('/login', 'UnityController@login')->name('unity.login'); // 로그인
@@ -58,14 +58,14 @@ Route::prefix('workshop')->group(function() {
 // 주문관련
 Route::prefix('store')->group(function() {
     Route::get('orderList', 'ProductsController@orderList')->name('orderListPage'); // 주문확인 페이지
-    Route::get('orderSheet', 'ProductsController@orderSheet')->name('orderSheetPage'); // 주문 페이지
+    Route::get('orderSheet/{id}', 'ProductsController@orderSheet')->name('orderSheetPage'); // 주문 페이지
     Route::get('payPage', 'ProductsController@payPage')->name('payPage'); // 결제 페이지
     Route::get('cart', 'ProductsController@cartPage')->name('cartPage'); // 장바구니
 
     Route::post('removeCart', 'ProductsController@removeCart')->name('cart.remove'); // 장바구니 삭제
     Route::post('addCart', 'ProductsController@addCart')->name('cart.add'); // 장바구니 등록
-    Route::post('order', 'ProductsController@order')->name('order'); // 주문처리
-    Route::post('pay', 'ProductsController@pay')->name('pay'); // 결제처리
+    Route::post('order', 'ProductsController@order')->name('store.order'); // 주문처리
+    Route::post('pay', 'ProductsController@pay')->name('store.pay'); // 결제처리
 });
 Route::get('quantity', 'ProductsController@quantity')->name('quantity'); // 결제처리
 
