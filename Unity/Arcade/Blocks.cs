@@ -9,19 +9,14 @@ public class Blocks : MonoBehaviour
     public bool inTrigger2 = false;
     public bool inTrigger4 = false;
     int height;
-    public int height2;
+    public static int height2;
     public static Blocks instance;
     GameObject box;
 
 
     // Update is called once per frame
-    void Update()
-    {
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, 90);
-        //Debug.Log(transform.position);
-
-    }
+    
     void Start()
     {
         DOTween.Init();
@@ -36,20 +31,24 @@ public class Blocks : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (inTrigger == true)
         {
-             if (inTrigger2 == true)
+             if (inTrigger2 == true)                      
              {
-                //height2 += 10;
                 inTrigger2 = false;
-                Debug.Log("시발라ㅣㅇ무리ㅏㅁ우리ㅏㅁ우라");
+                Debug.Log("pink on");
                 height += 5;
+                Camera.main.transform.DOMove(new Vector2(0, height), 1);
+                Debug.Log("camera move");
+                /*
+                height += 50;
                 Camera.main.transform.DOMove(new Vector2(0, height),1);
-                height2 += 10;
-                Swipe.instance.perfect.transform.DOMove( new Vector2(0, height2),0);
-                //Debug.Log(height2);
+                //box.transform.localPosition = new Vector2(0, height);
+                Debug.Log(height);
+                Debug.Log(transform.position.y);
+               */
             }
             
         }
