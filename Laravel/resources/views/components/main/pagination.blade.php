@@ -9,7 +9,7 @@
     <ul>
         <li>
             <p class="thmb">
-                <a href="{{route('board', $board->id)}}">
+                <a href="{{route('board.show', $board->id)}}">
                     @if(isset($board->files[0]))
                     <video class="picture">
                         <source src="{{$board->files[0]->path.$board->files[0]->name}}#t=0.1" type="video/mp4">
@@ -25,7 +25,7 @@
             <div class="view_like_{{{$board->id}}}" id="view_like_{{{$board->id}}}">
                 @include('components.heart', ['board' => $board])
             </div>
-            <a href="{{route('board', $board->id)}}">
+            <a href="{{route('board.show', $board->id)}}">
                 <h4 class="title_text">
                     <strong>
                         {{$board->title}}
