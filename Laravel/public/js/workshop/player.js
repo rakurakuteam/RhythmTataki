@@ -74,16 +74,16 @@ $(document).ajaxComplete(function(){
     };
 
     // 오디오 재생
-    document.getElementById('sound_play').addEventListener('click', function(){
+    document.getElementById('play_btn').addEventListener('click', function(){
         wavesurfer.play();
     });
 
     // 오디오 정지
-    document.getElementById('sound_pause').addEventListener('click', function(){
+    document.getElementById('pause_btn').addEventListener('click', function(){
         wavesurfer.pause();
     });
     // 영역 삭제
-    document.getElementById('region_remove').addEventListener('click',function(){
+    document.getElementById('remove_btn').addEventListener('click',function(){
         wavesurfer.regions.list[regionId].remove();
     });
 });
