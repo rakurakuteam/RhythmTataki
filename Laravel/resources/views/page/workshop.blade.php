@@ -11,6 +11,7 @@
 @endsection
 
 @section('header')
+    {{header("Access-Control-Allow-Origin: *")}}
     @include('layouts.header.main')
 <div id="dropZone">
 @endsection
