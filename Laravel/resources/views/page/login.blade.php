@@ -22,7 +22,7 @@
 @endsection
 
 @section('body')
-    @include('components.auth.unityAuth')
+    @include('components.auth.login')
     @include('components.auth.googleAuth')
 @endsection
 

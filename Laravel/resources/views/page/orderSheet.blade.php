@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('title')
-    장바구니
+    주문
 @endsection
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeCarts.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/order.css')}}" />
 @endsection
 
 @section('header')
@@ -14,11 +14,11 @@
 @endsection
 
 @section('nav')
-
+    
 @endsection
 
 @section('body')
-    @include('components.store.carts')
+    @include('components.store.orderSheet')
 @endsection
 
 @section('footer')
@@ -27,5 +27,6 @@
 
 @push('scripts')
     <script src="{{asset('js/store/quantity.js')}}"></script>
-    <script src="{{asset('js/store/cart.js')}}"></script>
+    <script src="{{asset('js/store/order.js')}}"></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 @endpush

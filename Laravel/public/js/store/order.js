@@ -1,6 +1,11 @@
 function sample4_execDaumPostcode() {
+    let width = 500;
+    let height = 600;
     new daum.Postcode(
     {
+        // popupName: 'postcodePopup',
+        width: width,
+        height: height,
         oncomplete : function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -30,13 +35,18 @@ function sample4_execDaumPostcode() {
             if (fullRoadAddr !== '') {
                 fullRoadAddr += extraRoadAddr;
             }
-
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('zip_code').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('address').value = fullRoadAddr;
-            document.getElementById('address').value = data.jibunAddress;
+            if(data.addressType == "R"){
+                document.getElementById('address').value = fullRoadAddr; // 도로명 주소
+            }else{
+                document.getElementById('address').value = data.jibunAddress; // 지번 주소
+            }
         }
-    }).open();
+    }).open({
+        left: (window.screen.width / 2) - (width / 2),
+        top: (window.screen.height / 2) - (height / 2)
+    });
 }
 
 function delivery_user(){
@@ -47,3 +57,22 @@ function delivery_user(){
         $('#delivery_name').text(name);
     }
 }
+function check_same_order(){
+    //체크박스
+    let checkbox = document.getElementById('cb_1');
+    //주문자 박스
+    let buyer_box_name = document.getElementById('name');
+    let buyer_box_phone = document.getElementById('phone');
+    //주소박스
+    let address_box_name = document.getElementById('delivery_name');
+    let address_box_phone = document.getElementById('delivery_address');
+  
+    // onclick 이벤트가 일어난 후에 check가 됨으로 checked의 조건을 반대로함
+    if(checkbox.checked !== false){
+      address_box_name.value = buyer_box_name.value;
+      address_box_phone.value = buyer_box_phone.value;
+    }else{
+      address_box_name.value = "";
+      address_box_phone.value = "";
+    }
+  }

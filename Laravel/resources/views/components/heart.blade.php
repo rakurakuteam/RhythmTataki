@@ -10,4 +10,8 @@
 @endif
 <p class="like_text">{{$board->total_heart}}</p>
 
+@if(\Auth::check())
+<img src="{{asset('images/pic/download.png')}}" class="download" onclick="download({{$board->id}})" style="cursor:pointer"/>
+@else
 <img src="{{asset('images/pic/download.png')}}" class="download"/>
+@endif

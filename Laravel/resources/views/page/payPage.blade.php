@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('title')
-    장바구니
+    주문확인
 @endsection
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/store/storeCarts.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/orderConfirm.css')}}" />
 @endsection
 
 @section('header')
@@ -14,11 +14,11 @@
 @endsection
 
 @section('nav')
-
+    
 @endsection
 
 @section('body')
-    @include('components.store.carts')
+    @include('components.store.payPage')
 @endsection
 
 @section('footer')
@@ -26,6 +26,4 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/store/quantity.js')}}"></script>
-    <script src="{{asset('js/store/cart.js')}}"></script>
 @endpush

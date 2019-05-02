@@ -15,6 +15,7 @@ use App\File;
 
 class UnityController extends Controller
 {
+    // 유니티 회원가입
     public function join(Request $request)
     {
         //['email' : email_value, 'pw' : pw_value, 'nmae' : name_value]
@@ -43,9 +44,10 @@ class UnityController extends Controller
     }
 
     public function loginForm(){
-        return view('page.unityAuth');
+        return view('components.auth.unityAuth');
     }
 
+    // 유니티 로그인
     public function login(Request $request)
     {
         //['email' : email_value, 'pw' : pw_value]
@@ -125,56 +127,79 @@ class UnityController extends Controller
         return json_encode($k_v_scores);
     }
 
+    //파일업로드
     public function fileUpload(Request $request)
     {
-        $fileType = $request->file->getClientOriginalExtension();
-        $fileName = $request->file->getClientOriginalName().$fileType;
-        $path = $request->file('file')->storeAs(
-            'test/files', $fileName, 's3'
-        );
-        $size = Storage::disk('s3')->size($fileName);
+        // return count($request->file('file'));
+        // return $request->file('file')[0];
         $user = User::where('email', $request->email)->pluck('id')->first();
-        $url = Storage::url('test/files/'.$fileName);
 
-        Log::info('file data:'. $path);
-        Log::info('file data:'. $url);
-        Log::info('file name:'. $request->file->getClientOriginalName());
-        Log::info('file type:'. $request->file->getClientOriginalExtension());
-        Log::info('file size:'. $request->file->ClientSize());
-        Log::info('file size:'. $size);
+        $count = count($request->file);
 
-        File::create([
-            'user_id' => $user,
-            'path' => $url,
-            'name' => $fileName,
-            'type' => $fileType,
-            'size' => $size,
-            'created_at' => now(),
-        ]);
+        for($i=0; $i<$count; $i++){
+            $fileType = $request->file[$i]->getClientOriginalExtension();
+            $fileName = $request->file[$i]->getClientOriginalName();
 
+            $path = $request->file('file')[$i]->storeAs(
+                'files/'.$request->email."/", $fileName, 's3'
+            );
+
+            $url = Storage::disk('s3')->url('files/'.$request->email.'/'.$fileName);
+            $size = round($request->file[$i]->getClientSize()/1024/1024, 2);
+
+            Log::info('file path:'. $path);
+            Log::info('file url:'. $url);
+            Log::info('file name:'. $request->file[$i]->getClientOriginalName());
+            Log::info('file type:'. $request->file[$i]->getClientOriginalExtension());
+            Log::info('file size:'. $request->file[$i]->getClientSize());
+            
+            File::create([
+                'user_id' => $user,
+                'path' => $url,
+                'name' => $fileName,
+                'type' => $fileType,
+                'size' => $size,
+                'dl_check' => true,
+                'created_at' => now(),
+            ]);
+        }   
         return "업로드 성공";
     }
 
     // request URL 파일명, 이메일
     // return 파일, 확장자
-
     public function fileDownload(Request $request){
         Log::info('email: '.$request->email);
         Log::info('fileName: '.$request->fileName);
         $user = User::where('email', $request->email)->pluck('id');
-        $fileName = $request->fileName;
-        $file = File::where('user_id', $user)->where('name', $fileName);
-        $path = $file->pluck('path')->first();
+        $files = File::where('user_id', $user)->where('type', 'txt')->where('dl_check', false)->get();
 
-        $s3 = AwsFacade::createClient('s3');
-        $result = $s3->getObject([
-            'Bucket'    => 'capstone.rhythmtataki.bucket',
-            'Key'       => 'files/'.$fileName,
-        ]);
+        // $fileName = $request->fileName;
+        // $file = File::where('user_id', $user)->where('name', $fileName);
+        // $path = $file->pluck('path')->first();
+        // $s3 = AwsFacade::createClient('s3');
+        // $result = $s3->getObject([
+        //     'Bucket'    => 'capstone.rhythmtataki.bucket',
+        //     'Key'       => 'files/류경호.jpg',
+        // ]);
         
-        $headers = ['Content-Type' => $result['ContentType']];
-        // $s3 = Storage::download($url, "somsatang.ogg");
-        // return response()->download('capstone.rhythmtataki.bucket/'.$fileName, $fileName, $headers);
-        return $result;
+        // $headers = [
+        //     'Pragma' => 'public',
+        //     'Expires' => 0,
+        //     'Content-Type' => $result['ContentType'],
+        //     'Content-Disposition' => "attachment; filename=ししらしら.txt",
+        //     'Content-Transfer-Encoding' => 'binary',
+        //     'Content-Length' => $result['ContentLength']
+        // ];
+        // return $headers;
+        // return $result;
+        // return Storage::disk('s3')->download('files/ししらしら.txt', 'test.txt', $headers);
+        return $files;
+    }
+
+    public function getMusicList($email){
+        $user = User::where('email', $email)->pluck('id')->first();
+        $list = File::where('user_id', $user)->where('dl_check', false)->select('path', 'name')->get();
+        return $list;
     }
 }

@@ -106,7 +106,7 @@ return [
 
     'key' => env('APP_KEY'),
 
-    'cipher' => 'AES-128-CBC',
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,6 +164,7 @@ return [
 
         /* AWS SDK */
         Aws\Laravel\AwsServiceProvider::class,
+        Aws\S3\S3Client::class,
     ],
 
     /*
