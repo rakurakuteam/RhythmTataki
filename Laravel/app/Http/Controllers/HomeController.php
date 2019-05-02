@@ -244,12 +244,21 @@ class HomeController extends Controller
         return view('components.heart')->with('board', $board);
     }
 
+    // 다운로드 체크
+    public function download(Request $request){
+        $heart = Heart::where('user_id', \Auth::user()->id)
+                        ->where('board_id', $request->id)
+                        ->update(['dl_check' => true]);
+        return $heart;
+    }
+
     // 게시글 작성 페이지
     public function create(){
+        // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
         $files = File::where('user_id', \Auth::user()->id)
         // ->where('type', 'mp4')
         ->where('dl_check', true)->get();
-        
+
         $fp = fopen("document.txt","r");
         while( !feof($fp) )
             $doc_data = fgets($fp);

@@ -8,7 +8,7 @@ class Board extends Model
 {
 
     protected $fillable = [
-        'user_id', 'title', 'content', 'hits', 'hearts'
+        'user_id', 'title', 'content', 'hits', 'hearts', 'dl_check'
     ];
 
     // 일대다

@@ -87,7 +87,7 @@ function selectFile(fileObject) {
 function uploadFile(fileObject) {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         }
     });
 
@@ -110,7 +110,7 @@ function uploadFile(fileObject) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log("success");
+            console.log(data);
             $("#workshop").html(data);
         },
         error: function (data) {
