@@ -15,5 +15,13 @@ return [
     'cart' => '장바구니',
     'orderRequest' => '주문하기',
     'buy' => '구매하기',
-    'TOP' => 'TOP'
+    'TOP' => 'TOP',
+    'list' => '노트 리스트',
+    'writeComplete' => '작성완료',
+    'writer' => '작성자',
+    'writeTitle' => '제목',
+    'writeContents' => '내용',
+    'writerHolder' => '작성자명',
+    'writeTitleHolder' => '제목을 입력 해 주세요',
+    'writeConHolder' => '글 내용을 입력 해 주세요'
 ];
