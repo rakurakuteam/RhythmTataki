@@ -1,3 +1,4 @@
+<div class="comment_box">
 <div class="contents">
             <!--상단이미지-->
             <div class="img_box">
@@ -16,9 +17,10 @@
                         </div>
                             <label for="comment" id="comment"><b>{{__('messages.writeContents')}}</b></label>
                             <textarea class="comment_input" placeholder="{{__('messages.writeConHolder')}}"></textarea>
-
+                              @include('components.writeForm.list')
                             <button type="submit" class="submit_btn"><b>{{__('messages.writeComplete')}}</b></button>
                     </div>
                 </div>
             </center>
         </div>
+</div>

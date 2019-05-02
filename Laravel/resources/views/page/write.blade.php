@@ -15,10 +15,9 @@
 @endsection
 
 @section('body')
-    <div class="comment_box">
-      @include('components.writeForm.writeForm')
-      @include('components.writeForm.list')
-    </div>
+    
+      @include('components.writeForm.write')
+
 @endsection
 
 @section('footer')
