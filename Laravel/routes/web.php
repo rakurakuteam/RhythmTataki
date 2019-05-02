@@ -66,3 +66,5 @@ Route::get('quantity', 'ProductsController@quantity')->name('quantity'); // 결�
 
 // 스토어 관련
 Route::resource('store', 'StoreController');
+
+Route::get('')
