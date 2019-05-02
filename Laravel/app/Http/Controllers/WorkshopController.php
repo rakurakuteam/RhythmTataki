@@ -23,7 +23,7 @@ class WorkshopController extends Controller
         $url = Storage::disk('s3')->url($path);
 
         // return response()->json($request->audio, 200, [], JSON_PRETTY_PRINT);
-        return view('components.workshop.player')->with('url', $url);
+	return view('components.workshop.player')->with('url', $url);
     }
 
     public function cutter(Request $request){
