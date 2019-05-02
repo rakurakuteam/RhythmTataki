@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 define('LINK', 2);
-define('POSTS', 12);
+define('POSTS', 4);
 define('RANKING', 4);
 
 class HomeController extends Controller
@@ -21,6 +21,7 @@ class HomeController extends Controller
     //     $this->middleware('auth');
     // }
 
+    // 메인 페이지
     public function index()
     {
         /* 상위 3개 조회수 게시글 */
@@ -241,5 +242,53 @@ class HomeController extends Controller
 
         // return response()->json($heart, 200, [], JSON_PRETTY_PRINT);
         return view('components.heart')->with('board', $board);
+    }
+
+    // 다운로드 체크
+    public function download(Request $request){
+        $heart = Heart::where('user_id', \Auth::user()->id)
+                        ->where('board_id', $request->id)
+                        ->update(['dl_check' => true]);
+        return $heart;
+    }
+
+    // 게시글 작성 페이지
+    public function create(){
+        // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
+        $files = File::where('user_id', \Auth::user()->id)
+        // ->where('type', 'mp4')
+        ->where('dl_check', true)->get();
+
+        $fp = fopen("document.txt","r");
+        while( !feof($fp) )
+            $doc_data = fgets($fp);
+        fclose($fp);
+        echo $doc_data;
+        
+        return $files;
+    }
+
+    // 게시글 등록
+    public function store(Request $request)
+    {
+        //
+    }
+
+    // 게시글 수정 페이지
+    public function edit($id)
+    {
+        //
+    }
+
+    // 게시글 수정 페이지
+    public function update(Request $request, $id)
+    {
+        //
+    }
+    
+    // 게시글 삭제
+    public function destroy($id)
+    {
+        //
     }
 }

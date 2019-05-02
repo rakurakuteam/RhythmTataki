@@ -110,7 +110,7 @@ function uploadFile(fileObject) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log("success");
+            console.log(data);
             $("#workshop").html(data);
         },
         error: function (data) {

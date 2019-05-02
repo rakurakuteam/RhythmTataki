@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-    protected $fileable = [
-        'user_id', 'path', 'name', 'size', 'type', 'created_at'
+    protected $fillable = [
+        'user_id', 'path', 'name', 'size', 'type', 'dl_check', 'created_at'
     ];
 
     // 다대다
