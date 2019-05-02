@@ -164,6 +164,7 @@ return [
 
         /* AWS SDK */
         Aws\Laravel\AwsServiceProvider::class,
+        Aws\S3\S3Client::class,
     ],
 
     /*
