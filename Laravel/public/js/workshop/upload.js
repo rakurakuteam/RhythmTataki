@@ -88,7 +88,7 @@ function uploadFile(fileObject) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	}
+        }
     });
 
     // 용량을 50MB를 넘을 경우 업로드 불가
@@ -110,7 +110,7 @@ function uploadFile(fileObject) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log("success");
+            console.log(data);
             $("#workshop").html(data);
         },
         error: function (data) {

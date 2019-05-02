@@ -3,6 +3,7 @@
         <div class="wave_box">
             <div id="waveform"></div>
         </div>
+        <div class="under_box">
         <div id="music_btn_box">
             <button id="play_btn">PLAY</button>
             <button id="pause_btn">STOP</button>
@@ -25,6 +26,6 @@
                 </form>
             </div>
         </div>
+      </div>
     </div>
   </div>
-</div>

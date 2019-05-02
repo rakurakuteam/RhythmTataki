@@ -8,7 +8,6 @@
     @yield('meta')
     <title>@yield('title', "메인페이지")</title>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
-    @yield('head')
     @yield('style')
     @stack('scripts')
 </head>

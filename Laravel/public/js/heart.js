@@ -20,3 +20,23 @@ function heartToggle(id){
         }
     });
 }
+
+function download(id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    $.ajax({
+        data: { 'id': id },
+        type: "POST",
+        url: "/download",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log(data.status);
+        }
+    });
+}
