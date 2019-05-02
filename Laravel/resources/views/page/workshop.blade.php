@@ -10,8 +10,11 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/footer.css')}}" />
 @endsection
 
-@section('header')
+@section('head')
     {{header("Access-Control-Allow-Origin: *")}}
+@endsection
+
+@section('header')
     @include('layouts.header.main')
 <div id="dropZone">
 @endsection
