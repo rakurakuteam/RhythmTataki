@@ -88,12 +88,17 @@ function uploadFile(fileObject) {
     $.ajaxSetup({
         headers: {
 <<<<<<< HEAD
+<<<<<<< HEAD
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	}
 =======
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         }
 >>>>>>> 5eeb3fc0ec2d15098937dc5009eeb3d246f9529f
+=======
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+>>>>>>> 9a3ea5690360336c855be4cda3ec5a210ac9ed8d
     });
 
     // 용량을 50MB를 넘을 경우 업로드 불가
