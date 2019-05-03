@@ -11,22 +11,19 @@
 @endsection
 
 @section('header')
-    @include('layouts.header.store')
+    @include('layouts.header.main')
 @endsection
 
 @section('body')
-    <div class="comment_box">
-      @include('components.writeForm.writeForm')
-      @include('components.writeForm.list')
-    </div>
+    @include('components.writeForm.write')
 @endsection
 
 @section('footer')
-@include('layouts.footer.footer')
+    @include('layouts.footer.footer')
 @endsection
 
 @push('scripts')
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    {{-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> --}}
     <script type="text/javascript" href="{{asset('js/writeForm/write.js')}}"></script>
 @endpush
