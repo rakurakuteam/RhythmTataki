@@ -7,8 +7,10 @@ use App\Board;
 use App\User;
 use App\Heart;
 use App\File;
+use App\Board_file;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Aws\Laravel\AwsFacade;
 
 define('LINK', 2);
 define('POSTS', 4);
@@ -246,11 +248,45 @@ class HomeController extends Controller
 
     // 다운로드 체크
     public function download(Request $request){
+
         $heart = Heart::where('user_id', \Auth::user()->id)
-                        ->where('board_id', $request->id)
-                        ->update(['dl_check' => true]);
-        return $heart;
+                        ->where('board_id', $request->id);
+        $board = Board::find($request->id);
+        $file_id = $board->files->first()->id;
+        $file = File::find($file_id);
+        
+        if($heart->first()->dl_check == false){
+            File::create([
+                'user_id' => \Auth::user()->id,
+                'path' => $file->path,
+                'name' => $file->name,
+                'type' => $file->type,
+                'size' => $file->size
+            ]);
+        }
+
+        if($heart->exists()){
+            $heart->update(['dl_check' => true]);
+        }else{
+            Heart::create([
+                'board_id' => $request->id,
+                'user_id' => \Auth::user()->id,
+                'dl_check' => true
+            ]);
+        }
+ 
+        return $file;
     }
+        // if($heart == true){
+
+        // }
+        // $client = AwsFacade::createClient('s3');
+        // $client->registerStreamWrapper();
+
+        // if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/bbb@naver.com/1.txt', 'r')){
+        //     echo fgets($stream);
+        //     fclose($stream);
+        // }
 
     // 게시글 작성 페이지
     public function create(){
@@ -258,16 +294,11 @@ class HomeController extends Controller
         $files = File::where('user_id', \Auth::user()->id)
         // ->where('type', 'mp4')
         ->where('dl_check', true)->get();
-
-        $fp = fopen("document.txt","r");
-        while( !feof($fp) )
-            $doc_data = fgets($fp);
-        fclose($fp);
-        echo $doc_data;
         
-        return $files;
+        return view('page.write')
+        ->with('files', $files);
     }
-
+ 
     // 게시글 등록
     public function store(Request $request)
     {
