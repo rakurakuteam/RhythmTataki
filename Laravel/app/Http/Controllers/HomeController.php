@@ -254,15 +254,21 @@ class HomeController extends Controller
         $board = Board::find($request->id);
         $file_id = $board->files->first()->id;
         $file = File::find($file_id);
-        
+        $fileName = explode('.', $file->name)[0];
+        $type = ['ogg', 'txt'];
+        $fileNames=[];
+
         if($heart->first()->dl_check == false){
-            File::create([
-                'user_id' => \Auth::user()->id,
-                'path' => $file->path,
-                'name' => $file->name,
-                'type' => $file->type,
-                'size' => $file->size
-            ]);
+            for($i=0; $i<count($type); $i++){
+                $file = File::create([
+                    'user_id' => \Auth::user()->id,
+                    'path' => $file->path,
+                    'name' => $fileName.$type,
+                    'type' => $file->type[$i],
+                    'size' => $file->size
+                ]);
+                $fileNames[$i] = $file->name;
+            }
         }
 
         if($heart->exists()){
@@ -274,6 +280,16 @@ class HomeController extends Controller
                 'dl_check' => true
             ]);
         }
+
+        $path = $request->email;
+        // $fileNames = File::where('user_id', \Auth::user()->id)
+        //             ->where('dl_check', 0)
+        //             ->pluck('name');
+
+        foreach($fileNmaes as $name){
+            shell_exec('cp /mnt/mountpoint/files/'.$request->email.'/'.$name.' /mnt/zip-point/'.$request->email.'/'.$name);
+        }
+        // shell_exec('cp /mnt/mountpoint/files/'{bbb@naver.com/1.mp4} '/mnt/zip-point/'.{bbb@naver.com/1.mp4})
  
         return $file;
     }

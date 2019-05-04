@@ -164,7 +164,8 @@ return [
 
         /* AWS SDK */
         Aws\Laravel\AwsServiceProvider::class,
-        Aws\S3\S3Client::class,
+        /* zip */
+        ZanySoft\Zip\ZipServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'AWS' => Aws\Laravel\AwsFacade::class,
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
     ],
 
 ];
