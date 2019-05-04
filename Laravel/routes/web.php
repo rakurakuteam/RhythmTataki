@@ -39,7 +39,7 @@ Route::prefix('login')->group(function() {
 });
 
 // 게시글 관련
-Route::get('/download', 'HomeController@download')->name('board.download'); // 다운로드 체크
+Route::post('/download', 'HomeController@download')->name('board.download'); // 다운로드 체크
 Route::resource('board', 'HomeController');
 
 Route::get('/myPage', 'HomeController@myPage')->name('myPage'); // 마이페이지
