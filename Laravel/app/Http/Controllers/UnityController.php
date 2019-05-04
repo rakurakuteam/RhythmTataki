@@ -145,7 +145,7 @@ class UnityController extends Controller
                 'files/'.$request->email."/", $fileName, 's3'
             );
 
-            $url = Storage::disk('s3')->url('files/'.$request->email.'/'.$fileName);
+            $url = Storage::disk('s3')->url('files/'.$request->email.'/');
             $size = round($request->file[$i]->getClientSize()/1024/1024, 2);
 
             Log::info('file path:'. $path);
