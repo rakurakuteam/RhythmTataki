@@ -17,7 +17,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('unity')->group(function() {
     Route::get('/login', 'UnityController@loginForm')->name('unity.loginPage'); // 로그인 페이지
     Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore'); // 스코어 등록
-    Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore'); // 점수 조회 
+    Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore'); // 점수 조회
     Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores'); // 점수들 조회
     // Route::get('/fileDownload/{email}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
     Route::get('/fileDownload', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드

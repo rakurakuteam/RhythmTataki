@@ -96,7 +96,7 @@ class HomeController extends Controller
         $boards = $this->paginate($current_page, $request->sort);
         $page_link_first = $request->page-LINK;
         $page_link_last = $request->page+LINK;
-        
+
         Log::info('pagination ajax data :'. $request->page);
 
         if(LINK+1 > $current_page || $page_link_first < 1){
@@ -136,7 +136,7 @@ class HomeController extends Controller
             $heart = Heart::where('board_id', $id)->where('user_id', \Auth::user()->id);
             Log::info('user_id: '. \Auth::user()->id);
             Log::info('board hits: '. $board->hits);
-            
+
             if(!$heart->exists()){
                 $heart->create([
                     'board_id' => $id,
@@ -175,7 +175,7 @@ class HomeController extends Controller
         }]); // users 테이블에서 select
 
         $myBoards = Board::all()->where('user_id', \Auth::user()->id); // 내 게시글
-        
+
         // return response()->json($myBoards, 200, [], JSON_PRETTY_PRINT);
         return view('page.myPage')
         ->with('boards', $boards)
@@ -210,7 +210,7 @@ class HomeController extends Controller
 
         $total_heart = Board::where('id', $request->id)->select('total_heart')->find($request->id);
         // Log::info('heartToggle check / total_heart : '. Board::where('id', $request->id)->get());
-        
+
         // Log::info('heartToggle check / $heart : '. $heart->get());
         // Log::info('heartToggle check / $heart->exists() : '. $heart->exists());
         if(!$heart->exists()){
@@ -220,9 +220,9 @@ class HomeController extends Controller
                 'user_id' => \Auth::user()->id,
             ]);
         }
-        
+
         if($heart->where('heart', true)->exists()){
-            // Log::info('heartToggle false');    
+            // Log::info('heartToggle false');
             Heart::where('user_id', \Auth::user()->id)
                         ->where('board_id', $request->id)->update(['heart' => false]);
             Board::where('id', $request->id)->update(['total_heart' => $total_heart->total_heart-1]);
@@ -232,12 +232,12 @@ class HomeController extends Controller
                         ->where('board_id', $request->id)->update(['heart' => true]);
             Board::where('id', $request->id)->update(['total_heart' => $total_heart->total_heart+1]);
         }
-     
+
         $board = Board::with(['hearts' => function($query){
             $query->select('user_id', 'board_id', 'heart')
             ->where('user_id', \Auth::user()->id);
          }])->find($request->id);
-        
+
         $end = $this->get_time();
         $time = $end - $start;
         Log::info('heartToggle check / time : '. $time);
@@ -314,7 +314,7 @@ class HomeController extends Controller
         $files = File::where('user_id', \Auth::user()->id)
         // ->where('type', 'mp4')
         ->where('dl_check', true)->get();
-        
+
         return view('page.write')
         ->with('files', $files);
     }
@@ -336,7 +336,7 @@ class HomeController extends Controller
     {
         //
     }
-    
+
     // 게시글 삭제
     public function destroy($id)
     {

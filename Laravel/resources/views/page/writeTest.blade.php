@@ -11,15 +11,15 @@
 @endsection
 
 @section('header')
-    @include('layouts.header.main')
+    @include('layouts.header.store')
 @endsection
 
 @section('body')
-    @include('components.writeForm.write')
+      @include('components.writeForm.writeTest')
 @endsection
 
 @section('footer')
-    @include('layouts.footer.footer')
+@include('layouts.footer.footer')
 @endsection
 
 @push('scripts')
