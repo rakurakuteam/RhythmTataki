@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Aws\Laravel\AwsFacade;
+use Zip;
 use Illuminate\Http\Request;
 use App\User;
 use App\Score;
@@ -144,7 +145,7 @@ class UnityController extends Controller
                 'files/'.$request->email."/", $fileName, 's3'
             );
 
-            $url = Storage::disk('s3')->url('files/'.$request->email.'/'.$fileName);
+            $url = Storage::disk('s3')->url('files/'.$request->email.'/');
             $size = round($request->file[$i]->getClientSize()/1024/1024, 2);
 
             Log::info('file path:'. $path);
@@ -166,35 +167,61 @@ class UnityController extends Controller
         return "업로드 성공";
     }
 
-    // request URL 파일명, 이메일
-    // return 파일, 확장자
-    public function fileDownload(Request $request){
-        Log::info('email: '.$request->email);
-        Log::info('fileName: '.$request->fileName);
-        $user = User::where('email', $request->email)->pluck('id');
-        $files = File::where('user_id', $user)->where('type', 'txt')->where('dl_check', false)->get();
-
-        // $fileName = $request->fileName;
-        // $file = File::where('user_id', $user)->where('name', $fileName);
-        // $path = $file->pluck('path')->first();
+    // public function zip_test($i){
         // $s3 = AwsFacade::createClient('s3');
         // $result = $s3->getObject([
         //     'Bucket'    => 'capstone.rhythmtataki.bucket',
-        //     'Key'       => 'files/류경호.jpg',
+        //     'Key'       => 'files/', // 다운로드 할 파일 경로 및 이름
         // ]);
-        
+
         // $headers = [
         //     'Pragma' => 'public',
         //     'Expires' => 0,
         //     'Content-Type' => $result['ContentType'],
-        //     'Content-Disposition' => "attachment; filename=ししらしら.txt",
+        //     'Content-Disposition' => "attachment; filename=091".$i.".txt", // 다운로드 되는 이름
         //     'Content-Transfer-Encoding' => 'binary',
         //     'Content-Length' => $result['ContentLength']
         // ];
         // return $headers;
         // return $result;
-        // return Storage::disk('s3')->download('files/ししらしら.txt', 'test.txt', $headers);
-        return $files;
+        // ('다운로드 할 파일 경로 및 이름')
+    //     return Storage::disk('s3')->download('files/bbb@naver.com/091'.$i.'.txt', 'test.txt', $headers);
+    // }
+
+    // request URL 파일명, 이메일
+    // return 파일, 확장자
+    public function fileDownload(Request $request){
+        // Log::info('email: '.$request->email);
+        // Log::info('fileName: '.$request->fileName);
+        // $user = User::where('email', $request->email)->pluck('id');
+        // $files = File::where('user_id', $user)->where('type', 'txt')->where('dl_check', false)->get();
+
+        // $fileName = $request->fileName;
+        // $file = File::where('user_id', $user)->where('name', $fileName);
+        // $path = $file->pluck('path')->first();
+
+        // return Storage::disk('s3')->download('files/bbb@naver.com/'.'1.txt', 'test.txt', $headers);
+
+        shell_exec('zip /mnt/zip-point/aaa-file.zip -j /mnt/zip-point/aaa@naver.com/*');
+
+        $filepath = '/mnt/zip-point/aaa-file.zip';
+        $filesize = filesize($filepath);
+        $path_parts = pathinfo($filepath);
+        $filename = $path_parts['basename'];
+        $extension = $path_parts['extension'];
+        
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Content-Type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: $filesize");
+        
+        ob_clean();
+        flush();
+        readfile($filepath);
+
+        // return Storage::download('files/bbb@naver.com/091'.$i.'.txt', 'test.txt', $headers);
     }
 
     public function getMusicList($email){
