@@ -19,7 +19,8 @@ Route::prefix('unity')->group(function() {
     Route::get('/setScore/{email}/{song}/{score}', 'UnityController@setScore')->name('unity.setScore'); // 스코어 등록
     Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore'); // 점수 조회
     Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores'); // 점수들 조회
-    Route::get('/fileDownload/{email}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
+    // Route::get('/fileDownload/{email}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
+    Route::get('/fileDownload', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
     Route::get('/getMusicList/{email}', 'UnityController@getMusicList')->name('unity.getMusicList'); // 음악 목록
 
     Route::post('/join', 'UnityController@join')->name('unity.join'); // 회원가입
@@ -73,4 +74,4 @@ Route::resource('store', 'StoreController');
 // 유니티 테스트용
 Route::get('fileUpload', function(){
     return view('components.board.uploadForm');
-});
+}

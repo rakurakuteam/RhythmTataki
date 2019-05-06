@@ -157,7 +157,7 @@ PlayerSettings:
     Standalone: com.Company.ProductName
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 16
+  AndroidMinSdkVersion: 18
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -588,7 +588,12 @@ PlayerSettings:
   webGLCompressionFormat: 1
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: NATCORDER;NATCORDER_10;INATCORDER_C
+    4: NATCORDER;NATCORDER_10;INATCORDER_C
+    7: NATCORDER;NATCORDER_10
+    13: NATCORDER;NATCORDER_10;INATCORDER_C
+    14: NATCORDER;NATCORDER_10
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
@@ -597,7 +602,8 @@ PlayerSettings:
   allowUnsafeCode: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
-  apiCompatibilityLevelPerPlatform: {}
+  apiCompatibilityLevelPerPlatform:
+    Android: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Template_2D
