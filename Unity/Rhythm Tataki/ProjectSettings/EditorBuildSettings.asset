@@ -6,8 +6,38 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LoginScene.unity
+    guid: 954d66d434d8287409374be448b209e3
+  - enabled: 1
+    path: Assets/Scenes/JoinScene.unity
+    guid: ec424f6e470e33848bd4a653bc428408
+  - enabled: 1
+    path: Assets/Scenes/NatCorderTestScene.unity
+    guid: 2faa4dbc8af86ef46809aa28db7a2c5a
+  - enabled: 1
+    path: Assets/Scenes/SelectModeScene.unity
+    guid: 85dd3dac06e5e434d9f2b1b5fc399770
+  - enabled: 1
+    path: Assets/Scenes/FreeMusicSelectScene.unity
+    guid: 1238e5df682741d47b154845b4533654
+  - enabled: 1
+    path: Assets/Scenes/FreeModeGameScene.unity
+    guid: f80f53f424ea649488cae607e6cbefab
+  - enabled: 1
+    path: Assets/Scenes/NormalMusicSelectScene.unity
+    guid: 0c9738e6dfadccc4f9d1a348e45c85d9
+  - enabled: 1
+    path: Assets/Scenes/SetLevelScene.unity
+    guid: f74159a237a592946b3a54a391b26edb
+  - enabled: 1
     path: Assets/Scenes/NormalGameScene.unity
     guid: 5173b91f5e8a6ac4ea6eb19537ea6ca9
+  - enabled: 1
+    path: Assets/Scenes/NormalResultScene.unity
+    guid: 383392f1dad37424fb3c9213a3961570
+  - enabled: 1
+    path: Assets/Scenes/ArcadeModeScene.unity
+    guid: 911d6b48cb8ad7746b85c5bbe35674b1
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

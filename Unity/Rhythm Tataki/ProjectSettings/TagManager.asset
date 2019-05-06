@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Perfect Line
+  - Good Line
+  - Bad Line
+  - Miss Line
   layers:
   - Default
   - TransparentFX
@@ -40,4 +44,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1954679537
+    locked: 0
+  - name: Judge Lines
+    uniqueID: 2666220465
+    locked: 0
+  - name: Notes
+    uniqueID: 2105675753
+    locked: 0
+  - name: Judgement
+    uniqueID: 1448845051
+    locked: 0
+  - name: Effect
+    uniqueID: 85138451
     locked: 0

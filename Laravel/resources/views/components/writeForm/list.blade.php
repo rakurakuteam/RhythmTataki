@@ -1,26 +1,50 @@
-<div class="container">
-    <br />
-        <div class="row">
-                <p id="list"><b>{{__('messages.list')}}</b></p>
-            <div class="list_box">
-            <div class="well text-right">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                    <div class="btn-group">
-                        <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
-                    </div>
-                    </div>
+<!--리스트-->
+<div class="list_box">
+    <div class="col-md-12 row">
+        <center>
+            <div class="col-md-6">
+
+                <div class="radio_box">
+                    <label class="radio list">Name<p id="date">2019-05-03</p>
+                      <input type="radio" checked="checked" name="list">
+                      <span class="checkround"></span>
+                    </label>
+                </div>
+                <div class="radio_box">
+                    <label class="radio list">Name<p id="date">2019-05-03</p>
+                      <input type="radio" checked="checked" name="list">
+                      <span class="checkround"></span>
+                    </label>
+                </div>
+                <div class="radio_box">
+                    <label class="radio list">Name<p id="date">2019-05-03</p>
+                      <input type="radio" checked="checked" name="list">
+                      <span class="checkround"></span>
+                    </label>
+                </div>
+                <div class="radio_box">
+                    <label class="radio list">Name<p id="date">2019-05-03</p>
+                      <input type="radio" name="list">
+                      <span class="checkround"></span>
+                    </label>
+                </div>
+                <div class="radio_box">
+                    <label class="radio list">Name<p id="date">2019-05-03</p>
+                      <input type="radio" name="list">
+                      <span class="checkround"></span>
+                    </label>
+                </div>
+                <div class="radio_box">
+                    <label class="radio list">Name
+                      <input type="radio" name="list"><p id="date">2019-05-03</p>
+                      <span class="checkround"></span>
+                    </label>
                 </div>
                 <ul class="list-group" id="list-group">
                     @include('components.writeForm.item')
                 </ul>
             </div>
-        </div>
+            <button class="btn cust-btn " type="button" id="btn-registration" style="font-size: 20px;letter-spacing: 1px;">Register</button>
+        </center>
     </div>
 </div>

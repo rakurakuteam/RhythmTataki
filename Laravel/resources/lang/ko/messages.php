@@ -23,5 +23,7 @@ return [
     'writeContents' => '내용',
     'writerHolder' => '작성자명',
     'writeTitleHolder' => '제목을 입력 해 주세요',
-    'writeConHolder' => '글 내용을 입력 해 주세요'
+    'writeConHolder' => '글 내용을 입력 해 주세요',
+    'write' => '글쓰기',
+    'home' => '홈'
 ];
