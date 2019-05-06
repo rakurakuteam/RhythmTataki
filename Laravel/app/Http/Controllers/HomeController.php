@@ -248,50 +248,53 @@ class HomeController extends Controller
 
     // 다운로드 체크
     public function download(Request $request){
-
         $heart = Heart::where('user_id', \Auth::user()->id)
-                        ->where('board_id', $request->id);
+        ->where('board_id', $request->id);
         $board = Board::find($request->id);
         $file_id = $board->files->first()->id;
         $file = File::find($file_id);
-        $fileName = explode('.', $file->name)[0];
+        $fileName = explode('.', $file->name);
         $type = ['ogg', 'txt'];
         $fileNames=[];
+
+        if(!$heart->exists()){
+            Heart::create([
+                'board_id' => $request->id,
+                'user_id' => \Auth::user()->id,
+                'dl_check' => false
+            ]);
+        }
 
         if($heart->first()->dl_check == false){
             for($i=0; $i<count($type); $i++){
                 $file = File::create([
                     'user_id' => \Auth::user()->id,
                     'path' => $file->path,
-                    'name' => $fileName.$type,
-                    'type' => $file->type[$i],
+                    'name' => $fileName[0].'.'.$type[$i],
+                    'type' => $type[$i],
                     'size' => $file->size
                 ]);
                 $fileNames[$i] = $file->name;
             }
         }
-
+        $path = \Auth::user()->email;
         if($heart->exists()){
             $heart->update(['dl_check' => true]);
-        }else{
-            Heart::create([
-                'board_id' => $request->id,
-                'user_id' => \Auth::user()->id,
-                'dl_check' => true
-            ]);
+            shell_exec('mkdir /mnt/zip-point/'.$path);
+            shell_exec('chmod 777 /mnt/zip-point/'.$path);
         }
 
-        $path = $request->email;
-        // $fileNames = File::where('user_id', \Auth::user()->id)
+        //$fileNames = File::where('user_id', \Auth::user()->id)
         //             ->where('dl_check', 0)
         //             ->pluck('name');
-
-        foreach($fileNmaes as $name){
-            shell_exec('cp /mnt/mountpoint/files/'.$request->email.'/'.$name.' /mnt/zip-point/'.$request->email.'/'.$name);
+        //
+        foreach($fileNames as $name){
+                shell_exec('cp /mnt/mountpoint/files/bbb@naver.com/'.$name.' /mnt/zip-point/aaa@naver.com/'.$name);
+        //      shell_exec('cp /mnt/zip-point/bbb@naver.com/1.txt /mnt/zip-point/aaa@naver.com/1.txt');
         }
-        // shell_exec('cp /mnt/mountpoint/files/'{bbb@naver.com/1.mp4} '/mnt/zip-point/'.{bbb@naver.com/1.mp4})
- 
-        return $file;
+        //shell_exec('cp /mnt/mountpoint/files/'{bbb@naver.com/1.mp4} '/mnt/zip-point/'.{bbb@naver.com/1.mp4})
+
+        return $path;
     }
         // if($heart == true){
 

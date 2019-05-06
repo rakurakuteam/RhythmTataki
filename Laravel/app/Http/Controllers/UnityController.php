@@ -145,7 +145,7 @@ class UnityController extends Controller
                 'files/'.$request->email."/", $fileName, 's3'
             );
 
-            $url = Storage::disk('s3')->url('files/'.$request->email.'/');
+            $url = Storage::disk('s3')->url('files/'.$request->email.'/'.$fileName);
             $size = round($request->file[$i]->getClientSize()/1024/1024, 2);
 
             Log::info('file path:'. $path);
@@ -202,9 +202,9 @@ class UnityController extends Controller
 
         // return Storage::disk('s3')->download('files/bbb@naver.com/'.'1.txt', 'test.txt', $headers);
 
-        shell_exec('zip /mnt/zip-point/test.zip -j /mnt/zip-point/'.$request->email.'/*');
-
-        $filepath = '/mnt/zip-point/test.zip';
+        shell_exec('zip /mnt/c/capstone/test.zip -j /mnt/c/capstone/test/*/');
+        
+        $filepath = '/mnt/c/capstone/test.zip';
         $filesize = filesize($filepath);
         $path_parts = pathinfo($filepath);
         $filename = $path_parts['basename'];
@@ -213,7 +213,7 @@ class UnityController extends Controller
         header("Pragma: public");
         header("Expires: 0");
         header("Content-Type: application/octet-stream");
-        header("Content-Disposition: attachment; filename='$filename'");
+        header("Content-Disposition: attachment; filename=$filename");
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: $filesize");
         

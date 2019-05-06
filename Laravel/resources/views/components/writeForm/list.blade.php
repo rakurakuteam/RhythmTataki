@@ -17,12 +17,8 @@
                     </div>
                     </div>
                 </div>
-                    <ul class="list-group">
-                    <li class="list-group-item"><p id="date">2019-05-02</p><p id="list_title">저장제목</p></li>
-                    <li class="list-group-item"><p id="date">2019-05-02</p><p id="list_title">저장제목</p></li>
-                    <li class="list-group-item"><p id="date">2019-05-02</p><p id="list_title">저장제목</p></li>
-                    <li class="list-group-item"><p id="date">2019-05-02</p><p id="list_title">저장제목</p></li>
-                    <li class="list-group-item"><p id="date">2019-05-02</p><p id="list_title">저장제목</p></li>
+                <ul class="list-group" id="list-group">
+                    @include('components.writeForm.item')
                 </ul>
             </div>
         </div>
