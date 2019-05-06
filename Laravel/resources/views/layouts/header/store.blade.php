@@ -20,6 +20,11 @@
                     <strong>{{__('messages.cart')}}</strong>
                 </a>
             </li>
+            <li>
+                <a class="menuLink" href="{{route('home')}}">
+                    <strong>{{__('messages.home')}}</strong>
+                </a>
+            </li>
             @if(\Auth::check())
             {{-- 로그아웃 --}}
                 <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
