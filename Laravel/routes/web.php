@@ -74,7 +74,3 @@ Route::resource('store', 'StoreController');
 Route::get('fileUpload', function(){
     return view('components.board.uploadForm');
 });
-
-Route::get('writeTest', function(){
-    return view('page.writeTest');
-});

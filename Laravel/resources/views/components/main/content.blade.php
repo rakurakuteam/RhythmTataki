@@ -27,7 +27,7 @@
                                 Your browser does not support HTML5 video.
                             </video>
                             @else
-                            <div id="playButton_box">    
+                            <div id="playButton_box">
                             <img src="{{asset('images/pic/free.png')}}" class="picture"/>
                             </div>
                             @endif
@@ -50,7 +50,10 @@
         @endforeach
     </div>
     @include('components.main.selectBox', ['current_page' => $current_page])
-
+<a class="menuLink" id="li-1" href="{{route('board.create')}}">
+    <div class="write_btn_box">
+        <button class="write_btn"><b>{{__('messages.write')}}</b></button>
+    </div>
     <div class="contents_2" id="paging">
         @include('components.main.pagination')
     </div>
