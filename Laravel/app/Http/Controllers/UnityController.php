@@ -202,15 +202,9 @@ class UnityController extends Controller
 
         // return Storage::disk('s3')->download('files/bbb@naver.com/'.'1.txt', 'test.txt', $headers);
 
-<<<<<<< HEAD
-        shell_exec('zip /mnt/c/capstone/test.zip -j /mnt/c/capstone/test/*/');
-        
-        $filepath = '/mnt/c/capstone/test.zip';
-=======
         shell_exec('zip /mnt/zip-point/aaa-file.zip -j /mnt/zip-point/aaa@naver.com/*');
 
         $filepath = '/mnt/zip-point/aaa-file.zip';
->>>>>>> 707ad2b75fcd5f10578f7a05e033ece810d1ee03
         $filesize = filesize($filepath);
         $path_parts = pathinfo($filepath);
         $filename = $path_parts['basename'];
