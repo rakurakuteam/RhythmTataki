@@ -96,35 +96,37 @@ class UnityController extends Controller
 
     //단일점수
     public function getScore($email, $song){
+        Log::info('email = '.$email.' / song = '.$song);
         $user = User::where('email', $email)->value('id');
         $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
-        ->select('name', 'score')->where('user_id', $user)->where('name', $song)->get();
-        
+        ->select('song_id', 'score')->where('user_id', $user)->where('name', $song)->get();
+        Log::info('score = '.$scores);
         // key     :  value
-        // 노래제목 :  점수
+        // 노래id :  점수
         $k_v_score = [];
         foreach($scores as $score){
-            $k_v_score[$score->name] = $score->score; 
+            $k_v_score[$score->song_id] = $score->score; 
         }
 
-        // return response()->json($k_v_score, 200, [], JSON_PRETTY_PRINT);
+        // return $scores;
         return json_encode($k_v_score);
     }
 
     //점수들
     public function getScores($email){
+        Log::info('email = '. $email);
         $user = User::where('email', $email)->value('id');
         $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
-        ->select('name', 'score')->where('user_id', $user)->get();
-        
+        ->select('song_id', 'score')->where('user_id', $user)->get();
+        Log:info('scores = '.$scores);
         // key     :  value
-        // 노래제목 :  점수
+        // 노래id :  점수
         $k_v_scores = [];
         foreach($scores as $score){
-            $k_v_scores[$score->name] = $score->score; 
+            $k_v_scores[$score->song_id] = $score->score; 
         }
 
-        // return response()->json($k_v_score, 200, [], JSON_PRETTY_PRINT);
+        // return $scores;
         return json_encode($k_v_scores);
     }
 
@@ -226,7 +228,7 @@ class UnityController extends Controller
 
     public function getMusicList($email){
         $user = User::where('email', $email)->pluck('id')->first();
-        $list = File::where('user_id', $user)->where('dl_check', false)->select('path', 'name')->get();
-        return $list;
+        $list = File::where('user_id', $user)->where('dl_check', false)->select('id', 'path', 'name')->get();
+        return json_encode($list);
     }
 }

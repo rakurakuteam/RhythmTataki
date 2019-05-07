@@ -18,10 +18,11 @@ define('RANKING', 4);
 
 class HomeController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth')
+        ->except('index');
+    }
 
     // 메인 페이지
     public function index()
@@ -310,8 +311,9 @@ class HomeController extends Controller
     // 게시글 작성 페이지
     public function create(){
         // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
+        $type = ['mp4', 'avi', 'wmv', 'mkv'];
         $files = File::where('user_id', \Auth::user()->id)
-        // ->where('type', 'mp4')
+        ->whereIn('type', $type)
         ->where('dl_check', true)->get();
 
         return view('page.write')
@@ -321,7 +323,7 @@ class HomeController extends Controller
     // 게시글 등록
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     // 게시글 수정 페이지
