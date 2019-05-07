@@ -23,6 +23,5 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" href="{{asset('js/writeForm/write.js')}}"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 @endpush

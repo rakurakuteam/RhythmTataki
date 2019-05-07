@@ -74,4 +74,4 @@ Route::resource('store', 'StoreController');
 // 유니티 테스트용
 Route::get('fileUpload', function(){
     return view('components.board.uploadForm');
-}
+});
