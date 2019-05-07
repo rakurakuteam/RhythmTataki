@@ -50,10 +50,11 @@
         @endforeach
     </div>
     @include('components.main.selectBox', ['current_page' => $current_page])
-<a class="menuLink" id="li-1" href="{{route('board.create')}}">
-    <div class="write_btn_box">
-        <button class="write_btn"><b>{{__('messages.write')}}</b></button>
-    </div>
+    <a class="menuLink" id="li-1" href="{{route('board.create')}}">
+      <div class="write_btn_box">
+          <button class="write_btn"><b>{{__('messages.write')}}</b></button>
+      </div>
+    </a>
     <div class="contents_2" id="paging">
         @include('components.main.pagination')
     </div>
