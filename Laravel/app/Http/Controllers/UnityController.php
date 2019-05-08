@@ -147,7 +147,7 @@ class UnityController extends Controller
                 'files/'.$request->email."/", $fileName, 's3'
             );
 
-            $url = Storage::disk('s3')->url('files/'.$request->email.'/'.$fileName);
+            $url = Storage::disk('s3')->url('files/'.$request->email.'/');
             $size = round($request->file[$i]->getClientSize()/1024/1024, 2);
 
             Log::info('file path:'. $path);
@@ -203,7 +203,7 @@ class UnityController extends Controller
         // $path = $file->pluck('path')->first();
 
         // return Storage::disk('s3')->download('files/bbb@naver.com/'.'1.txt', 'test.txt', $headers);
-
+        
         shell_exec('zip /mnt/zip-point/aaa-file.zip -j /mnt/zip-point/aaa@naver.com/*');
 
         $filepath = '/mnt/zip-point/aaa-file.zip';
@@ -222,7 +222,8 @@ class UnityController extends Controller
         ob_clean();
         flush();
         readfile($filepath);
-
+        // shell_exec('rm -r /mnt/zip-point/aaa@naver.com');
+        shell_exec('rm aaa-file.zip');
         // return Storage::download('files/bbb@naver.com/091'.$i.'.txt', 'test.txt', $headers);
     }
 

@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('quantity')->comment('수량');
             $table->unsignedInteger('user_addr_id')->comment('배송지');
-            $table->foreign('user_addr_id')->references('id')->on('user_addrs')
+            $table->foreign('user_addr_id')->references('id')->on('user_addr')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->string('request', 255)->nullable()->comment('요청사항');
             $table->unsignedInteger('status_id')->comment('배송상태');

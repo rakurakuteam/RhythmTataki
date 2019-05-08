@@ -6,14 +6,14 @@
             <div class="col-md-6">
                 @foreach ($files as $file)
                     <div class="radio_box">
-                        <label class="radio list">{{$file->name}}<p id="date">{{$file->created_at}}</p>
-                        <input type="radio" name="list" value="{{$file->name}}">
+                        <label class="radio list">{{$file->song}}<p id="date">{{$file->created_at}}</p>
+                        <input type="radio" name="song" value="{{$file->id}}" required>
                         <span class="checkround"></span>
                         </label>
                     </div>
                 @endforeach
             </div>
-            <button class="btn cust-btn " type="button" id="btn-registration" style="font-size: 20px;letter-spacing: 1px;">Register</button>
+            {{-- <button class="btn cust-btn " type="button" id="btn-registration" style="font-size: 20px;letter-spacing: 1px;">Register</button> --}}
         </center>
     </div>
 </div>

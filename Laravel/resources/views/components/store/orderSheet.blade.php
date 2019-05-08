@@ -41,14 +41,14 @@
 
             <div class="final_price_text">
                 <h2>주문금액</h2>
-                <h2 class="price_1">{{number_format($total_price)}}원</h2>
+                <h2 class="price_1">{{number_format($price)}}원</h2>
                 <h2>배송비</h2>
                 <h2 class="price_2" id="price_2">{{number_format($delivery)}}원</h2>
                 <hr>
                 <h2 class="all_price_text">총주문금액</h2>
                 
-                <input type="hidden" name="price" id="total_price" value="{{$total_price}}">
-                <h2 class="price_3">{{number_format($total_price)}}원</h2>
+                <input type="hidden" name="price" id="total_price">
+                <h2 class="price_3">{{number_format($price+$delivery)}}원</h2>
             </div>
 
         </div>

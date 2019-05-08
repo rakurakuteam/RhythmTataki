@@ -9,8 +9,8 @@ use App\User;
 use App\Cart;
 use App\Product;
 use App\Address;
-use App\Order;
 use App\User_addr;
+use App\Order;
 
 class ProductsController extends Controller
 {
@@ -66,7 +66,8 @@ class ProductsController extends Controller
             $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
         }])->whereIn('id', $product_id)->get();
 
-        $address = User_addr::with('address')
+        $user = User::find(\Auth::user()->id);
+        $address = $user->addresses()
         ->where('user_id', \Auth::user()->id)->where('rep', true)->get();
 
         $user = User::where('id', \Auth::user()->id)->select('id', 'name', 'phone')->first();
@@ -74,17 +75,16 @@ class ProductsController extends Controller
         $price = $this->price($products);
         $delivery = 2500;
 
-        if($price < 30000){
-            $price = $price+2500;
+        if($price > 30000){
             $delivery = 0;
         }
-
+        
         return view('page.orderSheet')
         ->with('products', $products)
         ->with('address', $address)
         ->with('count', 0)
         ->with('delivery', $delivery)
-        ->with('total_price', $price)
+        ->with('price', $price)
         ->with('user', $user);
     }
 
@@ -98,6 +98,7 @@ class ProductsController extends Controller
 
     // 주문처리
     public function order(Request $request){
+        // $user = User::find(\Auth::user()->id);
 
         // $address = Address::create([
         //     'zip_code' => $request->zip_code,
@@ -106,17 +107,22 @@ class ProductsController extends Controller
         //     'created_at' => now(),
         // ]);
 
-        // $user_addr = User_addr::create([
-        //     'user_id' => \Auth::user()->id,
-        //     'addr_id' => $address->id,
-        //     'rep' => $request->cb_2
-        // ]);
+        // if(isset($request->cb_2)){
+        //     $user_addr = $user->addresses()->attach($address->id, ['rep' => true]);
+        // }else{
+        //     $user_addr = $user->addresses()->attach($address->id);
+        // }
+        
+        // if(Order::)
+        // $num = str_replace('-', '', now()->toDateString());
+        // $last = substr($num, -1);
+        // $num = sprintf("%03d", ++$last);
 
         // $order = Order::create([
-        //     'order_num' => str_replace('-', '', now()->toDateString()).sprintf("%03d",$i),
+        //     'order_num' => str_replace('-', '', now()->toDateString()).sprintf("%04d",$i),
         //     'product_id' => $request->product_id,
         //     'quantity' => $request->quantity,
-        //     'user_addr_id' => $request->address,
+        //     'user_addr_id' => $user_addr_id,
         //     'request' => $request->order_request,
         //     'status_id' => 0,
         //     'payment' => $request->pos,
@@ -124,7 +130,7 @@ class ProductsController extends Controller
         // ]);
 
         return $request->all();
-        return $order;
+        return $num;
     }
 
     // 결제 페이지
