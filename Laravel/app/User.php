@@ -24,7 +24,7 @@ class User extends Authenticatable
     }
 
     // 다대다
-    public function address(){
+    public function addresses(){
         return $this->belongsToMany('App\Address', 'user_addr', 'user_id', 'addr_id');
     }
 

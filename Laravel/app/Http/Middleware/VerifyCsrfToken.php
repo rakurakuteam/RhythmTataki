@@ -20,6 +20,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
 	    'http://capstone.rhythmtataki.p-e.kr/unity/*',
-	    'https://capstone.rhythmtataki.p-e.kr/unity/*'
+	    'https://capstone.rhythmtataki.p-e.kr/unity/*',
+	    'http://dev.rhythmtataki.p-e.kr/unity/*'
     ];
 }

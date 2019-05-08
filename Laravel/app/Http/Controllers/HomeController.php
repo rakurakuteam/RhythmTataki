@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
 
 define('LINK', 2);
-define('POSTS', 4);
+define('POSTS', 12);
 define('RANKING', 4);
 
 class HomeController extends Controller
@@ -42,8 +42,13 @@ class HomeController extends Controller
         $page_link_first = 1;
         $page_link_last = 2*LINK+1;
         $currentPage = 1;
+        $last_page = ceil(Board::count()/POSTS);
 
-        // return response()->json($rankings, 200, [], JSON_PRETTY_PRINT);
+        if($last_page < $page_link_last){
+            $page_link_last = $last_page;
+        }
+        
+        // return $rankings;
         return view('page.main')
             ->with('rankings', $rankings)
             ->with('boards', $boards)
@@ -97,17 +102,21 @@ class HomeController extends Controller
         $boards = $this->paginate($current_page, $request->sort);
         $page_link_first = $request->page-LINK;
         $page_link_last = $request->page+LINK;
-
-        Log::info('pagination ajax data :'. $request->page);
+        $last_page = ceil(Board::count()/POSTS);
+    
+        Log::info('pagination ajax data :'. $request->page);    
 
         if(LINK+1 > $current_page || $page_link_first < 1){
             $page_link_first = 1;
-            $page_link_last = $page_link_last = 2*LINK+1;
-        }elseif($page_link_last > ceil(Board::count()/POSTS)){
-            $page_link_last = ceil(Board::count()/POSTS);
+            $page_link_last = 2*LINK+1;
+        }elseif($page_link_last > $last_page){
+            $page_link_last = $last_page;
             if($page_link_last < $current_page+LINK){
                 $page_link_first = -2*LINK+$page_link_last;
             }
+        }
+        if($last_page < $page_link_last){
+            $page_link_last = $last_page;
         }
 
         if($current_page < 1){
@@ -128,7 +137,9 @@ class HomeController extends Controller
     // 게시글 상세보기
     public function show($id)
     {
-        $board = Board::with('files:path,name')->find($id); // 게시글 상세 내용
+        $board = Board::with(['files:path,name', 'hearts' => function($query){
+            $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
+        }])->find($id); // 게시글 상세 내용
         if(isset($board->files[0])){
             $video = $board->files[0]->path.$board->files[0]->name;
         }
@@ -153,7 +164,7 @@ class HomeController extends Controller
             }
             Log::info('heart hits: '. $heart->first()->hits);
         }
-        // return response()->json($board, 200, [], JSON_PRETTY_PRINT);
+        // return $board;
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
@@ -300,22 +311,28 @@ class HomeController extends Controller
         // if($heart == true){
 
         // }
-        // $client = AwsFacade::createClient('s3');
-        // $client->registerStreamWrapper();
 
-        // if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/bbb@naver.com/1.txt', 'r')){
-        //     echo fgets($stream);
-        //     fclose($stream);
-        // }
 
     // 게시글 작성 페이지
     public function create(){
+        $client = AwsFacade::createClient('s3');
+        $client->registerStreamWrapper();
+
         // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
         $type = ['mp4', 'avi', 'wmv', 'mkv'];
         $files = File::where('user_id', \Auth::user()->id)
         ->whereIn('type', $type)
         ->where('dl_check', true)->get();
+        $num=1;
+        foreach($files as $file){
+            $name = explode('.', $file->name)[0];
+            if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.\Auth::user()->email.'/'.$name.'.txt', 'r')){
+                $file['song'] = fgets($stream);
+                fclose($stream);
+            }
+        }
 
+        // return $files;
         return view('page.write')
         ->with('files', $files);
     }
@@ -323,7 +340,20 @@ class HomeController extends Controller
     // 게시글 등록
     public function store(Request $request)
     {
-        return $request->all();
+        $board = Board::create([
+            'user_id' => \Auth::user()->id,
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        $board->files()->attach($request->song);
+        Heart::create([
+            'board_id' => $board->id,
+            'user_id' => \Auth::user()->id,
+            'dl_check' => true,
+        ]);
+
+        return redirect('/');
     }
 
     // 게시글 수정 페이지

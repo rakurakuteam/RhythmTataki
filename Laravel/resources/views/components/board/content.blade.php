@@ -19,7 +19,7 @@
                     @endif
                 </p>
                 <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
-                    @include('components.heart')
+                    @include('components.heart', ['board' => $board])
                 </div>
                 <div class="write_box">
                     <p>{{$board->content}}</p>

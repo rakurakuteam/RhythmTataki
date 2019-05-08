@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserAddrsTable extends Migration
+class CreateUserAddrTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserAddrsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_addrs', function (Blueprint $table) {
+        Schema::create('user_addr', function (Blueprint $table) {
             $table->increments('id')->comment('배송지번호');
             $table->unsignedInteger('user_id')->comment('회원번호');
             $table->foreign('user_id')->references('id')->on('users')
@@ -31,10 +31,10 @@ class CreateUserAddrsTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_addrs', function(Blueprint $table){
-            $table->dropForeign('user_addrs_user_id_foreign');
-            $table->dropForeign('user_addrs_addr_id_foreign');
+        Schema::table('user_addr', function(Blueprint $table){
+            $table->dropForeign('user_addr_user_id_foreign');
+            $table->dropForeign('user_addr_addr_id_foreign');
         });
-        Schema::dropIfExists('user_addrs');
+        Schema::dropIfExists('user_addr');
     }
 }
