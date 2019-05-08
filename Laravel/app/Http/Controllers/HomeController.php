@@ -7,8 +7,10 @@ use App\Board;
 use App\User;
 use App\Heart;
 use App\File;
+use App\Board_file;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Aws\Laravel\AwsFacade;
 
 define('LINK', 2);
 define('POSTS', 4);
@@ -16,10 +18,11 @@ define('RANKING', 4);
 
 class HomeController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth')
+        ->except('index');
+    }
 
     // 메인 페이지
     public function index()
@@ -245,28 +248,82 @@ class HomeController extends Controller
     }
 
     // 다운로드 체크
-    public function download(Request $request){
+    public function download(Request $request)
+    {
         $heart = Heart::where('user_id', \Auth::user()->id)
-                        ->where('board_id', $request->id)
-                        ->update(['dl_check' => true]);
-        return $heart;
+        ->where('board_id', $request->id);
+        $board = Board::find($request->id);
+        $file_id = $board->files->first()->id;
+        $file = File::find($file_id);
+        $fileName = explode('.', $file->name);
+        $type = ['ogg', 'txt'];
+        $fileNames=[];
+
+        if(!$heart->exists()){
+            Heart::create([
+                'board_id' => $request->id,
+                'user_id' => \Auth::user()->id,
+                'dl_check' => false
+            ]);
+        }
+
+        if($heart->first()->dl_check == false){
+            for($i=0; $i<count($type); $i++){
+                $file = File::create([
+                    'user_id' => \Auth::user()->id,
+                    'path' => $file->path,
+                    'name' => $fileName[0].'.'.$type[$i],
+                    'type' => $type[$i],
+                    'size' => $file->size
+                ]);
+                $fileNames[$i] = $file->name;
+            }
+        }
+        $path = \Auth::user()->email;
+            if($heart->exists()){
+                $heart->update(['dl_check' => true]);
+            shell_exec('mkdir /mnt/zip-point/'.$path);
+            shell_exec('chmod 777 /mnt/zip-point/'.$path);
+        } 
+
+        //$fileNames = File::where('user_id', \Auth::user()->id)
+        //             ->where('dl_check', 0)
+        //             ->pluck('name');
+        //
+        foreach($fileNames as $name){
+		    shell_exec('cp /mnt/mountpoint/files/bbb@naver.com/'.$name.' /mnt/zip-point/aaa@naver.com/'.$name);
+        }
+        //shell_exec('cp /mnt/mountpoint/files/'{bbb@naver.com/1.mp4} '/mnt/zip-point/'.{bbb@naver.com/1.mp4})
+ 
+        return $path;
     }
+        // if($heart == true){
+
+        // }
+        // $client = AwsFacade::createClient('s3');
+        // $client->registerStreamWrapper();
+
+        // if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/bbb@naver.com/1.txt', 'r')){
+        //     echo fgets($stream);
+        //     fclose($stream);
+        // }
 
     // 게시글 작성 페이지
     public function create(){
         // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
+        $type = ['mp4', 'avi', 'wmv', 'mkv'];
         $files = File::where('user_id', \Auth::user()->id)
-        // ->where('type', 'mp4')
+        ->whereIn('type', $type)
         ->where('dl_check', true)->get();
 
         return view('page.write')
         ->with('files', $files);
     }
-
+ 
     // 게시글 등록
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     // 게시글 수정 페이지

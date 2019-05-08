@@ -11,18 +11,17 @@
 @endsection
 
 @section('header')
-    @include('layouts.header.store')
+    @include('layouts.header.main')
 @endsection
 
 @section('body')
-      @include('components.writeForm.writeTest')
+    @include('components.writeForm.write')
 @endsection
 
 @section('footer')
-@include('layouts.footer.footer')
+    @include('layouts.footer.footer')
 @endsection
 
 @push('scripts')
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 @endpush
