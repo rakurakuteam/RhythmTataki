@@ -1,5 +1,6 @@
 <!--리스트-->
 <div class="list_box">
+  <p id="list"><b>녹화영상</b></p>
     <div class="col-md-12 row">
         <center>
             <div class="col-md-6">

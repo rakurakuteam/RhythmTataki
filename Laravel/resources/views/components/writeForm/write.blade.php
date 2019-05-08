@@ -22,8 +22,12 @@
                             <textarea class="comment_input" name="content" placeholder="글 내용을 입력 해 주세요"></textarea>
 
                         <!--리스트-->
+                          <div class="list_box">
+                            <p id="list"><b>녹화된 영상</b>
                             @include('components.writeForm.list')
+                          </p></div>
                             <button type="submit" class="submit_btn"><b>작성완료</b></button>
+                          </div>
                         </div>
                     </div>
                 </div>

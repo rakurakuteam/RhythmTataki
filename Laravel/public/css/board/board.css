@@ -7,12 +7,16 @@
 #profile {
     cursor: pointer;
     float: left;
-    width: 100px;
+    width: 80px;
+    padding: 10px;
+    margin-left: 170px;
 }
 
 #title {
-    width: 250px;
+    width: 700px;
     float: left;
+    padding: 10px;
+    margin-left: -135px;
 }
 
 #title_area {
@@ -63,6 +67,7 @@
     margin-right: 15px;
 }
 
-#write_box {
-    display: inline-block;
+.like_box {
+  width: 800px;
+  height: 70px;
 }
