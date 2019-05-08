@@ -290,23 +290,22 @@ class HomeController extends Controller
                 $fileNames[$i] = $file->name;
             }
         }
+
         $path = \Auth::user()->email;
             if($heart->exists()){
                 $heart->update(['dl_check' => true]);
             shell_exec('mkdir /mnt/zip-point/'.$path);
             shell_exec('chmod 777 /mnt/zip-point/'.$path);
-        } 
-
-        //$fileNames = File::where('user_id', \Auth::user()->id)
-        //             ->where('dl_check', 0)
-        //             ->pluck('name');
-        //
-        foreach($fileNames as $name){
-		    shell_exec('cp /mnt/mountpoint/files/bbb@naver.com/'.$name.' /mnt/zip-point/aaa@naver.com/'.$name);
         }
-        //shell_exec('cp /mnt/mountpoint/files/'{bbb@naver.com/1.mp4} '/mnt/zip-point/'.{bbb@naver.com/1.mp4})
- 
-        return $path;
+
+        $u_id =  Board::where('id', $request->id)->value('user_id');
+        $email = User::where('id', $u_id)->value('email');
+
+        foreach($fileNames as $name){
+		    shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$name.' /mnt/zip-point/'.$path.'/'.$name);
+        }
+
+        return $email;
     }
         // if($heart == true){
 
