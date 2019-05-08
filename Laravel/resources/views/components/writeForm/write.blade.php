@@ -22,6 +22,8 @@
                             <textarea class="comment_input" name="content" placeholder="{{__('messages.writeConHolder')}}" required></textarea>
 
                         <!--리스트-->
+                          <div class="list_box">
+                            <p id="list"><b>녹화된 영상</b>
                             @include('components.writeForm.list')
                             <button type="submit" class="submit_btn"><b>{{__('messages.writeComplete')}}</b></button>
                         </div>

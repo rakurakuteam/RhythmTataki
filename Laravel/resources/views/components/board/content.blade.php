@@ -5,7 +5,9 @@
                 <a href="{{route('userPage', $board->user_id)}}">
                     <img src="{{asset('images/pic/profile.png')}}" id="profile"/>
                 </a>
+              <div class="title_box">
                 <h1 id="title">{{$board->title}}</h1>
+              </div>
             </div>
             <div class="sub_photo" id="photo_gallery">
                 <p class="thmb">
@@ -18,11 +20,13 @@
                     <img src="{{asset('images/pic/free.png')}}">
                     @endif
                 </p>
+              <div class="like_box">
                 <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
                     @include('components.heart', ['board' => $board])
                 </div>
+              </div>
                 <div class="write_box">
-                    <p>{{$board->content}}</p>
+                    <p id="write">{{$board->content}}</p>
                 </div>
             </div>
         </div>

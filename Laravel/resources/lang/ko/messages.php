@@ -25,5 +25,6 @@ return [
     'writeTitleHolder' => '제목을 입력 해 주세요',
     'writeConHolder' => '글 내용을 입력 해 주세요',
     'write' => '글쓰기',
-    'home' => '홈'
+    'home' => '홈',
+    'tracking' => '주문 / 배송조회'
 ];
