@@ -14,14 +14,18 @@
                         </div>
                         <div class="title_box">
                             <p id="title"><b>제목</b></p><input type="text" class="title_input" placeholder="제목을 입력 해 주세요" />
-                        </div>
+                        </div0>
                         <div class="comment_box">
                             <label for="comment" id="comment"><b>내용</b></label>
                             <textarea class="comment_input" placeholder="글 내용을 입력 해 주세요"></textarea>
 
                         <!--리스트-->
+                          <div class="list_box">
+                            <p id="list"><b>녹화된 영상</b>
                             @include('components.writeForm.list')
+                          </p></div>
                             <button type="submit" class="submit_btn"><b>작성완료</b></button>
+                          </div>
                         </div>
                     </div>
                 </div>
