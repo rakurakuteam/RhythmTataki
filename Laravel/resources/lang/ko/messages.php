@@ -26,5 +26,9 @@ return [
     'writeConHolder' => '글 내용을 입력 해 주세요',
     'write' => '글쓰기',
     'home' => '홈',
-    'tracking' => '주문 / 배송조회'
+    'tracking' => '주문 / 배송조회',
+    'orderHistory' => '주문내역',
+    'quantity' => '수량',
+    'price' => '가격',
+    'status' => '상태',
 ];

@@ -193,7 +193,8 @@ class UnityController extends Controller
     // request URL 파일명, 이메일
     // return 파일, 확장자
     public function fileDownload(Request $request){
-	Log::info('email: '.$request->email);
+
+        Log::info('email: '.$request->email);
 
         shell_exec('zip /mnt/zip-point/'.$request->email.'/songs.zip -j /mnt/zip-point/'.$request->email.'/*');
 
@@ -213,13 +214,14 @@ class UnityController extends Controller
         ob_clean();
         flush();
         readfile($filepath);
-	shell_exec('rm -r /mnt/zip-point/'.$request->email);
+      
+	      shell_exec('rm -r /mnt/zip-point/'.$request->email);
 
-	$u_id = User::where('email', $request->email)->value('id');
+	      $u_id = User::where('email', $request->email)->value('id');
         File::where('user_id', $u_id)->update(['dl_check' => true]);
     }
 
-    public function getMusicList($email){
+    public function drumSoundDownload($email){
         $user = User::where('email', $email)->pluck('id')->first();
         $list = File::where('user_id', $user)->where('dl_check', false)->select('id', 'path', 'name')->get();
         return json_encode($list);

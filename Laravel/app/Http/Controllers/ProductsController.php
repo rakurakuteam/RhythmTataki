@@ -78,7 +78,7 @@ class ProductsController extends Controller
         if($price > 30000){
             $delivery = 0;
         }
-        
+
         return view('page.orderSheet')
         ->with('products', $products)
         ->with('address', $address)
@@ -113,10 +113,21 @@ class ProductsController extends Controller
         //     $user_addr = $user->addresses()->attach($address->id);
         // }
         
-        // if(Order::)
-        // $num = str_replace('-', '', now()->toDateString());
+         
+        $today = str_replace('-', '', now()->toDateString());
+        $last_order = Order::max('order_num');
+        $last_order_date = substr($last_order, 0, 8);
+        $last_order_num = substr($last_order, 8);
+
+        if($last_order_date == $today){
+            $order_num = ++$last_order;
+        }elseif($last_order_date < $today){
+            $last_order_date = $today;
+        }
+        $last_order = $last_order_date + $last_order_num + 1;
+        
         // $last = substr($num, -1);
-        // $num = sprintf("%03d", ++$last);
+        // $num = sprintf("%04d", ++$last);
 
         // $order = Order::create([
         //     'order_num' => str_replace('-', '', now()->toDateString()).sprintf("%04d",$i),
@@ -129,8 +140,8 @@ class ProductsController extends Controller
         //     'created_at' => now(),
         // ]);
 
-        return $request->all();
-        return $num;
+        // return $request->all();
+        return $last_order;
     }
 
     // 결제 페이지
@@ -168,18 +179,23 @@ class ProductsController extends Controller
 
     // 주문 확인 페이지
     public function orderList(){
-        $addr = User_addr::where('user_id', \Auth::user()->id)->pluck('id');
-
-        $orders = Order::with(['user_addr' => function($query){
-            $query->where('user_id', \Auth::user()->id);
-        }, 'delivery_status', 
+        // $addr = User_addr::where('user_id', \Auth::user()->id)->pluck('id');
+        
+        $orders = Order::with([
+            // 'user_addr' => function($query){
+            // $query->where('user_id', \Auth::user()->id);
+        // }, 
+        'delivery_status', 
         'product' => function($query){
             $query->with(['images' => function($query){
                 $query->where('type', 'thumbnail')->select('product_id', 'path', 'name');
             }])->select('id', 'name', 'price')->get();
-        }])->whereIn('user_addr_id', $addr)->get();
+        }])->get();
+        // ->whereIn('user_addr_id', $addr)->get();
         
-        return view('page.orderList'); 
+        // return $orders;
+        return view('page.orderHistory')
+        ->with('orders', $orders);
         // return $orders; 
     }
 }
