@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
 
 define('LINK', 2);
-define('POSTS', 12);
+define('POSTS', 4);
 define('RANKING', 4);
 
 class HomeController extends Controller

@@ -193,20 +193,11 @@ class UnityController extends Controller
     // request URL 파일명, 이메일
     // return 파일, 확장자
     public function fileDownload(Request $request){
-        // Log::info('email: '.$request->email);
-        // Log::info('fileName: '.$request->fileName);
-        // $user = User::where('email', $request->email)->pluck('id');
-        // $files = File::where('user_id', $user)->where('type', 'txt')->where('dl_check', false)->get();
-
-        // $fileName = $request->fileName;
-        // $file = File::where('user_id', $user)->where('name', $fileName);
-        // $path = $file->pluck('path')->first();
-
-        // return Storage::disk('s3')->download('files/bbb@naver.com/'.'1.txt', 'test.txt', $headers);
+        Log::info('email: '.$request->email);
         
-        shell_exec('zip /mnt/zip-point/aaa-file.zip -j /mnt/zip-point/aaa@naver.com/*');
+        shell_exec('zip /mnt/zip-point/'.$request->email.'/songs.zip -j /mnt/zip-point/'.$request->email.'/*');
 
-        $filepath = '/mnt/zip-point/aaa-file.zip';
+        $filepath = '/mnt/zip-point/'.$request->email.'/songs.zip';
         $filesize = filesize($filepath);
         $path_parts = pathinfo($filepath);
         $filename = $path_parts['basename'];
@@ -222,12 +213,13 @@ class UnityController extends Controller
         ob_clean();
         flush();
         readfile($filepath);
-        // shell_exec('rm -r /mnt/zip-point/aaa@naver.com');
-        shell_exec('rm aaa-file.zip');
-        // return Storage::download('files/bbb@naver.com/091'.$i.'.txt', 'test.txt', $headers);
+        shell_exec('rm -r /mnt/zip-point/'.$request->email.'/*');
+        
+        $u_id = User::where('email', $request->email)->value('id');
+        $file = File::where('user_id', $u_id)->update(['dl_check' => true]);
     }
 
-    public function getMusicList($email){
+    public function drumSoundDownload($email){
         $user = User::where('email', $email)->pluck('id')->first();
         $list = File::where('user_id', $user)->where('dl_check', false)->select('id', 'path', 'name')->get();
         return json_encode($list);
