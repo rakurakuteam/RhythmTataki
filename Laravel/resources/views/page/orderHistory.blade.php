@@ -11,7 +11,7 @@
 @endsection
 
 @section('header')
-    @include('layouts.header.main')
+    @include('layouts.header.store')
 @endsection
 
 @section('body')

@@ -47,7 +47,7 @@
                 <hr>
                 <h2 class="all_price_text">총주문금액</h2>
                 
-                <input type="hidden" name="price" id="total_price">
+                <input type="hidden" name="price" id="total_price" value="{{$price+$delivery}}">
                 <h2 class="price_3">{{number_format($price+$delivery)}}원</h2>
             </div>
 
