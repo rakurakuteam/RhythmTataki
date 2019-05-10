@@ -301,7 +301,7 @@ class HomeController extends Controller
         }
                 
         $email = $board->user()->value('email'); // 파일 업로드 유저 이메일
-        
+       
         $this->s3client();
         if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
             $name = fgets($stream);
