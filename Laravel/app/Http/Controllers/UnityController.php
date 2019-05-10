@@ -190,8 +190,8 @@ class UnityController extends Controller
     //     return Storage::disk('s3')->download('files/bbb@naver.com/091'.$i.'.txt', 'test.txt', $headers);
     // }
 
-    // request URL 파일명, 이메일
-    // return 파일, 확장자
+    // request 이메일
+    // return 노래.zip
     public function fileDownload(Request $request){
 
         Log::info('email: '.$request->email);

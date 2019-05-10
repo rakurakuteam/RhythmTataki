@@ -38,8 +38,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Board', 'hearts');
     }
 
-    // 일대다
-    public function board(){
-        return $this->hasMany('App\Board');
-    }
+    // // 일대다
+    // public function board(){
+    //     return $this->hasMany('App\Board');
+    // }
 }
