@@ -98,22 +98,21 @@ class ProductsController extends Controller
 
     // 주문처리
     public function order(Request $request){
-        // $user = User::find(\Auth::user()->id);
+        $user = User::find(\Auth::user()->id);
 
-        // $address = Address::create([
-        //     'zip_code' => $request->zip_code,
-        //     'addr_1' => $request->address1,
-        //     'addr_2' => $request->address2,
-        //     'created_at' => now(),
-        // ]);
+        $address = Address::create([
+            'zip_code' => $request->zip_code,
+            'addr_1' => $request->address1,
+            'addr_2' => $request->address2,
+            'created_at' => now(),
+        ]);
 
-        // if(isset($request->cb_2)){
-        //     $user_addr = $user->addresses()->attach($address->id, ['rep' => true]);
-        // }else{
-        //     $user_addr = $user->addresses()->attach($address->id);
-        // }
+        if(isset($request->cb_2)){
+            $user_addr = $user->addresses()->attach($address->id, ['rep' => true]);
+        }else{
+            $user_addr = $user->addresses()->attach($address->id);
+        }
         
-         
         $today = str_replace('-', '', now()->toDateString());
         $last_order = Order::max('order_num');
         $last_order_date = substr($last_order, 0, 8);
@@ -123,17 +122,15 @@ class ProductsController extends Controller
             $order_num = ++$last_order;
         }elseif($last_order_date < $today){
             $last_order_date = $today;
+            $last_order_num = 0;
         }
-        $last_order = $last_order_date + $last_order_num + 1;
-        
-        // $last = substr($num, -1);
-        // $num = sprintf("%04d", ++$last);
+        $last_order = $last_order_date.sprintf("%04d", ($last_order_num+1));
 
         // $order = Order::create([
-        //     'order_num' => str_replace('-', '', now()->toDateString()).sprintf("%04d",$i),
+        //     'order_num' => $last_order,
         //     'product_id' => $request->product_id,
         //     'quantity' => $request->quantity,
-        //     'user_addr_id' => $user_addr_id,
+        //     'user_addr_id' => $user_addr->id,
         //     'request' => $request->order_request,
         //     'status_id' => 0,
         //     'payment' => $request->pos,
@@ -141,7 +138,7 @@ class ProductsController extends Controller
         // ]);
 
         // return $request->all();
-        return $last_order;
+        return $user_addr;
     }
 
     // 결제 페이지

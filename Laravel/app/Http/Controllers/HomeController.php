@@ -8,12 +8,13 @@ use App\User;
 use App\Heart;
 use App\File;
 use App\Board_file;
+use App\User_song;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
 
 define('LINK', 2);
-define('POSTS', 4);
+define('POSTS', 8);
 define('RANKING', 4);
 
 class HomeController extends Controller
@@ -58,6 +59,7 @@ class HomeController extends Controller
             ->with('sort', 'latest');
     }
 
+    //페이지네이션 데이터
     public function paginate($page, $sort){
         // 게시글 조회
         if(\Auth::check()){
@@ -94,7 +96,7 @@ class HomeController extends Controller
         return $boards;
     }
 
-    //페이지네이션
+    // 페이지네이션
     public function pagination(Request $request)
     {
         $current_page = $request->page;
@@ -291,15 +293,15 @@ class HomeController extends Controller
             }
         }
 
-        $path = \Auth::user()->email;
+        $path = \Auth::user()->email; // 다운로드 유저 이메일
             if($heart->exists()){
                 $heart->update(['dl_check' => true]);
             shell_exec('mkdir /mnt/zip-point/'.$path);
             shell_exec('chmod 777 /mnt/zip-point/'.$path);
         }
-
-	$email = $board->user()->value('email'); // 파일 업로드 유저 이메일
-
+                
+        $email = $board->user()->value('email'); // 파일 업로드 유저 이메일
+       
         $this->s3client();
         if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
             $name = fgets($stream);
@@ -316,12 +318,15 @@ class HomeController extends Controller
 
         return $files;
     }
-    
-    // 게시글 작성 페이지
-    public function create(){
+
+    public function s3client(){
         $client = AwsFacade::createClient('s3');
         $client->registerStreamWrapper();
+    }
 
+    // 게시글 작성 페이지
+    public function create(){
+        $this->s3client();
         // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
         $type = ['mp4', 'avi', 'wmv', 'mkv'];
         $files = File::where('user_id', \Auth::user()->id)
