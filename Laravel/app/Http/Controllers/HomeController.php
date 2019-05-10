@@ -298,20 +298,25 @@ class HomeController extends Controller
             shell_exec('chmod 777 /mnt/zip-point/'.$path);
         }
 
-        $u_id =  Board::where('id', $request->id)->value('user_id');
-        $email = User::where('id', $u_id)->value('email');
+	$email = $board->user()->value('email'); // 파일 업로드 유저 이메일
+
+        $this->s3client();
+        if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
+            $name = fgets($stream);
+            fclose($stream);
+        }
+        $song = User_song::create([
+            'file_id' => $file->id,
+            'name' =>  $name,
+        ]);
 
         foreach($fileNames as $name){
 		    shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$name.' /mnt/zip-point/'.$path.'/'.$name);
         }
 
-        return $email;
+        return $files;
     }
-        // if($heart == true){
-
-        // }
-
-
+    
     // 게시글 작성 페이지
     public function create(){
         $client = AwsFacade::createClient('s3');
