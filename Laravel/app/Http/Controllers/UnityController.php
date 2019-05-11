@@ -13,6 +13,7 @@ use App\User;
 use App\Score;
 use App\Song;
 use App\File;
+use App\User_song;
 
 class UnityController extends Controller
 {
@@ -33,9 +34,15 @@ class UnityController extends Controller
         ]);
 
         for($i=1; $i<=Song::count(); $i++){
+            User_song::create([
+                'user_id' => $user->id,
+                'song_num' => $i,
+                'song_id' => $i,
+                'file_id' => null,
+            ]);
             Score::create([
                 'user_id' => $user->id,
-                'song_id' => $i,
+                'user_song_id' => $i,
                 'score' => 0,
                 'created_at' => now(),
             ]);
@@ -55,23 +62,11 @@ class UnityController extends Controller
         // 비밀번호 틀린 경우만 false
         Log::info('login email: '.$request->email.' / login pw: '. $request->pw);
         
-        $password = User::where('email', $request->email)->value('password');
         $user = User::where('email', $request->email);
+        $user_song = User_song::where('user_id', $user->value('id'));
 
-        if($user->exists() && Hash::check($request->pw, $password)){
+        if($user->exists() && Hash::check($request->pw, $user->value('password'))){
             Log::info('로그인 성공');
-            $song_count = Song::count();
-            $score_count = Score::where('user_id', $user->first()->id)->count();
-            if($song_count > $score_count){
-                for($i=$score_count+1; $i<=$song_count; $i++){
-                    Score::create([
-                        'user_id' => $user->first()->id,
-                        'song_id' => $i,
-                        'score' => 0,
-                        'created_at' => now(),
-                    ]);
-                }
-            }
             return 1;
         }
         Log::info('비밀번호가 틀렸습니다.');
@@ -82,9 +77,10 @@ class UnityController extends Controller
     //최고 기록이면 1 / DB 점수 업데이트
     //아니면 0
     public function setScore(Request $request){
+        
         $user = User::where('email', $request->email)->value('id');
-        $song = Song::where('name', $request->song)->value('id');
-        $score = Score::where('user_id', $user)->where('song_id', $song);
+        $song = User_song::where('song_num', $request->song)->value('id');
+        $score = Score::where('user_id', $user)->where('user_song_id', $song);
 
         if($score->where('score', '<', $request->score)->exists()){
             $score->update(['score' => $request->score,
@@ -98,17 +94,16 @@ class UnityController extends Controller
     public function getScore($email, $song){
         Log::info('email = '.$email.' / song = '.$song);
         $user = User::where('email', $email)->value('id');
-        $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
-        ->select('song_id', 'score')->where('user_id', $user)->where('name', $song)->get();
-        Log::info('score = '.$scores);
+        $score = Score::join('user_songs', 'scores.user_song_id', '=', 'user_songs.id')
+        ->select('user_song_id', 'song_num', 'score')
+        ->where('scores.user_id', $user)->where('song_num', $song)->first();
+        Log::info('score = '.$score);
         // key     :  value
         // 노래id :  점수
-        $k_v_score = [];
-        foreach($scores as $score){
-            $k_v_score[$score->song_id] = $score->score; 
-        }
-
-        // return $scores;
+        
+        $k_v_score[$score->song_num] = $score->score; 
+        
+        // return $score;
         return json_encode($k_v_score);
     }
 
@@ -116,21 +111,25 @@ class UnityController extends Controller
     public function getScores($email){
         Log::info('email = '. $email);
         $user = User::where('email', $email)->value('id');
-        $scores = Score::join('songs', 'scores.song_id', '=', 'songs.id')
-        ->select('song_id', 'score')->where('user_id', $user)->get();
+        $scores = Score::join('user_songs', 'scores.user_song_id', '=', 'user_songs.id')
+        ->where('scores.user_id', $user)->get();
         Log:info('scores = '.$scores);
         // key     :  value
         // 노래id :  점수
         $k_v_scores = [];
         foreach($scores as $score){
-            $k_v_scores[$score->song_id] = $score->score; 
+            $k_v_scores[$score->song_num] = $score->score;
         }
 
+        // for($i=1; $i<=count($scores); $i++){
+        //     $k_v_scores[$i] = $score->score;
+        // }
+        
         // return $scores;
         return json_encode($k_v_scores);
     }
 
-    //파일업로드
+    // 파일업로드
     public function fileUpload(Request $request)
     {
         // return count($request->file('file'));
@@ -169,31 +168,9 @@ class UnityController extends Controller
         return "업로드 성공";
     }
 
-    // public function zip_test($i){
-        // $s3 = AwsFacade::createClient('s3');
-        // $result = $s3->getObject([
-        //     'Bucket'    => 'capstone.rhythmtataki.bucket',
-        //     'Key'       => 'files/', // 다운로드 할 파일 경로 및 이름
-        // ]);
-
-        // $headers = [
-        //     'Pragma' => 'public',
-        //     'Expires' => 0,
-        //     'Content-Type' => $result['ContentType'],
-        //     'Content-Disposition' => "attachment; filename=091".$i.".txt", // 다운로드 되는 이름
-        //     'Content-Transfer-Encoding' => 'binary',
-        //     'Content-Length' => $result['ContentLength']
-        // ];
-        // return $headers;
-        // return $result;
-        // ('다운로드 할 파일 경로 및 이름')
-    //     return Storage::disk('s3')->download('files/bbb@naver.com/091'.$i.'.txt', 'test.txt', $headers);
-    // }
-
-    // request 이메일
-    // return 노래.zip
-    public function fileDownload(Request $request){
-
+    // 파일 다운로드
+    public function fileDownload(Request $request)
+    {
         Log::info('email: '.$request->email);
 
         shell_exec('zip /mnt/zip-point/'.$request->email.'/songs.zip -j /mnt/zip-point/'.$request->email.'/*');
@@ -221,7 +198,8 @@ class UnityController extends Controller
         File::where('user_id', $u_id)->update(['dl_check' => true]);
     }
 
-    public function drumSoundDownload($email){
+    public function drumSoundDownload($email)
+    {
         $user = User::where('email', $email)->pluck('id')->first();
         $list = File::where('user_id', $user)->where('dl_check', false)->select('id', 'path', 'name')->get();
         return json_encode($list);

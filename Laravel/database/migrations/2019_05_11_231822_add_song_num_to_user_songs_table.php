@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDlCheckToFilesTable extends Migration
+class AddSongNumToUserSongsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddDlCheckToFilesTable extends Migration
      */
     public function up()
     {
-        Schema::table('files', function (Blueprint $table) {
-            $table->boolean('dl_check')->default(0)->comment('다운로드 체크')->after('size');
+        Schema::table('user_songs', function (Blueprint $table) {
+            $table->unsignedInteger('song_num')->after('user_id')->commnt('노래번호');
+            
         });
     }
 
@@ -25,8 +26,8 @@ class AddDlCheckToFilesTable extends Migration
      */
     public function down()
     {
-        Schema::table('files', function (Blueprint $table) {
-            $table->dropColumn('dl_check');
+        Schema::table('user_songs', function (Blueprint $table) {
+            $table->dropColumn('song_num');
         });
     }
 }

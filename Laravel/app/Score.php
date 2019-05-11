@@ -9,7 +9,7 @@ class Score extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id', 'song_id', 'score', 'created_at'
+        'user_id', 'user_song_id', 'score', 'created_at'
     ];
 
     // 일대다 역
