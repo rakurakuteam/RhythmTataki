@@ -15,10 +15,15 @@ class CreateUserSongsTable extends Migration
     {
         Schema::create('user_songs', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('file_id')->commit('파일번호');
+            $table->unsignedInteger('user_id')->comment('회원번호');
+            $table->foreign('user_id')->references('id')->on('users')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedInteger('song_id')->nullable()->commit('공식노래');
+            $table->foreign('song_id')->references('id')->on('songs')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedInteger('file_id')->nullable()->commit('파일번호');
             $table->foreign('file_id')->references('id')->on('files')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name', 100);
         });
     }
 
@@ -30,6 +35,8 @@ class CreateUserSongsTable extends Migration
     public function down()
     {
         Schema::table('user_songs', function(Blueprint $table){
+            $table->dropForeign('user_songs_user_id_foreign');
+            $table->dropForeign('user_songs_song_id_foreign');
             $table->dropForeign('user_songs_file_id_foreign');
         });
         Schema::dropIfExists('user_songs');

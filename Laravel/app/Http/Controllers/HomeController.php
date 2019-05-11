@@ -9,6 +9,7 @@ use App\Heart;
 use App\File;
 use App\Board_file;
 use App\User_song;
+use App\Score;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
@@ -269,7 +270,7 @@ class HomeController extends Controller
         $file_id = $board->files->first()->id;
         $file = File::find($file_id);
         $fileName = explode('.', $file->name);
-        $type = ['ogg', 'txt'];
+        $type = ['txt', 'ogg'];
         $fileNames=[];
 
         if(!$heart->exists()){
@@ -293,6 +294,18 @@ class HomeController extends Controller
             }
         }
 
+        $user_song = User_song::create([
+            'user_id' => \Auth::user()->id,
+            'song_id' => null,
+            'file_id' => $file->id,
+        ]);
+        
+        Score::create([// 초기 점수 생성
+            'user_id' => \Auth::user()->id,
+            'user_song_id' => $user_song->id,
+            'score' => 0,
+        ]);
+
         $path = \Auth::user()->email; // 다운로드 유저 이메일
             if($heart->exists()){
                 $heart->update(['dl_check' => true]);
@@ -300,7 +313,7 @@ class HomeController extends Controller
             shell_exec('chmod 777 /mnt/zip-point/'.$path);
         }
                 
-        $email = $board->user()->value('email'); // 파일 업로드 유저 이메일
+        $email = $board->user()->value('email'); // 업로드 유저 이메일
         
         $this->s3client();
         if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
@@ -327,7 +340,7 @@ class HomeController extends Controller
     // 게시글 작성 페이지
     public function create(){
         $this->s3client();
-        // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
+        
         $type = ['mp4', 'avi', 'wmv', 'mkv'];
         $files = File::where('user_id', \Auth::user()->id)
         ->whereIn('type', $type)
