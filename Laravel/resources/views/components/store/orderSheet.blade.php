@@ -3,8 +3,10 @@
         <!-- 1.제품확인 -->
         <div class="order_box_1">
             <h3 class="title_text">제품확인</h3>
-        </div>
+        </div>        
+        <form action="{{route('store.order')}}" method="POST">
         @foreach($products as $product)
+        <input type="text" name="product_id" style="display: none" value="{{$product->id}}">
         <div class="order_under_box_1">
             <img src="{{$product->images[0]->path.$product->images[0]->name}}" class="order_img">
             <div class="order_text_box">
@@ -18,7 +20,7 @@
         <div class="order_box_2">
             <h3 class="title_text">금액 및 결제수단</h3>
         </div>
-        <form action="{{route('store.order')}}" method="POST">
+
         @csrf
         <div class="order_under_box_2">
             <!-- 라디오박스 -->
