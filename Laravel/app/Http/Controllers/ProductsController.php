@@ -106,11 +106,12 @@ class ProductsController extends Controller
             'addr_2' => $request->address2,
             'created_at' => now(),
         ]);
+        $user_addr = $user->addresses();
 
         if(isset($request->cb_2)){
-            $user_addr = $user->addresses()->attach($address->id, ['rep' => true]);
+            $user_addr->attach($address->id, ['rep' => true]);
         }else{
-            $user_addr = $user->addresses()->attach($address->id);
+            $user_addr->attach($address->id);
         }
         
         $today = str_replace('-', '', now()->toDateString());
@@ -126,19 +127,19 @@ class ProductsController extends Controller
         }
         $last_order = $last_order_date.sprintf("%04d", ($last_order_num+1));
 
-        // $order = Order::create([
-        //     'order_num' => $last_order,
-        //     'product_id' => $request->product_id,
-        //     'quantity' => $request->quantity,
-        //     'user_addr_id' => $user_addr->id,
-        //     'request' => $request->order_request,
-        //     'status_id' => 0,
-        //     'payment' => $request->pos,
-        //     'created_at' => now(),
-        // ]);
+        $order = Order::create([
+            'order_num' => $last_order,
+            'product_id' => $request->product_id,
+            'quantity' => $request->quantity,
+            'user_addr_id' => $address->id,
+            'request' => $request->order_request,
+            'status_id' => 0,
+            'payment' => $request->pos,
+            'created_at' => now(),
+        ]);
 
         // return $request->all();
-        return $user_addr;
+        return redirect('/store/orderList');
     }
 
     // 결제 페이지
