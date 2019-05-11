@@ -172,7 +172,7 @@ class UnityController extends Controller
     public function fileDownload(Request $request)
     {
         Log::info('email: '.$request->email);
-        
+
         shell_exec('zip /mnt/zip-point/'.$request->email.'/songs.zip -j /mnt/zip-point/'.$request->email.'/*');
 
         $filepath = '/mnt/zip-point/'.$request->email.'/songs.zip';
@@ -191,11 +191,11 @@ class UnityController extends Controller
         ob_clean();
         flush();
         readfile($filepath);
-        shell_exec('rm -r /mnt/zip-point/'.$request->email);
-        
-        $u_id = User::where('email', $request->email)->value('id');
-        $file = File::where('user_id', $u_id)->update(['dl_check' => true]);
-        
+      
+	      shell_exec('rm -r /mnt/zip-point/'.$request->email);
+
+	      $u_id = User::where('email', $request->email)->value('id');
+        File::where('user_id', $u_id)->update(['dl_check' => true]);
     }
 
     public function drumSoundDownload($email)
@@ -205,4 +205,3 @@ class UnityController extends Controller
         return json_encode($list);
     }
 }
-    
