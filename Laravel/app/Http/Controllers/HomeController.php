@@ -329,7 +329,6 @@ class HomeController extends Controller
             }
             return 1;
         }
-
         return 0;
     }
 
