@@ -283,21 +283,25 @@ class HomeController extends Controller
 
         if($heart->first()->dl_check == false){
             for($i=0; $i<count($type); $i++){
-                $file = File::create([
+                $fileDL = File::create([
                     'user_id' => \Auth::user()->id,
                     'path' => $file->path,
                     'name' => $fileName[0].'.'.$type[$i],
                     'type' => $type[$i],
                     'size' => $file->size
                 ]);
-                $fileNames[$i] = $file->name;
+		if(File::where('user_id', \Auth::user()->id)->max('name') == $fileDL->name){
+                    $fileNames[$i] = ($fileName[0]+1).'.'.$type[$i];
+                }else{
+                    $fileNames[$i] = $file->name;
+                }
             }
-        }
 
         $user_song = User_song::create([
-            'user_id' => \Auth::user()->id,
+	    'user_id' => \Auth::user()->id,
+	    'song_num' => User_song::where('user_id', \Auth::user()->id)->max('song_num')+1,
             'song_id' => null,
-            'file_id' => $file->id,
+            'file_id' => $fileDL->id,
         ]);
         
         Score::create([// 초기 점수 생성
@@ -320,16 +324,13 @@ class HomeController extends Controller
             $name = fgets($stream);
             fclose($stream);
         }
-        $song = User_song::create([
-            'file_id' => $file->id,
-            'name' =>  $name,
-        ]);
 
         foreach($fileNames as $name){
 		    shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$name.' /mnt/zip-point/'.$path.'/'.$name);
-        }
-
-        return $files;
+	}
+	return 1;
+	}
+        return 0;
     }
 
     public function s3client(){
