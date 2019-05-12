@@ -223,9 +223,9 @@ class UnityController extends Controller
         foreach($lists as $list){
             shell_exec('cp /mnt/mountpoint/workshop/drumSoundClip/'.$email.'/'.$list->name. ' /mnt/zip-point/drumSound/'.$email.'/'.$list->name);
         }
-        shell_exec('zip /mnt/zip-point/drumSound/drumSound.zip -j /mnt/zip-point/drumSound/'.$email.'/*');
+        shell_exec('zip /mnt/zip-point/drumSound/'.$email.'drumSound.zip -j /mnt/zip-point/drumSound/'.$email.'/*');
 
-        $filepath = '/mnt/zip-point/drumSound/drumSound.zip';
+        $filepath = '/mnt/zip-point/drumSound/'.$email.'drumSound.zip';
         $filesize = filesize($filepath);
         $path_parts = pathinfo($filepath);
         $filename = $path_parts['basename'];
@@ -242,9 +242,9 @@ class UnityController extends Controller
         flush();
         readfile($filepath);
 
-        shell_exec('rm /mnt/zip-point/drumSound/drumSound.zip');
+        shell_exec('rm -r /mnt/zip-point/drumSound/'.$email);
 
-	    $u_id = User::where('email', $request->email)->value('id');
+	    $u_id = User::where('email', $email)->value('id');
         File::where('user_id', $u_id)->where('type', 'wma')->update(['dl_check' => true]);
         // return json_encode($list);
     }
