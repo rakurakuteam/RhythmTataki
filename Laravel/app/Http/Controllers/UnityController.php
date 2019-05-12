@@ -163,8 +163,22 @@ class UnityController extends Controller
                 'size' => $size,
                 'dl_check' => true,
                 'created_at' => now(),
+	    ]);
+	    }
+	    $user_song_num = User_song::where('user_id', $user)->max('song_num')+1;
+
+            $user_song = User_song::create([
+                'user_id' => $user,
+                'song_num' => $user_song_num,
+                'song_id' => null,
+                'file_id' => $file->id-1,
             ]);
-        }   
+
+            Score::create([// 초기 점수 생성
+                'user_id' => $user,
+                'user_song_id' => $user_song->id,
+                'score' => 0,
+            ]);   
         return "업로드 성공";
     }
 
