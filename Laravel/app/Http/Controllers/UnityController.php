@@ -164,9 +164,7 @@ class UnityController extends Controller
                 'dl_check' => true,
                 'created_at' => now(),
 	    ]);
-	    }
-
-        }   
+	}   
 
         $user_song_num = User_song::where('user_id', $user)->max('song_num')+1;
         
