@@ -155,7 +155,7 @@ class UnityController extends Controller
             Log::info('file type:'. $request->file[$i]->getClientOriginalExtension());
             Log::info('file size:'. $request->file[$i]->getClientSize());
             
-            File::create([
+            $file = File::create([
                 'user_id' => $user,
                 'path' => $url,
                 'name' => $fileName,
@@ -165,6 +165,21 @@ class UnityController extends Controller
                 'created_at' => now(),
             ]);
         }   
+
+        $user_song_num = User_song::where('user_id', $user)->max('song_num')+1;
+        
+        $user_song = User_song::create([
+            'user_id' => $user,
+            'song_num' => $user_song_num,
+            'song_id' => null,
+            'file_id' => $file->id
+        ]);
+
+        Score::create([// 초기 점수 생성
+            'user_id' => $user,
+            'user_song_id' => $user_song->id,
+            'score' => 0,
+        ]);
         return "업로드 성공";
     }
 
@@ -192,16 +207,43 @@ class UnityController extends Controller
         flush();
         readfile($filepath);
       
-	      shell_exec('rm -r /mnt/zip-point/'.$request->email);
+	    shell_exec('rm -r /mnt/zip-point/'.$request->email);
 
-	      $u_id = User::where('email', $request->email)->value('id');
-        File::where('user_id', $u_id)->update(['dl_check' => true]);
+	    $u_id = User::where('email', $request->email)->value('id');
+        File::where('user_id', $u_id)->whereIn('type', ['txt', 'ogg'])->update(['dl_check' => true]);
     }
 
     public function drumSoundDownload($email)
     {
-        $user = User::where('email', $email)->pluck('id')->first();
-        $list = File::where('user_id', $user)->where('dl_check', false)->select('id', 'path', 'name')->get();
-        return json_encode($list);
+        $user = User::where('email', $email)->value('id');
+        $lists = File::where('user_id', $user)->where('dl_check', false)->select('id', 'path', 'name')->get();
+        shell_exec('mkdir /mnt/zip-point/drumSound/'.$email);
+        foreach($lists as $list){
+            shell_exec('cp /mnt/mountpoint/workshop/drumSoundClip/'.$email.'/'.$list->name. ' /mnt/zip-point/drumSound/'.$email.'/'.$list->name);
+        }
+        shell_exec('zip /mnt/zip-point/drumSound/drumSound.zip -j /mnt/zip-point/drumSound/'.$email.'/*');
+
+        $filepath = '/mnt/zip-point/drumSound/drumSound.zip';
+        $filesize = filesize($filepath);
+        $path_parts = pathinfo($filepath);
+        $filename = $path_parts['basename'];
+        $extension = $path_parts['extension'];
+        
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Content-Type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: $filesize");
+        
+        ob_clean();
+        flush();
+        readfile($filepath);
+
+        shell_exec('rm /mnt/zip-point/drumSound/drumSound.zip');
+
+	    $u_id = User::where('email', $request->email)->value('id');
+        File::where('user_id', $u_id)->where('type', 'wma')->update(['dl_check' => true]);
+        // return json_encode($list);
     }
 }
