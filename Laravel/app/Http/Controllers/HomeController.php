@@ -293,7 +293,7 @@ class HomeController extends Controller
             }
 
             $user_song_num = User_song::where('user_id', \Auth::user()->id)->max('song_num')+1;
-            
+
             $user_song = User_song::create([
                 'user_id' => \Auth::user()->id,
                 'song_num' => $user_song_num,
