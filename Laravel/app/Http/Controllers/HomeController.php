@@ -292,16 +292,16 @@ class HomeController extends Controller
                 ]);
             }
 
-            $user_song_sum = User_song::where('user_id', \Auth::user()->id)->max('song_num')+1;
-            
+            $user_song_num = User_song::where('user_id', \Auth::user()->id)->max('song_num')+1;
+
             $user_song = User_song::create([
                 'user_id' => \Auth::user()->id,
-                'song_num' => $user_song_sum,
+                'song_num' => $user_song_num,
                 'song_id' => null,
-                'file_id' => $fileDL->id,
+                'file_id' => $fileDL[1]->id,
             ]);
-            $fileNames[$fileDL[0]->name] = $user_song_sum.$type[0];
-            $fileNames[$fileDL[1]->name] = $user_song_sum.$type[1];
+            $fileNames[$fileDL[0]->name] = $user_song_num.'.'.$type[0];
+            $fileNames[$fileDL[1]->name] = $user_song_num.'.'.$type[1];
 
             Score::create([// 초기 점수 생성
                 'user_id' => \Auth::user()->id,
@@ -324,7 +324,7 @@ class HomeController extends Controller
                 fclose($stream);
             }
     
-            foreach($fileNames as $origina => $copy){
+            foreach($fileNames as $original => $copy){
                 shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
             }
             return 1;
