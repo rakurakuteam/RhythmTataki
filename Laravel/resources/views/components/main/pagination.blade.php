@@ -1,4 +1,5 @@
 <!--게시글-->
+<div class="under_form_box">
 <div class="title_area2">
     <h2 class="title">
         <strong>게시글</strong>
@@ -16,7 +17,7 @@
                         Your browser does not support HTML5 video.
                     </video>
                     @else
-                    <div class="playButton_box">    
+                    <div class="playButton_box">
                     <img src="{{asset('images/pic/free.png')}}" class="picture"/>
                     </div>
                     @endif
@@ -37,6 +38,7 @@
     </ul>
 </div>
 @endforeach
+</div>
 
 <!--페이지네이션-->
 <center>

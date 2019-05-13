@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 define('LINK', 2);
-define('POSTS', 4);
+define('POSTS', 8);
 define('RANKING', 4);
 
 class HomeController extends Controller

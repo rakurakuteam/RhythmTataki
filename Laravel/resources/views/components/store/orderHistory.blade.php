@@ -1,6 +1,6 @@
     <contents>
         <div class="contents">
-            <h2 id="title_text">{{__('messages.cart')}}</h2>
+            <h2 id="title_text">{{__('messages.tracking')}}</h2>
 
             <!--박스-->
             <div class="tracking_box">
