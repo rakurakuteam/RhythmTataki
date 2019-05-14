@@ -65,7 +65,9 @@ function selectFile(fileObject) {
         // 파일 Drag 이용하여 등록시
         files = fileObject;
     } else {
-        // 직접 파일 등록시 files = $('#multipaartFileList_' + fileIndex)[0].files;
+        // 직접 파일 등록시
+        files = $('#ex_file')[0].files;
+        // files = fileObject.originalEvent.dataTransfer.files;
         console.log('error');
     }
     var fileName = files[0].name;
@@ -75,7 +77,7 @@ function selectFile(fileObject) {
     FileSize = (files[0].size / 1024 / 1024).toFixed(2);
     console.log(ext);
 
-    if($.inArray(ext, ['mp3', 'wav'])){
+    if($.inArray(ext, ['mp3'])){
         alert("등록 불가 확장자");
         return;
     };
