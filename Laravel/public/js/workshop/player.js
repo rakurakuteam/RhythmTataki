@@ -29,6 +29,15 @@ $(document).ajaxComplete(function(){
         wavesurfer.zoom(Number(this.value));
     };
 
+    // 
+    wavesurfer.on('loading', function(percent){
+        console.log(percent);
+        if(percent == 100){
+            $('#loading').remove();
+            $('#black').remove();
+        }
+    });
+
     // 웨이브 서퍼가 준비되면
     wavesurfer.on('ready', function() {
         console.log("총 길이(초): "+timeInfo(wavesurfer.getDuration()))
