@@ -12,7 +12,7 @@
             <div class="sub_photo" id="photo_gallery">
                 <p class="thmb">
                     @if(isset($video))
-                    <video width="90%" controls autoplay controlsList="nodownload" preload="metadata">
+                    <video width="90%" controls controlsList="nodownload" preload="metadata">
                             <source src="{{$video}}#t=0.1" type="video/mp4">
                             Your browser does not support HTML5 video.
                     </video>

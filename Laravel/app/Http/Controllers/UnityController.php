@@ -77,9 +77,8 @@ class UnityController extends Controller
     //최고 기록이면 1 / DB 점수 업데이트
     //아니면 0
     public function setScore(Request $request){
-        
         $user = User::where('email', $request->email)->value('id');
-        $song = User_song::where('song_num', $request->song)->value('id');
+        $song = User_song::where('user_id', $user)->where('song_num', $request->song)->value('id');
         $score = Score::where('user_id', $user)->where('user_song_id', $song);
 
         if($score->where('score', '<', $request->score)->exists()){
