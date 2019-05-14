@@ -7,7 +7,6 @@
             <div id="music_btn_box">
                 <button id="play_btn">PLAY</button>
                 <button id="pause_btn">STOP</button>
-                
                 <input type="range" id="slider" class="slider" value="0" min="0" max="1000"/>
             </div>
             <div id="timer" class="timer">
