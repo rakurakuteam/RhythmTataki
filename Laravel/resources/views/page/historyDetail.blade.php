@@ -6,7 +6,7 @@
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/main/main_2.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/store/historyDetail.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/footer.css')}}" />
 @endsection
 
@@ -14,12 +14,8 @@
     @include('layouts.header.main')
 @endsection
 
-@section('nav')
-    @include('components.main.slide')
-@endsection
-
 @section('body')
-    @include('components.main.content')
+    @include('components.store.historyDetail')
 @endsection
 
 @section('footer')
@@ -27,6 +23,4 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/heart.js')}}"></script>
-    <script src="{{asset('js/pagination.js')}}"></script>
 @endpush

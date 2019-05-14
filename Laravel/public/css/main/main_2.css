@@ -1,5 +1,5 @@
 body {
-    height: 1500px;
+    height: auto;
     padding: 0;
     margin: 0;
 }
@@ -231,16 +231,30 @@ select::-ms-expand {
 .title_area1,
 .title_area2 {
     margin-top: 20px;
-    margin-bottom: px;
     color: #4864ff;
 }
 
-h4 {
+.title_area2 {
+  margin-top: 100px;
+}
+
+under_form_box {
+  height: 500px;
+  background-color: pink;
+}
+
+a {
+  text-decoration: none;
+}
+
+.title_text {
     text-decoration: none;
+    color: #0682ff;
 }
 
 .sub_photo {
     width: 340px;
+    height: 300px;
     margin-bottom: 60px;
     float: left;
 }
@@ -288,6 +302,8 @@ h4 {
     --uiPaginationFontSize: var(--paginationFontSize);
 
     font-size: var(--uiPaginationFontSize);
+    display: inline-block;
+    width: 100%;
 }
 
 .pagination__list {
@@ -371,13 +387,13 @@ h4 {
 }
 
 .write_btn_box {
-  position: relative;
   display: inline-block;
-  top:420px;
-  width: 100%;
+  top:870px;
+  width: 200px;
   float: right;
-  height: 100px;
-  background-color: #fff;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0);
+  margin-right: 270px;
 }
 
 .write_btn {
@@ -390,6 +406,44 @@ h4 {
   font-size: 20px;
   cursor: pointer;
   float: right;
-  margin-right: 250px;
-  margin-top: 22.5px;
+  margin-top: 20px;
+}
+
+.write_btn:hover {
+  background-color: #3475b6;
+  border: 2px solid #3475b6;
+  animation-duration: 10s;
+}
+
+.write_box {
+  width: 80px;
+  height: 200px;
+  background-color: #4aa3fd;
+  border-top-left-radius: 10px;
+  border-top: 2px solid #006eea;
+  border-left: 2px solid #006eea;
+  border-bottom: 2px solid #006eea;
+  border-bottom-left-radius: 10px;
+  position: fixed;
+  display: inline-block;
+  right: 0;
+  top: 40%;
+  text-decoration: none;
+  color: #002b5c;
+  box-shadow: 5px 3px 15px 5px #cecece;
+}
+
+.write {
+  width: 50px;
+  margin-top: 53px;
+  cursor: pointer;
+}
+
+#write_text {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#write_text:hover {
+  color: #fff;
 }

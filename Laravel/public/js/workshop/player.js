@@ -7,6 +7,7 @@ $(document).ajaxComplete(function(){
         progressColor: "rgba(11,142,193, 1)", // 재생후 색깔
         pixelRatio: 1,
         scrollParent: false,
+        autoCenter: false,
         normalize: true,
         plugins: [
             WaveSurfer.cursor.create({
@@ -23,6 +24,10 @@ $(document).ajaxComplete(function(){
         ]
     });
     wavesurfer.load($('#temporary_sound').val());
+
+    document.querySelector('#slider').oninput = function () {
+        wavesurfer.zoom(Number(this.value));
+    };
 
     // 웨이브 서퍼가 준비되면
     wavesurfer.on('ready', function() {

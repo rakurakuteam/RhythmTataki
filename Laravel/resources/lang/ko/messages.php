@@ -27,8 +27,13 @@ return [
     'write' => '글쓰기',
     'home' => '홈',
     'tracking' => '주문 / 배송조회',
-    'orderHistory' => '주문내역',
+    'information' => '상품정보',
+    'shipping' => '배송상태',
+    'price' => '금액',
     'quantity' => '수량',
-    'price' => '가격',
+    'userName' => '주문자',
+    'addr' => '배송지',
+    'shipMsg' => '배송메세지'
+    'orderHistory' => '주문내역',
     'status' => '상태',
 ];

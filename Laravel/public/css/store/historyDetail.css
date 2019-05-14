@@ -1,0 +1,207 @@
+body {
+    padding: 0;
+    margin: 0;
+    height: 1400px;
+}
+
+#logo {
+    margin-left: 300px;
+    height: 30px;
+    float: left;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#login-logo {
+    height: 40px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+#topMenu {
+    height: 70px;
+    width: 100%;
+    background-color: #4aa3fd;
+    margin-top: -16px;
+}
+
+#li-1 {
+    margin-left: 600px;
+}
+
+#topMenu ul li {
+    list-style: none;
+    color: white;
+    background-color: #4aa3fd;
+    float: left;
+    line-height: 70px;
+    text-align: right
+}
+
+#topMenu .menuLink {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 150px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "NanumSquare", "Dotum", "Arial";
+}
+
+#topMenu .menuLink:hover {
+    color: #000000;
+}
+
+#title_text {
+    padding-top: 20px;
+    color: #4aa3fd;
+    margin-left: 300px;
+    padding-top: 60px;
+}
+
+.title_box {
+    margin-top: 80px;
+    width: 1200px;
+    height: 80px;
+    border-top: 1.2px solid #000000;
+    border-bottom: 1.2px solid #000000;
+}
+
+.title_box_2 {
+    width: 1200px;
+    height: 180px;
+    border-bottom: 1.2px solid #000000;
+}
+
+#information,
+#tracking,
+#price,
+#quantity {
+    width: 200px;
+    font-size: 20px;
+    float: left;
+    vertical-align: middle;
+    padding-top: 7px;
+}
+
+#information {
+    padding-right: 200px;
+    padding-left: 200px;
+}
+
+#shop_name_text {
+    font-size: 27px;
+    width: 350px;
+    margin-top: 55px;
+    padding-top: 35px;
+    display: block;
+    margin-left: -500px;
+}
+
+#basket_img {
+    width: 120px;
+    margin-left: -550px;
+    float: left;
+    position: absolute;
+    border: 2px solid #4aa3fd;
+    float: left;
+}
+
+#tracking_text,
+#price_text,
+#quantity_text {
+    width: 200px;
+    float: left;
+}
+
+.text_box {
+    width: 600px;
+    background-color: aqua;
+    margin-left: 600px;
+    margin-top: -75px;
+    font-size: 20px;
+}
+
+.name {
+    width: 520px;
+    float: left;
+    margin-left: 340px;
+    margin-top: 100px;
+}
+
+.name_box {
+    width: 500px;
+    height: 70px;
+    background-color: #d4e9f7;
+}
+
+.name_under_box {
+    width: 498px;
+    height: 400px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.addr {
+    width: 670px;
+    float: right;
+    margin-right: 340px;
+    margin-top: 100px;
+}
+
+.addr_box {
+    width: 650px;
+    height: 70px;
+    background-color: #d4e9f7;
+}
+
+.addr_under_box {
+    width: 648px;
+    height: 400px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+#name_text {
+    padding-left: 25px;
+    float: left;
+    font-size: 20px;
+}
+
+#addr_text {
+    padding-left: 25px;
+    float: left;
+    font-size: 20px;
+}
+
+.user_text {
+    padding-top: 75px;
+    font-size: 20px;
+    text-align: left;
+    margin-left: 50px;
+    width: 400px;
+}
+
+#shipping_type {
+    text-align: left;
+    font-size: 20px;
+    margin-left: 50px;
+    margin-top: 60px;
+    width: 400px;
+}
+
+.user_addr_text {
+    padding-top: 30px;
+    font-size: 20px;
+    text-align: left;
+    width: 470px;
+}
+
+.user_msg_text {
+    font-size: 20px;
+    text-align: left;
+    width: 470px;
+    margin-top: 70px;
+}

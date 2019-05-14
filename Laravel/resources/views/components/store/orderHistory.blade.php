@@ -6,9 +6,11 @@
             <div class="tracking_box">
                 <img src="{{asset('images/pic/drumSet.png')}}" id="shop_img">
                 <div class="text_box_1">
+
                     <b><p id="shop_name_text">{{$order->product->name}}</p></b>
                     <p id="shop_num">주문번호 {{$order->order_num}}</p>
                     <p id="shop_date">{{$order->created_at}}</p>
+
                 </div>
 
                 <div class="box">
