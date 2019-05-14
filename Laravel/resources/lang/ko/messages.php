@@ -33,7 +33,7 @@ return [
     'quantity' => '수량',
     'userName' => '주문자',
     'addr' => '배송지',
-    'shipMsg' => '배송메세지'
+    'shipMsg' => '배송메세지',
     'orderHistory' => '주문내역',
     'status' => '상태',
 ];
