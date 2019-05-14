@@ -68,7 +68,7 @@ function selectFile(fileObject) {
         // 직접 파일 등록시
         files = $('#ex_file')[0].files;
         // files = fileObject.originalEvent.dataTransfer.files;
-        console.log('error');
+        console.log('select');
     }
     var fileName = files[0].name;
     var fileNameArr = fileName.split("\.");
@@ -103,6 +103,13 @@ function uploadFile(fileObject) {
     var form = $('#uploadForm');
     var formData = new FormData(form);
     formData.append('audio', fileObject[0]);
+    
+    var back = $('<div id="black" style="height:100%; width:100%; background-color:rgba(0,0,0,0.6); top:0; left:0; position:fixed; z-index:100"></div>');
+    var loading = $('<img src="images/pic/loading.gif" id="loading"/>');
+
+    // var body = $('#black').css('background-color', '#494949');
+    $('body').append(back);
+    $('#black').append(loading);
 
     $.ajax({
         data: formData,
@@ -112,12 +119,11 @@ function uploadFile(fileObject) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log(data);
+            console.log('success');
             $("#workshop").html(data);
         },
         error: function (data) {
             console.log(data.status);
         }
     });
-
 }
