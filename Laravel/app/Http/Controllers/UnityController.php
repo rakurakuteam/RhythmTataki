@@ -221,9 +221,9 @@ class UnityController extends Controller
         foreach($lists as $list){
             shell_exec('cp /mnt/mountpoint/workshop/drumSoundClip/'.$email.'/'.$list->name. ' /mnt/zip-point/drumSound/'.$email.'/'.$list->name);
         }
-        shell_exec('zip /mnt/zip-point/drumSound/'.$email.'drumSound.zip -j /mnt/zip-point/drumSound/'.$email.'/*');
+        shell_exec('zip /mnt/zip-point/drumSound/'.$email.'/drumSound.zip -j /mnt/zip-point/drumSound/'.$email.'/*');
 
-        $filepath = '/mnt/zip-point/drumSound/'.$email.'drumSound.zip';
+        $filepath = '/mnt/zip-point/drumSound/'.$email.'/drumSound.zip';
         $filesize = filesize($filepath);
         $path_parts = pathinfo($filepath);
         $filename = $path_parts['basename'];
