@@ -37,7 +37,7 @@
                         @include('components.heart', ['board' => $ranking])
                     </div>
                     <a href="{{route('board.show', $ranking->id)}}">
-                        <h4 id="title_text">
+                        <h4 class="title_text">
                             <strong>
                                 {{$ranking->title}}
                             </strong>
@@ -50,12 +50,22 @@
         @endforeach
     </div>
     @include('components.main.selectBox', ['current_page' => $current_page])
+
+    <!-- 글쓰기버튼 <a class="menuLink" id="li-1" href="{{route('board.create')}}">
+      <div class="write_btn_box">
+          <button class="write_btn"><b>{{__('messages.write')}}</b></button>
+      </div>
+    </a> -->
+
     <div class="contents_2" id="paging">
         @include('components.main.pagination')
     </div>
     <a class="menuLink" id="li-1" href="{{route('board.create')}}">
-        <div class="write_btn_box">
-            <button class="write_btn"><b>{{__('messages.write')}}</b></button>
-        </div>
+      <div class="write_box">
+        <center>
+          <img src="{{asset('images/pic/write_icon_2.png')}}" class="write"/>
+          <p id="write_text"><b>WRITE</b></p>
+        </center>
+      </div>
     </a>
 </contents>
