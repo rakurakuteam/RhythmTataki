@@ -38,7 +38,7 @@ class WorkshopController extends Controller
         $tss = explode('/', $ts);
         $audioName = $tss[count($tss)-1];
 
-        shell_exec("ffmpeg -i ".$ts." -f wav -ss ".$request->start_sec." -t ".$request->len." -y -filter:a 'volume=5' /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".wma");
+        shell_exec("ffmpeg -i ".$ts." -f wav -ss ".$request->start_sec." -t ".$request->len." -y /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".wma");
 
         Storage::disk('s3')->delete('workshop/temporarySound/'.$audioName);
 
