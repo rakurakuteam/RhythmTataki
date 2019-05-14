@@ -166,6 +166,9 @@ return [
         Aws\Laravel\AwsServiceProvider::class,
         /* zip */
         ZanySoft\Zip\ZipServiceProvider::class,
+
+        /* 이쁜 알림창 */
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
     ],
 
     /*
@@ -217,6 +220,7 @@ return [
 
         'AWS' => Aws\Laravel\AwsFacade::class,
         'Zip' => ZanySoft\Zip\ZipFacade::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];

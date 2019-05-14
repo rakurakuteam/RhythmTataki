@@ -12,6 +12,7 @@
     @stack('scripts')
 </head>
 <body>
+    @include('sweetalert::alert')
     @yield('header')
     @yield('nav')
     @yield('body')

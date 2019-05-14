@@ -13,6 +13,7 @@ use App\Score;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
+use Alert;
 
 define('LINK', 2);
 define('POSTS', 8);
@@ -327,9 +328,11 @@ class HomeController extends Controller
             foreach($fileNames as $original => $copy){
                 shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
             }
+            Alert::success('다운로드 완료', '연주모드에서 새로고침 하세요.');
             return 1;
         }
-        return 0;
+        Alert::question('다운로드 실패', '이미 다운로드한 게시물이 아니신가요?');
+        return 2;
     }
 
     public function s3client(){
