@@ -20,7 +20,7 @@ Route::prefix('unity')->group(function() {
     Route::get('/getScore/{email}/{song}', 'UnityController@getScore')->name('unity.getScore'); // 점수 조회
     Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores'); // 점수들 조회
     Route::get('/fileDownload/{email}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
-    Route::get('/getMusicList/{email}', 'UnityController@getMusicList')->name('unity.getMusicList'); // 음악 목록
+    Route::get('/drumSoundDownload/{email}', 'UnityController@drumSoundDownload')->name('unity.drumSoundDownload'); // 음악 목록
 
     Route::post('/join', 'UnityController@join')->name('unity.join'); // 회원가입
     Route::post('/login', 'UnityController@login')->name('unity.login'); // 로그인

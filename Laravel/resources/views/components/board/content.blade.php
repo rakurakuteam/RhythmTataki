@@ -22,7 +22,7 @@
                 </p>
               <div class="like_box">
                 <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
-                    @include('components.heart')
+                    @include('components.heart', ['board' => $board])
                 </div>
               </div>
                 <div class="write_box">

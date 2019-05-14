@@ -7,6 +7,7 @@ $(document).ajaxComplete(function(){
         progressColor: "rgba(11,142,193, 1)", // 재생후 색깔
         pixelRatio: 1,
         scrollParent: false,
+        autoCenter: false,
         normalize: true,
         plugins: [
             WaveSurfer.cursor.create({
@@ -23,6 +24,10 @@ $(document).ajaxComplete(function(){
         ]
     });
     wavesurfer.load($('#temporary_sound').val());
+
+    document.querySelector('#slider').oninput = function () {
+        wavesurfer.zoom(Number(this.value));
+    };
 
     // 웨이브 서퍼가 준비되면
     wavesurfer.on('ready', function() {
@@ -44,6 +49,7 @@ $(document).ajaxComplete(function(){
     wavesurfer.on('region-updated', function(region, e) {
         $('#start_sec').val(timeInfo(region.start));
         $('#end_sec').val(timeInfo(region.end));
+        $('#len').val((region.end-region.start).toFixed(2));
         regionId = region.id;
     });
 
@@ -54,6 +60,7 @@ $(document).ajaxComplete(function(){
         e.shiftKey ? region.playLoop() : region.play();
         $('#start_sec').val(timeInfo(region.start));
         $('#end_sec').val(timeInfo(region.end));
+        $('#len').val((region.end-region.start).toFixed(2));
         regionId = region.id;
     });
 
@@ -68,10 +75,19 @@ $(document).ajaxComplete(function(){
     // 시간 정보
     function timeInfo(time){
         var min = Math.floor(time/60);
-        var sec = Math.floor(time-60*min)
-        var ms = Math.floor(((time-60*min).toFixed(2)-sec)*100)
+        var sec = Math.floor(time-60*min);
+        var ms = pad(Math.floor(((time-60*min).toFixed(2)-sec)*100), 2);
+        if(ms == 100){
+            ms = pad(0, 2);
+            ++sec;
+        }
         return min+":"+sec+"."+ms;
     };
+    
+    function pad(n, width) {
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    }
 
     // 오디오 재생
     document.getElementById('play_btn').addEventListener('click', function(){
@@ -86,4 +102,5 @@ $(document).ajaxComplete(function(){
     document.getElementById('remove_btn').addEventListener('click',function(){
         wavesurfer.regions.list[regionId].remove();
     });
+
 });

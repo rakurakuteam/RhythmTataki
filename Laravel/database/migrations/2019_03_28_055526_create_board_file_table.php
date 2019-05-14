@@ -32,8 +32,8 @@ class CreateBoardFileTable extends Migration
     public function down()
     {
         Schema::table('board_file', function(Blueprint $table){
-            $table->dropForeign('board_files_file_id_foreign');
-            $table->dropForeign('board_files_board_id_foreign');
+            $table->dropForeign('board_file_file_id_foreign');
+            $table->dropForeign('board_file_board_id_foreign');
         });
         Schema::dropIfExists('board_file');
     }

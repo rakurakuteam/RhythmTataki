@@ -19,4 +19,9 @@ class File extends Model
     public function user(){
         $this->belongsTo('App\User');
     }
+
+    // 일대다
+    public function user_songs(){
+        return $this->hasMany('App\User_song');
+    }
 }

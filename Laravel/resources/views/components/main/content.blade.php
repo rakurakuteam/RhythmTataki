@@ -56,6 +56,7 @@
           <button class="write_btn"><b>{{__('messages.write')}}</b></button>
       </div>
     </a> -->
+
     <div class="contents_2" id="paging">
         @include('components.main.pagination')
     </div>

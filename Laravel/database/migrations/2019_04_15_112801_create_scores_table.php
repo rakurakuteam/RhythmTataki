@@ -18,8 +18,8 @@ class CreateScoresTable extends Migration
             $table->unsignedInteger('user_id')->comment('회원번호');
             $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedInteger('song_id')->comment('노래제목');
-            $table->foreign('song_id')->references('id')->on('songs')
+            $table->unsignedInteger('user_song_id')->comment('회원노래');
+            $table->foreign('user_song_id')->references('id')->on('user_songs')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('score')->comment('점수');
             $table->timestamp('created_at');
@@ -35,7 +35,7 @@ class CreateScoresTable extends Migration
     {
         Schema::table('scores', function(Blueprint $table){
             $table->dropForeign('scores_user_id_foreign');
-            $table->dropForeign('scores_song_id_foreign');
+            $table->dropForeign('scores_user_song_id_foreign');
         });
         Schema::dropIfExists('scores');
     }

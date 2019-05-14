@@ -26,7 +26,7 @@ class AddDlCheckToFilesTable extends Migration
     public function down()
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->dropColumn('dl_ckeck');
+            $table->dropColumn('dl_check');
         });
     }
 }

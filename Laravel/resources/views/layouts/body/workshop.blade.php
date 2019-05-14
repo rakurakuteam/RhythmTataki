@@ -7,9 +7,8 @@
       </div>
       <div class="filebox">
         <label for="ex_file"><div id="file_select_text"><b>파일선택</b></div></label>
-        <input type="file" id="ex_file">
+        <input type="file" name="file" id="ex_file" onchange="selectFile()">
       </div>
-
     </div>
   </center>
 </form>

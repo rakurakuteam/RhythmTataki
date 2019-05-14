@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(BoardsTableSeeder::class);
         // $this->call(HeartsTableSeeder::class);
         // $this->call(SongsTableSeeder::class);
+        // $this->call(User_songsTableSeeder::class);
         // $this->call(ScoresTableSeeder::class);
     }
 }

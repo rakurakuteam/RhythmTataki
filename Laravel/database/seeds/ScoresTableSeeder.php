@@ -12,8 +12,7 @@ class ScoresTableSeeder extends Seeder
     public function run(){
         for($i=1; $i<=11; $i++){
             DB::table('scores')->insert([
-                'user_id' => 25,
-                'song_id' => $i,
+                'user_song_id' => $i,
                 'score' => 0,
                 'created_at' => now()
             ]);

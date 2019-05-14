@@ -7,8 +7,12 @@ use App\Board;
 use App\User;
 use App\Heart;
 use App\File;
+use App\Board_file;
+use App\User_song;
+use App\Score;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Aws\Laravel\AwsFacade;
 
 define('LINK', 2);
 define('POSTS', 8);
@@ -16,10 +20,11 @@ define('RANKING', 4);
 
 class HomeController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth')
+        ->except('index');
+    }
 
     // 메인 페이지
     public function index()
@@ -39,8 +44,13 @@ class HomeController extends Controller
         $page_link_first = 1;
         $page_link_last = 2*LINK+1;
         $currentPage = 1;
+        $last_page = ceil(Board::count()/POSTS);
 
-        // return response()->json($rankings, 200, [], JSON_PRETTY_PRINT);
+        if($last_page < $page_link_last){
+            $page_link_last = $last_page;
+        }
+        
+        // return $rankings;
         return view('page.main')
             ->with('rankings', $rankings)
             ->with('boards', $boards)
@@ -50,6 +60,7 @@ class HomeController extends Controller
             ->with('sort', 'latest');
     }
 
+    //페이지네이션 데이터
     public function paginate($page, $sort){
         // 게시글 조회
         if(\Auth::check()){
@@ -86,7 +97,7 @@ class HomeController extends Controller
         return $boards;
     }
 
-    //페이지네이션
+    // 페이지네이션
     public function pagination(Request $request)
     {
         $current_page = $request->page;
@@ -94,17 +105,21 @@ class HomeController extends Controller
         $boards = $this->paginate($current_page, $request->sort);
         $page_link_first = $request->page-LINK;
         $page_link_last = $request->page+LINK;
-
-        Log::info('pagination ajax data :'. $request->page);
+        $last_page = ceil(Board::count()/POSTS);
+    
+        Log::info('pagination ajax data :'. $request->page);    
 
         if(LINK+1 > $current_page || $page_link_first < 1){
             $page_link_first = 1;
-            $page_link_last = $page_link_last = 2*LINK+1;
-        }elseif($page_link_last > ceil(Board::count()/POSTS)){
-            $page_link_last = ceil(Board::count()/POSTS);
+            $page_link_last = 2*LINK+1;
+        }elseif($page_link_last > $last_page){
+            $page_link_last = $last_page;
             if($page_link_last < $current_page+LINK){
                 $page_link_first = -2*LINK+$page_link_last;
             }
+        }
+        if($last_page < $page_link_last){
+            $page_link_last = $last_page;
         }
 
         if($current_page < 1){
@@ -125,7 +140,9 @@ class HomeController extends Controller
     // 게시글 상세보기
     public function show($id)
     {
-        $board = Board::with('files:path,name')->find($id); // 게시글 상세 내용
+        $board = Board::with(['files:path,name', 'hearts' => function($query){
+            $query->select('user_id', 'board_id', 'heart')->where('user_id', \Auth::user()->id);
+        }])->find($id); // 게시글 상세 내용
         if(isset($board->files[0])){
             $video = $board->files[0]->path.$board->files[0]->name;
         }
@@ -150,7 +167,7 @@ class HomeController extends Controller
             }
             Log::info('heart hits: '. $heart->first()->hits);
         }
-        // return response()->json($board, 200, [], JSON_PRETTY_PRINT);
+        // return $board;
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
@@ -245,28 +262,120 @@ class HomeController extends Controller
     }
 
     // 다운로드 체크
-    public function download(Request $request){
+    public function download(Request $request)
+    {
         $heart = Heart::where('user_id', \Auth::user()->id)
-                        ->where('board_id', $request->id)
-                        ->update(['dl_check' => true]);
-        return $heart;
+        ->where('board_id', $request->id);
+        $board = Board::find($request->id);
+        $file_id = $board->files->first()->id;
+        $file = File::find($file_id);
+        $fileName = explode('.', $file->name);
+        $type = ['txt', 'ogg'];
+        $fileNames=[];
+
+        if(!$heart->exists()){
+            Heart::create([
+                'board_id' => $request->id,
+                'user_id' => \Auth::user()->id,
+                'dl_check' => false
+            ]);
+        }
+
+        if($heart->first()->dl_check == false){
+            for($i=0; $i<count($type); $i++){
+                $fileDL[$i] = File::create([
+                    'user_id' => \Auth::user()->id,
+                    'path' => $file->path,
+                    'name' => $fileName[0].'.'.$type[$i],
+                    'type' => $type[$i],
+                    'size' => $file->size
+                ]);
+            }
+
+            $user_song_num = User_song::where('user_id', \Auth::user()->id)->max('song_num')+1;
+
+            $user_song = User_song::create([
+                'user_id' => \Auth::user()->id,
+                'song_num' => $user_song_num,
+                'song_id' => null,
+                'file_id' => $fileDL[1]->id,
+            ]);
+            $fileNames[$fileDL[0]->name] = $user_song_num.'.'.$type[0];
+            $fileNames[$fileDL[1]->name] = $user_song_num.'.'.$type[1];
+
+            Score::create([// 초기 점수 생성
+                'user_id' => \Auth::user()->id,
+                'user_song_id' => $user_song->id,
+                'score' => 0,
+            ]);
+    
+            $path = \Auth::user()->email; // 다운로드 유저 이메일
+                if($heart->exists()){
+                    $heart->update(['dl_check' => true]);
+                shell_exec('mkdir /mnt/zip-point/'.$path);
+                shell_exec('chmod 777 /mnt/zip-point/'.$path);
+            }
+                    
+            $email = $board->user()->value('email'); // 업로드 유저 이메일
+            
+            $this->s3client();
+            if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
+                $name = fgets($stream);
+                fclose($stream);
+            }
+    
+            foreach($fileNames as $original => $copy){
+                shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
+            }
+            return 1;
+        }
+        return 0;
+    }
+
+    public function s3client(){
+        $client = AwsFacade::createClient('s3');
+        $client->registerStreamWrapper();
     }
 
     // 게시글 작성 페이지
     public function create(){
-        // $heart = Heart::where('user_id', \Auth::user()->id)->where('dl_check', true)->get();
+        $this->s3client();
+        
+        $type = ['mp4', 'avi', 'wmv', 'mkv'];
         $files = File::where('user_id', \Auth::user()->id)
-        // ->where('type', 'mp4')
+        ->whereIn('type', $type)
         ->where('dl_check', true)->get();
+        $num=1;
+        foreach($files as $file){
+            $name = explode('.', $file->name)[0];
+            if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.\Auth::user()->email.'/'.$name.'.txt', 'r')){
+                $file['song'] = fgets($stream);
+                fclose($stream);
+            }
+        }
 
+        // return $files;
         return view('page.write')
         ->with('files', $files);
     }
-
+ 
     // 게시글 등록
     public function store(Request $request)
     {
-        //
+        $board = Board::create([
+            'user_id' => \Auth::user()->id,
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        $board->files()->attach($request->song);
+        Heart::create([
+            'board_id' => $board->id,
+            'user_id' => \Auth::user()->id,
+            'dl_check' => true,
+        ]);
+
+        return redirect('/');
     }
 
     // 게시글 수정 페이지

@@ -1,34 +1,32 @@
 <contents>
-        <div class="contents">
-            <!--상단이미지-->
-            <div class="img_box">
-                <p id="title_text"><b><i>WRITE</i></b></p>
-                <img src="{{asset('images/pic/drum_img.png')}}" id="drum_img" />
-            </div>
-            <!--글쓰기폼-->
-            <center>
+    <div class="contents">
+        <!--상단이미지-->
+        <div class="img_box">
+            <p id="title_text"><b><i>WRITE</i></b></p>
+            <img src="{{asset('images/pic/drum_img.png')}}" id="drum_img" />
+        </div>
+        <!--글쓰기폼-->
+        <center>
+            <form action="{{route('board.store')}}" method="POST">
+                @csrf
                 <div class="form_group">
                     <div class="form_box">
                         <div class="name_box">
-                            <p id="name"><b>작성자</b></p><input type="text" class="name_input" placeholder="작성자명" />
+                            <p id="name"><b>{{__('messages.writer')}}</b></p><input type="text" class="name_input" name="writer" value="{{\Auth::user()->name}}" readonly/>
                         </div>
                         <div class="title_box">
-                            <p id="title"><b>제목</b></p><input type="text" class="title_input" placeholder="제목을 입력 해 주세요" />
-                        </div0>
+                            <p id="title"><b>{{__('messages.writeTitle')}}</b></p><input type="text" class="title_input" name="title" placeholder="{{__('messages.writeTitleHolder')}}" required />
+                        </div>
                         <div class="comment_box">
-                            <label for="comment" id="comment"><b>내용</b></label>
-                            <textarea class="comment_input" placeholder="글 내용을 입력 해 주세요"></textarea>
+                            <label for="comment" id="comment"><b>{{__('messages.writeContents')}}</b></label>
+                            <textarea class="comment_input" name="content" placeholder="{{__('messages.writeConHolder')}}" required></textarea>
 
                         <!--리스트-->
-                          <div class="list_box">
-                            <p id="list"><b>녹화된 영상</b>
-                            @include('components.writeForm.list')
-                          </p></div>
-                            <button type="submit" class="submit_btn"><b>작성완료</b></button>
-                          </div>
-                        </div>
+                        @include('components.writeForm.list')
+                        <button type="submit" class="submit_btn"><b>{{__('messages.writeComplete')}}</b></button>                        
                     </div>
                 </div>
-            </center>
+            </form>
         </div>
-    </contents>
+    </div>
+</contents>
