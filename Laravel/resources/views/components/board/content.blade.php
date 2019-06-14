@@ -20,11 +20,16 @@
                     <img src="{{asset('images/pic/free.png')}}">
                     @endif
                 </p>
-              <div class="like_box">
-                <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
-                    @include('components.heart', ['board' => $board])
+                <div>
+                    @foreach($board->files as $list)
+                        <h3>{{$list->song}}</h3>
+                    @endforeach
                 </div>
-              </div>
+                <div class="like_box">
+                    <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
+                        @include('components.heart', ['board' => $board])
+                    </div>
+                </div>
                 <div class="write_box">
                     <p id="write">{{$board->content}}</p>
                 </div>

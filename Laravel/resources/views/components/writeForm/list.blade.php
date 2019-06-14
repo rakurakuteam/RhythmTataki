@@ -7,7 +7,7 @@
                 @foreach ($files as $file)
                     <div class="radio_box">
                         <label class="radio list">{{$file->song}}<p id="date">{{$file->created_at}}</p>
-                        <input type="radio" name="song" value="{{$file->id}}" required>
+                        <input type="checkbox" name="song[]" value="{{$file->id}}">
                         <span class="checkround"></span>
                         </label>
                     </div>
