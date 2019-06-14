@@ -29,12 +29,12 @@ $(document).ajaxComplete(function(){
         wavesurfer.zoom(Number(this.value));
     };
 
-    // 
-    wavesurfer.on('loading', function(percent){
+    // 로딩
+    wavesurfer.on('loading', function(percent){ 
         console.log(percent);
         if(percent == 100){
             $('#loading').remove();
-            $('#black').remove();
+            $('#back').remove();
         }
     });
 

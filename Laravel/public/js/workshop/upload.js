@@ -61,19 +61,16 @@ function fileDropDown() {
 function selectFile(fileObject) {
     var files = null;
 
-    if (fileObject != null) {
-        // 파일 Drag 이용하여 등록시
+    if (fileObject != null) {// 파일 Drag 이용하여 등록시
         files = fileObject;
-    } else {
-        // 직접 파일 등록시
+    } else {// 직접 파일 등록시
         files = $('#ex_file')[0].files;
-        // files = fileObject.originalEvent.dataTransfer.files;
         console.log('select');
     }
+
     var fileName = files[0].name;
     var fileNameArr = fileName.split("\.");
-    // 확장자
-    var ext = fileNameArr[fileNameArr.length - 1];
+    var ext = fileNameArr[fileNameArr.length - 1]; // 확장자
     FileSize = (files[0].size / 1024 / 1024).toFixed(2);
     console.log(ext);
 
@@ -104,12 +101,11 @@ function uploadFile(fileObject) {
     var formData = new FormData(form);
     formData.append('audio', fileObject[0]);
     
-    var back = $('<div id="black" style="height:100%; width:100%; background-color:rgba(0,0,0,0.6); top:0; left:0; position:fixed; z-index:100"></div>');
-    var loading = $('<img src="images/pic/loading.gif" id="loading"/>');
+    var back = $('<div id="back" style="height:100%; width:100%; background-color:rgba(0,0,0,0.6); top:0; left:0; position:fixed; z-index:100"></div>');
+    var loading = $('<img src="images/pic/loading.gif" id="loading"/>'); // 로딩 이미지
 
-    // var body = $('#black').css('background-color', '#494949');
     $('body').append(back);
-    $('#black').append(loading);
+    $('#back').append(loading);
 
     $.ajax({
         data: formData,

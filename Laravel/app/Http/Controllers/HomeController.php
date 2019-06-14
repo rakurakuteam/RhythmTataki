@@ -24,13 +24,13 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth')
-        ->except('index');
+        ->except('index' ,'pagination');
     }
 
     // 메인 페이지
     public function index()
     {
-        /* 상위 3개 조회수 게시글 */
+        /* 상위 조회수 게시글 */
         if(\Auth::check()){
             $rankings = Board::with(['files:path,name', 'user:id,name',
             'hearts' => function($query){
@@ -61,7 +61,7 @@ class HomeController extends Controller
             ->with('sort', 'latest');
     }
 
-    //페이지네이션 데이터
+    // 페이지 데이터
     public function paginate($page, $sort){
         // 게시글 조회
         if(\Auth::check()){
@@ -73,14 +73,14 @@ class HomeController extends Controller
             $boards = Board::with(['files:path,name', 'user:id,name']);
         }
 
-        //페이지네이션 세팅
+        // 페이지네이션 세팅
         $currentPage = $page;
-        $max_page = ceil($boards->count()/POSTS);
+        $last_page = ceil($boards->count()/POSTS);
 
         if($currentPage < 1){
             $currentPage = 1;
-        }elseif($currentPage > $max_page){
-            $currentPage = $max_page;
+        }elseif($currentPage > $last_page){
+            $currentPage = $last_page;
         }
         Log::info('sort: '.$sort);
         $boards = $boards->skip(($currentPage-1)*POSTS)->take(POSTS);
@@ -101,14 +101,14 @@ class HomeController extends Controller
     // 페이지네이션
     public function pagination(Request $request)
     {
-        $current_page = $request->page;
+        $current_page = $request->page; //이동할 페이지(이동한 후 현재 페이지)
 
-        $boards = $this->paginate($current_page, $request->sort);
-        $page_link_first = $request->page-LINK;
-        $page_link_last = $request->page+LINK;
-        $last_page = ceil(Board::count()/POSTS);
+        $boards = $this->paginate($current_page, $request->sort);   //페이지별 게시글
+        $page_link_first = $current_page-LINK;                      //표시 시작 페이지
+        $page_link_last = $current_page+LINK;                       //표시 끝 페이지
+        $last_page = ceil(Board::count()/POSTS);                    //마지막 페이지(총 페이지 수)
     
-        Log::info('pagination ajax data :'. $request->page);    
+        Log::info('pagination ajax data :'. $request->page);
 
         if(LINK+1 > $current_page || $page_link_first < 1){
             $page_link_first = 1;
@@ -116,7 +116,11 @@ class HomeController extends Controller
         }elseif($page_link_last > $last_page){
             $page_link_last = $last_page;
             if($page_link_last < $current_page+LINK){
-                $page_link_first = -2*LINK+$page_link_last;
+                if($current_page >= 2*LINK+1){
+                    $page_link_first = -2*LINK+$page_link_last;
+                }else{
+                    $page_link_first = 1;
+                }
             }
         }
         if($last_page < $page_link_last){
@@ -129,7 +133,6 @@ class HomeController extends Controller
             $current_page = $page_link_last;
         }
 
-        // return response()->json(ceil(Board::count()/POSTS), 200, [], JSON_PRETTY_PRINT);
         return view('components.main.pagination')
         ->with('boards', $boards)
         ->with('page_link_first', $page_link_first)
@@ -168,7 +171,16 @@ class HomeController extends Controller
             }
             Log::info('heart hits: '. $heart->first()->hits);
         }
-        // return $board;
+
+        foreach($board->files as $list){
+            $path = $list->path;
+            $name = explode('.', $list->name)[0];
+            if($stream = fopen($path.''.$name.'.txt', 'r')){
+                $list['song'] = fgets($stream);
+                fclose($stream);
+            }
+        }
+        
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
@@ -348,7 +360,7 @@ class HomeController extends Controller
         $files = File::where('user_id', \Auth::user()->id)
         ->whereIn('type', $type)
         ->where('dl_check', true)->get();
-        $num=1;
+
         foreach($files as $file){
             $name = explode('.', $file->name)[0];
             if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.\Auth::user()->email.'/'.$name.'.txt', 'r')){
