@@ -12,7 +12,7 @@
             <div class="sub_photo" id="photo_gallery">
                 <p class="thmb">
                     @if(isset($video))
-                    <video width="90%" controls autoplay controlsList="nodownload" preload="metadata">
+                    <video width="90%" controls controlsList="nodownload" preload="metadata">
                             <source src="{{$video}}#t=0.1" type="video/mp4">
                             Your browser does not support HTML5 video.
                     </video>
@@ -20,11 +20,16 @@
                     <img src="{{asset('images/pic/free.png')}}">
                     @endif
                 </p>
-              <div class="like_box">
-                <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
-                    @include('components.heart', ['board' => $board])
+                <div>
+                    @foreach($board->files as $list)
+                        <h3>{{$list->song}}</h3>
+                    @endforeach
                 </div>
-              </div>
+                <div class="like_box">
+                    <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
+                        @include('components.heart', ['board' => $board])
+                    </div>
+                </div>
                 <div class="write_box">
                     <p id="write">{{$board->content}}</p>
                 </div>

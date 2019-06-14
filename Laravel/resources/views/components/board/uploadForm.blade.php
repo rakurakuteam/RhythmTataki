@@ -13,6 +13,5 @@
         <input type="text" name="email" id="email">
         <input type="submit" name="submit" value="전송">
     </form>
-
 </body>
 </html>
