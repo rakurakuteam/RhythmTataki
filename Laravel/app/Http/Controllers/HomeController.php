@@ -280,12 +280,13 @@ class HomeController extends Controller
         $heart = Heart::where('user_id', \Auth::user()->id)
         ->where('board_id', $request->id);
         $board = Board::find($request->id);
-        $file_id = $board->files->first()->id;
-        $file = File::find($file_id);
-        $fileName = explode('.', $file->name);
+        $file_id = $board->files->pluck('id');
+        $files = File::whereIn('id', $file_id)->get();
+        // $fileName = explode('.', $file->name);
         $type = ['txt', 'ogg'];
         $fileNames=[];
 
+        return $files[0];
         if(!$heart->exists()){
             Heart::create([
                 'board_id' => $request->id,
@@ -293,52 +294,54 @@ class HomeController extends Controller
                 'dl_check' => false
             ]);
         }
-
+        
         if($heart->first()->dl_check == false){
-            for($i=0; $i<count($type); $i++){
-                $fileDL[$i] = File::create([
-                    'user_id' => \Auth::user()->id,
-                    'path' => $file->path,
-                    'name' => $fileName[0].'.'.$type[$i],
-                    'type' => $type[$i],
-                    'size' => $file->size
-                ]);
-            }
-
-            $user_song_num = User_song::where('user_id', \Auth::user()->id)->max('song_num')+1;
-
-            $user_song = User_song::create([
-                'user_id' => \Auth::user()->id,
-                'song_num' => $user_song_num,
-                'song_id' => null,
-                'file_id' => $fileDL[1]->id,
-            ]);
-            $fileNames[$fileDL[0]->name] = $user_song_num.'.'.$type[0];
-            $fileNames[$fileDL[1]->name] = $user_song_num.'.'.$type[1];
-
-            Score::create([// 초기 점수 생성
-                'user_id' => \Auth::user()->id,
-                'user_song_id' => $user_song->id,
-                'score' => 0,
-            ]);
-    
-            $path = \Auth::user()->email; // 다운로드 유저 이메일
-                if($heart->exists()){
-                    $heart->update(['dl_check' => true]);
-                shell_exec('mkdir /mnt/zip-point/'.$path);
-                shell_exec('chmod 777 /mnt/zip-point/'.$path);
-            }
-                    
-            $email = $board->user()->value('email'); // 업로드 유저 이메일
+            foreach($files as $file){
+                for($i=0; $i<count($type); $i++){
+                    $fileDL[$i] = File::create([
+                        'user_id' => \Auth::user()->id,
+                        'path' => $file->path,
+                        'name' => explode('.', $file->name)[0].'.'.$type[$i],
+                        'type' => $type[$i],
+                        'size' => $file->size
+                    ]);
+                }
             
-            $this->s3client();
-            if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
-                $name = fgets($stream);
-                fclose($stream);
-            }
-    
-            foreach($fileNames as $original => $copy){
-                shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
+                $user_song_num = User_song::where('user_id', \Auth::user()->id)->max('song_num')+1;
+
+                $user_song = User_song::create([
+                    'user_id' => \Auth::user()->id,
+                    'song_num' => $user_song_num,
+                    'song_id' => null,
+                    'file_id' => $fileDL[1]->id,
+                ]);
+                $fileNames[$fileDL[0]->name] = $user_song_num.'.'.$type[0];
+                $fileNames[$fileDL[1]->name] = $user_song_num.'.'.$type[1];
+
+                Score::create([// 초기 점수 생성
+                    'user_id' => \Auth::user()->id,
+                    'user_song_id' => $user_song->id,
+                    'score' => 0,
+                ]);
+        
+                $path = \Auth::user()->email; // 다운로드 유저 이메일
+                if($heart->exists()){
+                        $heart->update(['dl_check' => true]);
+                    shell_exec('mkdir /mnt/zip-point/'.$path);
+                    shell_exec('chmod 777 /mnt/zip-point/'.$path);
+                }
+                        
+                $email = $board->user()->value('email'); // 업로드 유저 이메일
+                
+                // $this->s3client();
+                // if($stream = fopen('s3://capstone.rhythmtataki.bucket/files/'.$email.'/'.$fileName[0].'.txt', 'r')){
+                //     $name = fgets($stream);
+                //     fclose($stream);
+                // }
+        
+                foreach($fileNames as $original => $copy){
+                    shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
+                }
             }
             Alert::success('다운로드 완료', '연주모드에서 새로고침 하세요.');
             return 1;
