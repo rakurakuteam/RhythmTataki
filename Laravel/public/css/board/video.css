@@ -19,11 +19,6 @@
         max-height: 420px;
     }
 
-    #package {
-        background-color: rgba(238, 238, 238, 0.6);
-        /* max-height: 250px; */
-    }
-
     #package_list {
         height: 100%;
         max-height: 700px;

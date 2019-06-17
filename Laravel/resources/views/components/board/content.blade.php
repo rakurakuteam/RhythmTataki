@@ -20,17 +20,6 @@
                             @endif
                         </div>
                         <div></div>
-                        {{-- <div id='package'>
-                            <div id="package_list">
-                                @foreach($board->files as $list)
-                                    <div class="video_list">
-                                        <div class="video_title_box">
-                                            <h3 class="video_title" onclick="videoChange({{$list->pivot->file_id}})">{{$list->song}}</h3>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div> --}}
                         <ul {{-- id="package_list" --}} class="list-group {{-- list-group-flush --}}">
                             @foreach($board->files as $list)
                             <div class="video_list">
