@@ -286,7 +286,6 @@ class HomeController extends Controller
         $type = ['txt', 'ogg'];
         $fileNames=[];
 
-        return $files[0];
         if(!$heart->exists()){
             Heart::create([
                 'board_id' => $request->id,
