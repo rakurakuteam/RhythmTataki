@@ -21,6 +21,10 @@ Route::prefix('unity')->group(function() {
     Route::get('/getScores/{email}', 'UnityController@getScores')->name('unity.getScores'); // 점수들 조회
     Route::get('/fileDownload/{email}', 'UnityController@fileDownload')->name('unity.fileDownload'); // 파일 다운로드
     Route::get('/drumSoundDownload/{email}', 'UnityController@drumSoundDownload')->name('unity.drumSoundDownload'); // 음악 목록
+    
+    Route::get('fileUpload', function(){// 유니티 파일 업로드 테스트용
+        return view('components.board.uploadForm');
+    });
 
     Route::post('/join', 'UnityController@join')->name('unity.join'); // 회원가입
     Route::post('/login', 'UnityController@login')->name('unity.login'); // 로그인
@@ -69,8 +73,3 @@ Route::prefix('store')->group(function() {
 
 // 스토어 관련
 Route::resource('store', 'StoreController');
-
-// 유니티 테스트용
-Route::get('fileUpload', function(){
-    return view('components.board.uploadForm');
-});

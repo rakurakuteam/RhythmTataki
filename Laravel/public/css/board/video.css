@@ -26,34 +26,13 @@
 
     #package_list {
         height: 100%;
-        max-height: 750px;
+        max-height: 700px;
         overflow-y: scroll;
         margin-left: 2%;
+        border: 1px;
     }
 
     .video_list {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        height: 40px;
-        /* background-color: lightblue; */
-        /* display: grid;
-        grid-template-columns: 40% 60%; */
-    }
-
-    .video_title_box {
-        text-align: left;
-    }
-
-    .video_title {
         cursor: pointer;
-        display: inline-block;
-        margin: 0;
-        margin-left: 2%;
-        margin-right: 2%;
-        overflow: hidden;
-    }
-
-    .package_write_box {
-        text-align: left;
     }
 }

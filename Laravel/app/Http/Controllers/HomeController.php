@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
 use Alert;
-use Illuminate\Support\Facades\Storage;
 
 define('LINK', 2);
 define('POSTS', 8);
@@ -177,16 +176,17 @@ class HomeController extends Controller
             $path = $list->path;
             $name = explode('.', $list->name)[0];
             if($stream = fopen($path.''.$name.'.txt', 'r')){
-                $list['song'] = str_replace('%20', ' ', fgets($stream));
+                $list['song'] = fgets($stream);
                 fclose($stream);
             }
         }
-        // return $board;
+        $first_name = $board->files[0]->song;
 
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
-            ->with('video', $video);
+            ->with('video', $video)
+            ->with('first_name', $first_name);
         }else{
             return view('page.board')
             ->with('board', $board);

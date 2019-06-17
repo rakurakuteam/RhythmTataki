@@ -1,6 +1,6 @@
 <contents>
     <center>
-        @if(isset($board->files[1]))
+        @if(isset($board->files[1])) {{-- 패키지 --}}
             <div class="package_posts">
                 <div class="title_area" id="title_area">
                     <a href="{{route('userPage', $board->user_id)}}">
@@ -20,7 +20,7 @@
                             @endif
                         </div>
                         <div></div>
-                        <div id='package'>
+                        {{-- <div id='package'>
                             <div id="package_list">
                                 @foreach($board->files as $list)
                                     <div class="video_list">
@@ -30,11 +30,27 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </div>
-                        <div class="like_box">
-                            <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
-                                @include('components.heart', ['board' => $board])
+                        </div> --}}
+                        <ul {{-- id="package_list" --}} class="list-group {{-- list-group-flush --}}">
+                            @foreach($board->files as $list)
+                            <div class="video_list">
+                                @if($list->song == $first_name)
+                                    <a class="list-group-item list-group-item-action list-group-item-primary video_list"
+                                    onclick="videoChange({{$list->pivot->file_id}}, event)">
+                                        {{$list->song}}
+                                    </a>
+                                @else
+                                    <a class="list-group-item list-group-item-action video_list"
+                                    onclick="videoChange({{$list->pivot->file_id}}, event)">
+                                        {{$list->song}}
+                                    </a>
+                                @endif
                             </div>
+                            @endforeach
+                        </ul>
+                        <div class="like_box">
+                        <div class="view_like_{{$board->id}}" id="view_like_{{$board->id}}">
+                            @include('components.heart', ['board' => $board])
                         </div>
                         <div></div>
                         <div></div>
@@ -45,7 +61,7 @@
                 </div>
             </div>
         @endif
-        @if(!isset($board->files[1]))
+        @if(!isset($board->files[1])) {{-- 싱글 --}}
             <div class="posts" id="posts">
                 <div class="title_area" id="title_area">
                     <a href="{{route('userPage', $board->user_id)}}">

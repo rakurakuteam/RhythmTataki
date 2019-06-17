@@ -1,13 +1,12 @@
 console.log('packageJs load');
 
-function videoChange(id){
+function videoChange(id, e){
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    console.log(id);
-    
+    console.log();
     $.ajax({
         data: { 'id': id },
         type: "POST",
@@ -15,6 +14,8 @@ function videoChange(id){
         success: function (data) {
             console.log(data);
             $('#video').html(data);
+            $('.list-group-item-primary').removeClass('list-group-item-primary');
+            $(e.target).addClass('list-group-item-primary');
         },
         error: function (data) {
             console.log(data.status);
