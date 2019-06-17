@@ -180,11 +180,13 @@ class HomeController extends Controller
                 fclose($stream);
             }
         }
+        $first_name = $board->files[0]->song;
 
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
-            ->with('video', $video);
+            ->with('video', $video)
+            ->with('first_name', $first_name);
         }else{
             return view('page.board')
             ->with('board', $board);
