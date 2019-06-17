@@ -25,7 +25,6 @@ Route::prefix('unity')->group(function() {
     Route::post('/join', 'UnityController@join')->name('unity.join'); // 회원가입
     Route::post('/login', 'UnityController@login')->name('unity.login'); // 로그인
     Route::post('/fileUpload', 'UnityController@fileUpload')->name('unity.fileUpload'); // 파일 업로드
-    Route::post('/test', 'UnityController@test');
 });
 
 // 로그인 관련
@@ -39,6 +38,7 @@ Route::prefix('login')->group(function() {
 
 // 게시글 관련
 Route::post('/download', 'HomeController@download')->name('board.download'); // 다운로드 체크
+Route::post('/videoChange', 'HomeController@videoChange')->name('board.video'); // 패키지 비디오
 Route::resource('board', 'HomeController');
 
 Route::get('/myPage', 'HomeController@myPage')->name('myPage'); // 마이페이지
