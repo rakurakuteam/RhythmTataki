@@ -27,6 +27,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('js/heart.js')}}"></script>
+    <script src="{{asset('js/board/heart.js')}}"></script>
     <script src="{{asset('js/pagination.js')}}"></script>
 @endpush

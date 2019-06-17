@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Aws\Laravel\AwsFacade;
 use Alert;
+use Illuminate\Support\Facades\Storage;
 
 define('LINK', 2);
 define('POSTS', 8);
@@ -150,7 +151,7 @@ class HomeController extends Controller
         if(isset($board->files[0])){
             $video = $board->files[0]->path.$board->files[0]->name;
         }
-
+        
         if(\Auth::check()){
             $heart = Heart::where('board_id', $id)->where('user_id', \Auth::user()->id);
             Log::info('user_id: '. \Auth::user()->id);
@@ -176,11 +177,12 @@ class HomeController extends Controller
             $path = $list->path;
             $name = explode('.', $list->name)[0];
             if($stream = fopen($path.''.$name.'.txt', 'r')){
-                $list['song'] = fgets($stream);
+                $list['song'] = str_replace('%20', ' ', fgets($stream));
                 fclose($stream);
             }
         }
-        
+        // return $board;
+
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
@@ -189,6 +191,15 @@ class HomeController extends Controller
             return view('page.board')
             ->with('board', $board);
         }
+    }
+
+    public function videoChange(Request $request)
+    {
+        $path = File::find($request->id)->path;
+        $name = File::find($request->id)->name;
+        
+        return view('components.board.video')
+        ->with('video', $path.$name);
     }
 
     // 마이 페이지
@@ -286,7 +297,6 @@ class HomeController extends Controller
         $type = ['txt', 'ogg'];
         $fileNames=[];
 
-        return $files[0];
         if(!$heart->exists()){
             Heart::create([
                 'board_id' => $request->id,
