@@ -165,10 +165,9 @@ return [
         /* AWS SDK */
         Aws\Laravel\AwsServiceProvider::class,
         /* zip */
-        ZanySoft\Zip\ZipServiceProvider::class,
-
-        /* 이쁜 알림창 */
-        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+	ZanySoft\Zip\ZipServiceProvider::class,
+	/* 이쁜 알림창 */
+	RealRashid\SweetAlert\SweetAlertServiceProvider::class,
     ],
 
     /*
@@ -219,8 +218,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'AWS' => Aws\Laravel\AwsFacade::class,
-        'Zip' => ZanySoft\Zip\ZipFacade::class,
-        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+	'Zip' => ZanySoft\Zip\ZipFacade::class,
+	'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];
