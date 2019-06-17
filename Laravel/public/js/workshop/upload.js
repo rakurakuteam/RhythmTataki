@@ -74,8 +74,8 @@ function selectFile(fileObject) {
     FileSize = (files[0].size / 1024 / 1024).toFixed(2);
     console.log(ext);
 
-    if($.inArray(ext, ['mp3'])){
-        alert("등록 불가 확장자");
+    if($.inArray(ext, ['mp3', 'ogg']) < 0){
+        alert('사용할 수 없는 확장자입니다.');
         return;
     };
 
