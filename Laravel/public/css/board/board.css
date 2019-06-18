@@ -68,9 +68,14 @@
 .view_text, .like_text {
     float: left;
     margin-right: 15px;
+    margin-top: 15px;
 }
 
 .like_box {
   width: 800px;
   height: 70px;
+}
+
+#write {
+    margin-top: 60px;
 }
