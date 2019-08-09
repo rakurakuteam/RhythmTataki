@@ -29,7 +29,6 @@ class WorkshopController extends Controller
 
         $url = Storage::disk('s3')->url($path);
 
-        // return response()->json($request->audio, 200, [], JSON_PRETTY_PRINT);
         return view('components.workshop.player')
         ->with('url', $url);
     }
@@ -63,7 +62,6 @@ class WorkshopController extends Controller
 
         Shell_exec("rm /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".wav");
 
-        // return response()->json($request->clip_name, 200, [], JSON_PRETTY_PRINT);
         Alert::success('자르기 성공', '게임에서 확인해주세요.');
         return redirect('/workshop');
     }
