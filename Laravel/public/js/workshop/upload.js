@@ -97,8 +97,8 @@ function uploadFile(fileObject) {
         return;
     }
 
-    var form = $('#uploadForm');
-    var formData = new FormData(form);
+    // var form = $('#uploadForm');
+    var formData = new FormData();
     formData.append('audio', fileObject[0]);
     
     var back = $('<div id="back" style="height:100%; width:100%; background-color:rgba(0,0,0,0.6); top:0; left:0; position:fixed; z-index:100"></div>');

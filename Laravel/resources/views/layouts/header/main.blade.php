@@ -10,7 +10,11 @@
                 <li><a class="menuLink" id="li-1" href="#"><strong>{{__('messages.intro')}}</strong></a></li>
                 <li><a class="menuLink" href="{{route('home')}}"><strong>{{__('messages.soundGarden')}}</strong></a></li>
                 <li><a class="menuLink" href="{{route('workshop.main')}}"><strong>{{__('messages.workshop')}}</strong></a></li>
-                <li><a class="menuLink" href="#"><strong>{{__('messages.localization')}}</strong></a></li>
+                @if(Session::get('locale') == 'ko')
+                    <li><a class="menuLink" href="{{route('locale.change', ['locale' => 'ja'])}}"><strong>{{__('messages.localization')}}</strong></a></li>
+                @else
+                    <li><a class="menuLink" href="{{route('locale.change', ['locale' => 'ko'])}}"><strong>{{__('messages.localization')}}</strong></a></li>
+                @endif
                 <li><a class="menuLink" href="{{route('store.index')}}"><strong>{{__('messages.store')}}</strong></a></li>
                 <li></li>
                 @if(\Auth::check())

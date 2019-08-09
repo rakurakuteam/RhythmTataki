@@ -29,18 +29,11 @@ $(document).ajaxComplete(function(){
         wavesurfer.zoom(Number(this.value));
     };
 
-    // 로딩
-    wavesurfer.on('loading', function(percent){ 
-        console.log(percent);
-        if(percent == 100){
-            $('#loading').remove();
-            $('#back').remove();
-        }
-    });
-
     // 웨이브 서퍼가 준비되면
     wavesurfer.on('ready', function() {
         console.log("총 길이(초): "+timeInfo(wavesurfer.getDuration()))
+        $('#loading').remove();
+        $('#back').remove();
         $('#play_time').text(timeInfo(wavesurfer.getDuration()));
 
         wavesurfer.enableDragSelection({
