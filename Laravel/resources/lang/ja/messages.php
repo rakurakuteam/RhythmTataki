@@ -9,7 +9,7 @@ return [
     'login' => 'ログイン',
     'latest' => '最新順',
     'hearts' => '人気順',
-    'hits' => '조회순',
+    'hits' => '照会順',
     'order' => '注文',
     'delivery' => '配送',
     'cart' => '買い物かご',
@@ -51,4 +51,6 @@ return [
     'dl_fail' => 'ダウンロード失敗',
     'dl_fail_message' => 'もう、ダウンロードした曲ではありませんか？',
     'video_list' => '録画映像',
+    'search' => '検索',
+    'post' => 'ポスト'
 ];
