@@ -19,12 +19,12 @@
                     <form action="{{route('workshop.cutter')}}" method="POST">
                         @csrf
                         <input type="text" id="temporary_sound" name="temporary_sound" style="display:none" value="{{$url}}">
-                        <input type="text" id="start_sec" name="start_sec">부터
-                        <input type="text" id="end_sec" name="end_sec">까지
+                        <input type="text" id="start_sec" name="start_sec">{{__('messages.from')}}
+                        <input type="text" id="end_sec" name="end_sec">{{__('messages.to')}}
                         <input type="text" id="len" name="len" style="display:none">
-                        <input type="text" id="clip_name" name="clip_name" style="width:150px;" placeholder="이름">
-                        <input type="submit" id="cut_btn" value="자르기">
-                        <input type="button" id="remove_btn" value="지우기">
+                        <input type="text" id="clip_name" name="clip_name" style="width:150px;" placeholder="{{__('messages.name')}}">
+                        <input type="submit" id="cut_btn" value="{{__('messages.cut')}}">
+                        <input type="button" id="remove_btn" value="{{__('messages.remove')}}">
                     </form>
                 </div>
             </div>
