@@ -353,10 +353,10 @@ class HomeController extends Controller
                     shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
                 }
             }
-            Alert::success('다운로드 완료', '연주모드에서 새로고침 하세요.');
+            Alert::success(__('messages.dl_success'), __('messages.dl_success_message'));
             return 1;
         }
-        Alert::question('다운로드 실패', '이미 다운로드한 게시물이 아니신가요?');
+        Alert::question(__('messages.dl_fail'), __('messages.dl_fail_message'));
         return 2;
     }
 

@@ -1,7 +1,7 @@
 <contents>
     <div class="under_box">
         <div class="title_area">
-            <h2 id="title">상품목록</h2>
+            <h2 id="title">{{__('messages.product_list')}}</h2>
         </div>
 
         @foreach($products as $product)
