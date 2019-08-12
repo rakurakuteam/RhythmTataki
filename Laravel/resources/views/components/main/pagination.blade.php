@@ -2,7 +2,7 @@
 <div class="under_form_box">
 <div class="title_area2">
     <h2 class="title">
-        <strong>게시글</strong>
+        <strong>{{__('messages.post')}}</strong>
     </h2>
 </div>
 @foreach($boards as $board)

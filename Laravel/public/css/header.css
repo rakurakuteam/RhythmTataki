@@ -44,7 +44,7 @@ body {
     width: 150px;
     font-size: 17px;
     font-weight: bold;
-    font-family: "NanumSquare", "Dotum", "Arial";
+    font-family: "Meiryo", "NanumSquare", "Dotum", "Arial";
 }
 
 #topMenu .menuLink:hover {

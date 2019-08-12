@@ -3,7 +3,7 @@
         <div class="search_form">
             <input type="text" placeholder="search"/>
             <a href="#">
-                <button id="search_button">검색</button>
+                <button id="search_button">{{__('messages.search')}}</button>
             </a>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <!--랭킹-->
         <div class="title_area1">
             <h2 class="title">
-                <strong>랭킹</strong>
+                <strong>{{__('messages.ranking')}}</strong>
             </h2>
         </div>
         @foreach($rankings as $ranking)
@@ -50,12 +50,6 @@
         @endforeach
     </div>
     @include('components.main.selectBox', ['current_page' => $current_page])
-
-    <!-- 글쓰기버튼 <a class="menuLink" id="li-1" href="{{route('board.create')}}">
-      <div class="write_btn_box">
-          <button class="write_btn"><b>{{__('messages.write')}}</b></button>
-      </div>
-    </a> -->
 
     <div class="contents_2" id="paging">
         @include('components.main.pagination')
