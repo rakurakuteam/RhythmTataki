@@ -1,65 +1,44 @@
-<contents>
-    <div class="search_box">
-        <div class="search_form">
-            <input type="text" placeholder="search"/>
-            <a href="#">
-                <button id="search_button">{{__('messages.search')}}</button>
-            </a>
-        </div>
-    </div>
+<img src="{{asset('images/pic/search.png')}}" id="search" />
+<div class="middle">
+    <div class="rank">
+        <div class="ranking_post">
+            @foreach($rankings as $ranking)
+            <div class="post_under">
+                <a href="{{route('board.show', ['id' => $ranking->id])}}"><img src="{{asset('images/pic/free.png')}}"
+                        id="thmb" /></a>
+                <div class="text_area_1">
+                    <img src="{{asset('images/pic/view.png')}}" id="view" />
+                    <p id="view_t">{{$ranking->hits}}</p>
+                    <img src="{{asset('images/pic/like_1.png')}}" id="like" />
+                    <p id="like_t">{{$ranking->total_heart}}</p>
+                    <img src="{{asset('images/pic/download.png')}}" id="download" />
+                </div>
 
-    <div class="contents_1">
-        <!--랭킹-->
-        <div class="title_area1">
-            <h2 class="title">
-                <strong>{{__('messages.ranking')}}</strong>
-            </h2>
+                <div class="text_area_2">
+                    <p id="title">{{$ranking->title}}</p>
+                </div>
+            </div>
+            @endforeach
         </div>
-        @foreach($rankings as $ranking)
-        <div class="sub_photo" id="photo_gallery">
-            <ul>
-                <li>
-                    <p class="thmb">
-                        <a href="{{route('board.show', $ranking->id)}}" >
-                            @if($ranking->files[0])
-                            <video class="picture" controlsList="nodownload">
-                                <source src="{{$ranking->files[0]->path.$ranking->files[0]->name}}#t=0.1" type="video/mp4">
-                                Your browser does not support HTML5 video.
-                            </video>
-                            @else
-                            <div id="playButton_box">
-                            <img src="{{asset('images/pic/free.png')}}" class="picture"/>
-                            </div>
-                            @endif
-                        </a>
-                    </p>
-                    <div class="view_like_{{$ranking->id}}" id="view_like_{{$ranking->id}}">
-                        @include('components.heart', ['board' => $ranking])
-                    </div>
-                    <a href="{{route('board.show', $ranking->id)}}">
-                        <h4 class="title_text">
-                            <strong>
-                                {{$ranking->title}}
-                            </strong>
-                        </h4>
-                    </a>
-                    <p class="writer">{{$ranking->user->name}}</p>
-                </li>
-            </ul>
+        <div class="notice">
+            @foreach($boards as $board)
+            <a href="{{route('board.show', ['id' => $board->id])}}"><img src="{{asset('images/pic/sort.png')}}"
+                    id="sort" /></a>
+            <div class="r_post_under">
+                <img src="{{asset('images/pic/free.png')}}" id="thmb" />
+                <div class="text_area_1">
+                    <img src="{{asset('images/pic/view.png')}}" id="view" />
+                    <p id="view_t">{{$board->hits}}</p>
+                    <img src="{{asset('images/pic/like_1.png')}}" id="like" />
+                    <p id="like_t">{{$board->total_heart}}</p>
+                    <img src="{{asset('images/pic/download.png')}}" id="download" />
+                </div>
+
+                <div class="text_area_2">
+                    <p id="title">{{$board->title}}</p>
+                </div>
+            </div>
         </div>
         @endforeach
     </div>
-    @include('components.main.selectBox', ['current_page' => $current_page])
-
-    <div class="contents_2" id="paging">
-        @include('components.main.pagination')
-    </div>
-    <a class="menuLink" id="li-1" href="{{route('board.create')}}">
-      <div class="write_box">
-        <center>
-          <img src="{{asset('images/pic/write_icon_2.png')}}" class="write"/>
-          <p id="write_text"><b>WRITE</b></p>
-        </center>
-      </div>
-    </a>
-</contents>
+</div>

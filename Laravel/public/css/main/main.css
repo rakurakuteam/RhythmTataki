@@ -1,0 +1,233 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    margin-left: 50px;
+    height: 50px;
+    float: left;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#topMenu {
+    height: 70px;
+    width: 1800px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-top: -20px;
+}
+
+#li-1 {
+    margin-left: 150px;
+}
+
+#topMenu ul li {
+    list-style: none;
+    color: white;
+    background-color: #ffffff;
+    float: left;
+    line-height: 70px;
+    text-align: right
+}
+
+#topMenu .menuLink {
+    text-decoration: none;
+    color: #000000;
+    display: block;
+    width: 200px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "NanumSquare", "Dotum", "Arial";
+}
+
+#topMenu .menuLink:hover {
+    color: #2172F4;
+}
+
+
+#custom-search-form {
+    width: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+#custom-search-form .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    margin-bottom: 0;
+    border-radius: 3px;
+    border-radius: 3px;
+    border-radius: 3px;
+}
+
+#custom-search-form button {
+    border: 0;
+    background: none;
+    padding: 1px 5px;
+    position: relative;
+    left: -28px;
+    margin-bottom: 0;
+    border-radius: 3px;
+    border-radius: 3px;
+    border-radius: 3px;
+}
+
+.search-query:focus + button {
+    z-index: 3;
+}
+
+
+#write_btn {
+    cursor: pointer;
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 260px;
+}
+
+#slide {
+    position: relative;
+}
+
+#search {
+    float: right;
+    margin-right: 75px;
+    width: 400px;
+    margin-top: 35px;
+}
+
+#sort {
+    float: right;
+    margin-right: 75px;
+    
+}
+
+#notice_bg {
+    position: relative;
+}
+
+#sort {
+    position: absolute;
+    right: 70px;
+    top: 1220px;
+}
+
+.rank {
+    margin-top: 70px;
+    width: 1779px;
+    height: 378px;
+    background-image: url(../../images/pic/ranking_bg.png);
+}
+
+.notice {
+    margin-top: 70px;
+    width: 1779px;
+    height: 1153px;
+    background-image: url(../../images/pic/notice_bg.png);
+    margin-bottom: 50px;
+}
+
+.ranking_post {
+    width: 1200px;
+    margin-left: 450px;
+    padding-top: 50px;
+    height: 330px;
+}
+
+.post_under {
+    width: 400px;
+    height: 330px;
+    float: left;
+}
+
+.text_area_1 {
+    width: 400px;
+    height: 32px;
+}
+
+#thmb {
+    cursor: pointer;
+    width: 330px;
+}
+
+#view {
+    width: 35px;
+    margin-left: 35px;
+    float: left;
+}
+
+#view_t {
+    width: 50px;
+    height: 23px;
+    margin: 0;
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+#like {
+    margin-left: 40px;
+    float: left;
+    width: 28px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#like_t {
+    margin: 0;
+    margin-left: 90px;
+    padding-top: 4px;
+    width: 80px;
+}
+
+#download {
+    width: 25px;
+    float: right;
+    margin-right: 60px;
+    margin-top: -24px;
+    cursor: pointer;
+}
+
+#title {
+    width: 400px;
+    height: 32px;
+    color: #4aa3fd;
+    float: left;
+    margin: 0;
+    padding-left: 33px;
+    padding-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left;
+    font-size: 23px;
+    padding-bottom: 10px;
+}
+
+#writer {
+    width: 400px;
+    height: 32px;
+    float: left;
+    margin: 0;
+    padding-left: 33px;
+    text-align: left;
+}
+
+.text_area_2 {
+    width: 400px;
+    height: 64px;
+}
+
+
+.r_post_under {
+    padding-top: 50px;
+    margin-top: 150px;
+    margin-left: 120px;
+    float: left;
+    background-color: #ffffff;
+    width: 430px;
+    height: 350px;
+}
