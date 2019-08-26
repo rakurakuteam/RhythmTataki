@@ -54,4 +54,5 @@ return [
     'search' => '検索',
     'post' => 'ポスト',
     'ranking' => 'ランキング',
+    'workshop_index' => '効果音制作',
 ];

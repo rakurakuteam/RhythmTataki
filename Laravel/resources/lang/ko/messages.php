@@ -54,4 +54,5 @@ return [
     'search' => '검색',
     'post' => '게시글',
     'ranking' => '랭킹',
+    'workshop_index' => '효과음 제작',
 ];

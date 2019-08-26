@@ -1,7 +1,7 @@
 $(document).ajaxComplete(function(){
     console.log('1번')
     wavesurfer = WaveSurfer.create({
-        height: 300,
+        height: 200,
         container: '#waveform',
         waveColor: "rgba(243, 243, 244, 1)", // 웨이브 색깔
         progressColor: "rgba(11,142,193, 1)", // 재생후 색깔
@@ -9,6 +9,10 @@ $(document).ajaxComplete(function(){
         scrollParent: false,
         autoCenter: false,
         normalize: true,
+        barWidth: 2,
+        // barHeight: 0.5,
+        // fillParent: false,
+        maxCanvasWidth: 300,
         plugins: [
             WaveSurfer.cursor.create({
                 showTime: true,
@@ -20,29 +24,40 @@ $(document).ajaxComplete(function(){
                     'font-size': '14px'
                 }
             }),
-            WaveSurfer.regions.create() // 영역 생성
+            WaveSurfer.regions.create({
+                regions: [
+                ],
+                dragSelection: {
+                    color: "rgba(62, 74, 84, 0.26)",
+                }
+            }) // 영역 생성
         ]
     });
-    wavesurfer.load($('#temporary_sound').val());
+     wavesurfer.load($('#temporary_sound').val());
+    //wavesurfer.load('./song/moon.mp3');
 
     document.querySelector('#slider').oninput = function () {
-        wavesurfer.zoom(Number(this.value));
+        // wavesurfer.play($('#slider').val());
+        // console.log($('#slider').val());
+        // console.log(wavesurfer.getCurrentTime());
+        wavesurfer.seekTo($('#slider').val()/(100*(wavesurfer.getDuration()/100)));
     };
 
-    // 웨이브 서퍼가 준비되면
     wavesurfer.on('ready', function() {
-        console.log("총 길이(초): "+timeInfo(wavesurfer.getDuration()))
+        console.log("총 길이(초): "+timeInfo(wavesurfer.getDuration()));
+        $('#slider').attr('max', wavesurfer.getDuration());
         $('#loading').remove();
         $('#back').remove();
         $('#play_time').text(timeInfo(wavesurfer.getDuration()));
 
-        wavesurfer.enableDragSelection({
-            color: "rgba(54,202,214, 0.5)",
-        });
+        // wavesurfer.enableDragSelection({
+        //     color: "rgba(62, 74, 84, 0.26)",
+        // });
     });
 
     // 오디오가 재생되면 반복
     wavesurfer.on('audioprocess', function () {
+        $('#slider').val(wavesurfer.getCurrentTime());
         console.log(wavesurfer.getCurrentTime());
         $('#current_time').text(timeInfo(wavesurfer.getCurrentTime()));
     });
@@ -91,6 +106,7 @@ $(document).ajaxComplete(function(){
         return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
     }
 
+    
     // 오디오 재생
     document.getElementById('play_btn').addEventListener('click', function(){
         wavesurfer.play();
@@ -105,4 +121,4 @@ $(document).ajaxComplete(function(){
         wavesurfer.regions.list[regionId].remove();
     });
 
-});
+}); 

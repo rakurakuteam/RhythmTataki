@@ -17,7 +17,7 @@ use Alert;
 
 define('LINK', 2);
 define('POSTS', 8);
-define('RANKING', 4);
+define('RANKING', 3);
 
 class HomeController extends Controller
 {

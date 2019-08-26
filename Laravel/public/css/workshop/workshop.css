@@ -1,48 +1,74 @@
 body {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
-/**컨텐츠박스**/
+.workshop_jumbo {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    height: 30vh;
+    width: 90vw;
+}
+
+#workshop_jumbo_img {
+    width: 100%;
+}
+
 .contents_box {
-  width: 1400px;
-  margin-top: 100px;
-  height: 800px;
-  background-color: #D4E9F7;
-  margin-bottom: 100px;
+    position: relative;
+    margin-top: -1vw;
+    width: 80vw;
+    height: 30vw;
+    min-height: 60%;
+    margin-bottom: 2vw;
+    background-color: rgba(236, 234, 234, 0.8)
 }
 
+.index_box {
+    font-size: 1.7vw;
+    background-color:#50bbf8;
+    color:white;
+    width: 20vw;
+    height: auto;
+    max-height: 10vh;
+    left: 40px;
+    top: -30px;
+    position: absolute;
+    line-height: 2.3em;
+}
 
-.middle_box {
-  width: 800px;
-  height: 250px;
-  padding-top: 235px;
+.index_box_hr {
+    height: 1px;
+    background-color: white;
+    position: relative;
+    bottom: 0.7em;
+    width: 12vw;
 }
 
 .album_img {
-  width: 120px;
+    width: 10vw;
+    position: relative;
+    margin-top: 10%;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-.filebox label {
-  width: 200px;
-  height: 60px;
-  display: inline-block;
-  padding: .5em .75em;
-  color: #fff;
-  font-size: 25px;
-  line-height: normal;
-  vertical-align: middle;
-  background-color: #4aa3fd;
-  cursor: pointer;
-  border-bottom-color: #e2e2e2;
-  border-radius: 50px;
-  }
+#dropZone {
+    height: 30vw;
+    min-height: 60%;
+}
 
-  #file_select_text {
+#filebox label {
+    width: 10vw;
+    margin-top: 10%;
+    border-radius: 50%;
+}
+
+#file_select_text {
     margin-top: 10px;
-  }
+}
 
-  .filebox input[type="file"] {
+.filebox input[type="file"] {
     /* 파일 필드 숨기기 */
     position: absolute;
     width: 1px;
@@ -50,190 +76,204 @@ body {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip:rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     border: 0;
-  }
+}
 
-  .wavesurfer-handle-start {
+.wavesurfer-handle-start {
     width: 10px;
     max-width: 10
-  }
+}
 
-  .body_box {
+.body_box {
     height: 850px;
     width: 1400px;
-  }
+}
 
-  .top_box {
-    width: 1400px;
-    height: 700px;
+.top_box {
+    /* width: 80vw; */
+    /* height: 80vh; */
     text-align: center;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     padding-top: 80px;
-  }
+    position: relative;
+    margin-top: -1vw;
+    width: 80vw;
+    height: 30vw;
+    min-height: 60%;
+    margin-bottom: 2vw;
+}
 
-  .wave_box {
+.wave_box {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#76b9fc+0,99dcff+37,5dacfc+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#10127f+1,423160+38,1000a0+100 */
-    background: #10127f; /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #10127f 1%, #423160 38%, #1000a0 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #10127f 1%,#423160 38%,#1000a0 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #10127f 1%,#423160 38%,#1000a0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#10127f', endColorstr='#1000a0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: #10127f;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #10127f 1%, #423160 38%, #1000a0 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #10127f 1%, #423160 38%, #1000a0 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(180deg, #000000, #5e027b, #000000);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#10127f', endColorstr='#1000a0', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
     box-shadow: 3px 3px 15px 3px #838383;
     margin-bottom: 50px;
-    width: 1500px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    width: 90%;
+    padding-top: 30px;
+    padding-bottom: 30px;
     position: absolute;
-    transform: translate(13%, 35%);
-  }
+    /* transform: translate(13%, 35%); */
+    overflow-x: hidden;
+}
 
-  .waveform {
+.wavesurfer-region{
+    border: 2px dotted;
+    border-color: white;
+    height: 98%;
+}
+
+.waveform {
     width: 1400px;
     margin-bottom: 100px;
-    }
+}
 
-  #music_btn_box {
-    width: 105%;
-    margin-top: 20px;
-    margin-left: 200px;
-  }
-
-  #play_btn {
-    width: 160px;
-    height: 50px;
-    border-radius: 50px;
-    background-color: #4aa3fd;
-    font-size: 20px;
-    color: #fff;
-    border: 1px solid #4aa3fd;
-    cursor: pointer;
+#control_box {
     float: left;
-    margin-left: 20px;
-    margin-top: -502px;
-  }
+}
 
-  #pause_btn {
-    width: 160px;
-    height: 50px;
-    border-radius: 50px;
-    background-color: #fff;
-    font-size: 20px;
-    color: #4aa3fd;
-    border: 3px solid #4aa3fd;
+#play_btn {
     cursor: pointer;
-    float: left;
-    margin-left: 210px;
-    margin-top: -502px;
-  }
+    border-radius: 50%;
+}
 
-  .timer_box {
-    width: 300px;
+#pause_btn {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.timer_box {
+    width: 72vw;
     height: 35px;
-    margin-bottom: 40px;
-    margin-bottom: 50px;
-    margin-left: 215px;
-  }
+    margin-bottom: 15px;
+    display: flex;
+}
 
-  #current_time {
+#current_time {
     font-size: 30px;
-    color: #4aa3fd;
+    color: #a9aeb3;
     float: left;
-    width: 100px;
-  }
+    margin-left: 1%
+}
 
-  #play_time {
+#play_time {
     float: left;
-    width: 100px;
     position: relative;
-  }
-
-  #play_time, #icon {
+    float: right;
     font-size: 30px;
-  }
+    color: #a9aeb3;
+    margin-left: auto;
+    left: -1%;
+}
 
-  #icon {
-    float: left;
-  }
+.cutter_box {
+    position: relative;
+    left: 15%;
+}
 
-  .cutter_box {
-    width: 800px;
-    margin-left: 900px;
-    margin-top: -90px;
-  }
+#flex_box {
+    display: inline-flex;
+    justify-content: space-between;
+}
 
-  #start_sec, #end_sec {
+#start_sec,
+#end_sec {
     width: 100px;
     height: 35px;
     font-size: 17px;
-    border: 2px solid #4aa3fd;
+    border: 2px solid #a9aeb3;
     border-radius: 50px;
     text-align: center;
     margin-right: 5px;
     margin-left: 2px;
-  }
+}
 
-  #clip_name {
+#clip_name {
     width: 150px;
     height: 35px;
     font-size: 17px;
-    border: 2px solid #4aa3fd;
+    border: 2px solid #a9aeb3;
     border-radius: 50px;
     padding-left: 10px;
-  }
+}
 
-  #cut_btn, #remove_btn {
-    margin-left: 20px;
-    width: 100px;
-    height: 40px;
-    border-radius: 20px;
-    background-color: #4aa3fd;
-    font-size: 18px;
-    color: #fff;
-    border: 2px solid #4aa3fd;
+#input_box {
+    margin-bottom: 15px;
+    margin-top: 3%;
+}
+
+#button_box {
+    flex: auto;
+}
+
+#cut_btn,
+#remove_btn {
+    border: 0;
+    outline: 0;
+    background: transparent;
     cursor: pointer;
-  }
+}
 
-  .under_box {
-    margin-top: 550px;
-  }
+#remove_img {
+    border-radius: 50%;
+}
 
-  .slider {
+.under_box {
+    position: relative;
+    margin-top: 20%;
+}
+
+.slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: 90%;
+    float: left;
     height: 15px;
-    border-radius: 5px;   
+    border-radius: 5px;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-  }
-  
-  .slider::-webkit-slider-thumb {
+    margin-bottom: 1%;
+}
+
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
     height: 25px;
-    border-radius: 50%; 
+    border-radius: 50%;
     background: rgb(88, 152, 224);
     cursor: pointer;
-  }
-  
-  .slider::-moz-range-thumb {
+}
+
+.slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
-  }
+}
 
-  #loading {
+#loading {
     position: absolute;
     margin: auto;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-  }
+}
+
+.title_text {
+    color: #a9aeb3;
+}
