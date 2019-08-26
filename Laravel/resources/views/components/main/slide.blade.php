@@ -1,5 +1,5 @@
 <!--이미지슬라이드-->
-<center>
+{{-- <center>
     <div id="slide">
         <input type="radio" name="pos" id="pos1" checked="checked"/>
         <input type="radio" name="pos" id="pos2"/>
@@ -18,4 +18,11 @@
             <label for="pos4"></label>
         </p>
     </div>
+</center> --}}
+
+<center>
+<div class="header">
+    <img src="{{asset('images/pic/slide_img.png')}}" id="slide" />
+    <a href="{{route('board.create')}}"><img src="{{asset('images/pic/writing_btn.png')}}" id="write_btn" /></a>
+</div>
 </center>

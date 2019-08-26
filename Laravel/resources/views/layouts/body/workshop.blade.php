@@ -1,13 +1,16 @@
 <form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
-  <center>
+  <center id="workshop_center">
     <div class="contents_box">
-      <div class="middle_box">
-        <img src="{{asset('images/pic/album.png')}}" class="album_img">
-        <h1 class="title_text">{{__('messages.file_select_message')}}</h1>
+      <div class="index_box">
+        {{__('messages.workshop_index')}}
+        <hr class="index_box_hr">
       </div>
-      <div class="filebox">
-        <label for="ex_file"><div id="file_select_text"><b>{{__('messages.file_select')}}</b></div></label>
+      <div class="filebox" id="dropZone">
+        <label for="ex_file">
+            <img for="ex_file" src="{{asset('images/pic/mouse.png')}}" class="album_img">
+        </label>
         <input type="file" name="file" id="ex_file" onchange="selectFile()">
+        <h2 class="title_text">{{__('messages.file_select_message')}}</h2>
       </div>
     </div>
   </center>

@@ -11,18 +11,12 @@ $(function () {
 // 파일 드롭 다운
 function fileDropDown() {
     var dropZone = $("#dropZone");
-    //Drag기능
-    dropZone.on('dragenter', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        // 드롭다운 영역 css
-        dropZone.css('background-color', '#E3F2FC');
-    });
+
     dropZone.on('dragleave', function (e) {
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color', '#FFFFFF');
+        dropZone.css('background-color', 'rgba(236, 234, 234, 0.8)');
         dropZone.css('border-style', 'none');
     });
     dropZone.on('dragover', function (e) {
@@ -36,7 +30,7 @@ function fileDropDown() {
     dropZone.on('drop', function (e) {
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color', '#FFFFFF');
+        dropZone.css('background-color', 'rgba(236, 234, 234, 0.8)');
         dropZone.css('border-style', 'none');
 
         var files = e.originalEvent.dataTransfer.files;
@@ -116,7 +110,9 @@ function uploadFile(fileObject) {
         processData: false,
         success: function (data) {
             console.log('success');
-            $("#workshop").html(data);
+            $("#workshop_center").unwrap() //부모 요소를 삭제
+            $(".filebox").remove(); //업로드 박스 삭제
+            $(".contents_box").append(data); //웨이브 폼 삽입
         },
         error: function (data) {
             console.log(data.status);

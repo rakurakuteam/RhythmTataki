@@ -5,9 +5,10 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/main/main_2.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/footer.css')}}" />
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}" /> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/main/main_2.css')}}" /> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/footer.css')}}" /> --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main/main.css')}}" />
 @endsection
 
 @section('header')
@@ -23,7 +24,7 @@
 @endsection
 
 @section('footer')
-    @include('layouts.footer.footer')
+    {{-- @include('layouts.footer.footer') --}}
 @endsection
 
 @push('scripts')
