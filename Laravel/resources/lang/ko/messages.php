@@ -52,5 +52,6 @@ return [
     'dl_fail_message' => '이미 다운로드한 게시물이 아니신가요?',
     'video_list' => '녹화영상',
     'search' => '검색',
-    'post' => '게시글'
+    'post' => '게시글',
+    'ranking' => '랭킹',
 ];

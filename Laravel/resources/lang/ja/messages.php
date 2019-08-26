@@ -52,5 +52,6 @@ return [
     'dl_fail_message' => 'もう、ダウンロードした曲ではありませんか？',
     'video_list' => '録画映像',
     'search' => '検索',
-    'post' => 'ポスト'
+    'post' => 'ポスト',
+    'ranking' => 'ランキング',
 ];
