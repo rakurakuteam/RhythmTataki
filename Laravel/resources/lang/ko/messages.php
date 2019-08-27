@@ -55,4 +55,6 @@ return [
     'post' => '게시글',
     'ranking' => '랭킹',
     'workshop_index' => '효과음 제작',
+    'cut_success' => '자르기 성공',
+    'dl_succcess_message' => '연주모드에서 새로고침 하세요.',
 ];
