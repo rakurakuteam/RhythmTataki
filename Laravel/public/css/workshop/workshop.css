@@ -86,7 +86,6 @@ body {
 }
 
 .body_box {
-    height: 850px;
     width: 1400px;
 }
 
@@ -101,7 +100,6 @@ body {
     width: 80vw;
     height: 30vw;
     min-height: 60%;
-    margin-bottom: 2vw;
 }
 
 .wave_box {
@@ -178,7 +176,8 @@ body {
 
 .cutter_box {
     position: relative;
-    left: 15%;
+    left: 28%;
+    width: 75%;
 }
 
 #flex_box {
