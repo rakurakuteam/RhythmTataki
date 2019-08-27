@@ -62,7 +62,7 @@ class WorkshopController extends Controller
 
         Shell_exec("rm /var/www/capstone/RhythmTataki/Laravel/public/song/clip/".$request->clip_name.".wav");
 
-        Alert::success('자르기 성공', '게임에서 확인해주세요.');
+        Alert::success(__('messages.cut_success'), __('messages.dl_succcess_message'));
         return redirect('/workshop');
     }
 }
