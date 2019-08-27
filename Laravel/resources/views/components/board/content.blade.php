@@ -3,7 +3,7 @@
     <img src="{{asset('images/pic/bg_2.png')}}" id="bg" />
     <div class="middle">
         <p id="user_name">유저명</p>
-        <img src="img/user.png" id="profile" />
+        <img src="{{asset('images/pic/user.png')}}" id="profile" />
         <div class="cont_text">
             <p>{{$board->content}}</p>
         </div>
