@@ -63,6 +63,5 @@
         @endif
         <li><a class="menuLink" href="{{route('store.index')}}"><strong>{{__('messages.store')}}</strong></a></li>
         <li></li>
-    </ul>
-</nav>
+
 </center>

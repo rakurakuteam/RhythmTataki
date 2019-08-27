@@ -33,8 +33,8 @@ $(document).ajaxComplete(function(){
             }) // 영역 생성
         ]
     });
-    // wavesurfer.load($('#temporary_sound').val());
-    wavesurfer.load('./song/moon.mp3');
+     wavesurfer.load($('#temporary_sound').val());
+    //wavesurfer.load('./song/moon.mp3');
 
     document.querySelector('#slider').oninput = function () {
         // wavesurfer.play($('#slider').val());
