@@ -16,7 +16,7 @@ use Aws\Laravel\AwsFacade;
 use Alert;
 
 define('LINK', 2);
-define('POSTS', 8);
+define('POSTS', 6);
 define('RANKING', 3);
 
 class HomeController extends Controller
@@ -276,7 +276,7 @@ class HomeController extends Controller
             $query->select('user_id', 'board_id', 'heart')
             ->where('user_id', \Auth::user()->id);
          }])->find($request->id);
-
+         
         $end = $this->get_time();
         $time = $end - $start;
         Log::info('heartToggle check / time : '. $time);

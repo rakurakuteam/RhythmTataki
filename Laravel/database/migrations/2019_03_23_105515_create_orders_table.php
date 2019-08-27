@@ -26,9 +26,6 @@ class CreateOrdersTable extends Migration
             $table->string('request', 255)->nullable()->comment('요청사항');
             $table->unsignedInteger('status_id')->comment('배송상태');
             $table->foreign('status_id')->references('id')->on('delivery_statuses')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            $table->string('payment', 20)->comment('결제수단');
-            $table->timestamps();   //주문일시, 요청일
         });
     }
 
