@@ -55,4 +55,6 @@ return [
     'post' => 'ポスト',
     'ranking' => 'ランキング',
     'workshop_index' => '効果音制作',
+    'cut_success' => '成功',
+    'dl_succcess_message' => 'プレーモードでリロードしてください。',
 ];
