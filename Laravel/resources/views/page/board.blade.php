@@ -29,6 +29,6 @@
 
 @push('scripts')
     <script src="{{asset('js/board/heart.js')}}"></script>
-    {{-- <script src="{{asset('js/board/package.js')}}"></script> --}}
+    <script src="{{asset('js/board/package.js')}}"></script>
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 부트스트랩 JS --}}
 @endpush
