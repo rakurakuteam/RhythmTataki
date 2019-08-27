@@ -2,14 +2,21 @@
 <div class="content">
     <img src="{{asset('images/pic/bg_2.png')}}" id="bg" />
     <div class="middle">
-        <p id="user_name">유저명</p>
+        <p id="user_name">{{$writer}}</p>
         <img src="{{asset('images/pic/user.png')}}" id="profile" />
         <div class="cont_text">
             <p>{{$board->content}}</p>
         </div>
         <div class="video">
             <div class="post_under">
-                <img src="{{asset('images/pic/free.png')}}" id="thmb" />
+                {{-- <img src="{{asset('images/pic/free.png')}}" id="thmb" /> --}}
+                <div id='video'>
+                    @if(isset($video))
+                    @include('components.board.video', ['video' => $video])
+                    @else
+                    <img src="{{asset('images/pic/free.png')}}">
+                    @endif
+                </div>
                 <div class="text_area_1">
                     <img src="{{asset('images/pic/view.png')}}" id="view" />
                     <p id="view_t">{{$board->hits}}</p>
@@ -23,6 +30,7 @@
             </div>
         </div>
         <div class="package">
+            
             <?php $num=1 ?>
             @foreach($board->files as $list)
             <div class="video_list">

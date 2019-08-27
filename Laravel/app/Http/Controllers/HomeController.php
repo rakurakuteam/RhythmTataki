@@ -181,15 +181,18 @@ class HomeController extends Controller
             }
         }
         $first_name = $board->files[0]->song;
+        $writer = User::find($board->user_id);
 
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
             ->with('video', $video)
-            ->with('first_name', $first_name);
+            ->with('first_name', $first_name)
+            ->with('writer', $writer->name);
         }else{
             return view('page.board')
-            ->with('board', $board);
+            ->with('board', $board)
+            ->with('writer', $writer->name);
         }
     }
 
