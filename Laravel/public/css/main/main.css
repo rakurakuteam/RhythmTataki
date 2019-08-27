@@ -103,17 +103,13 @@ body {
 #sort {
     float: right;
     margin-right: 75px;
-    
+    position: absolute;
+    right: 70px;
+    top: 1245px;
 }
 
 #notice_bg {
     position: relative;
-}
-
-#sort {
-    position: absolute;
-    right: 70px;
-    top: 1220px;
 }
 
 .rank {
@@ -134,7 +130,7 @@ body {
 .ranking_post {
     width: 1200px;
     margin-left: 450px;
-    padding-top: 50px;
+    padding-top: 80px;
     height: 330px;
 }
 

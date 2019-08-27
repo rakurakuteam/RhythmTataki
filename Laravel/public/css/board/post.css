@@ -106,8 +106,9 @@ body {
 .video {
     position: absolute;
     z-index: 5;
-    left: 640px;
+    left: 630px;
     top: 600px;
+    width: 640px;
 }
 
 #thmb {
