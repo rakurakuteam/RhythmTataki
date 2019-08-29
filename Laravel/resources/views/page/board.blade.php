@@ -15,10 +15,6 @@
     @include('layouts.header.main')
 @endsection
 
-@section('nav')
-
-@endsection
-
 @section('body')
     @include('components.board.content')
 @endsection
