@@ -227,3 +227,27 @@ body {
     width: 430px;
     height: 350px;
 }
+
+
+#upper_bar {
+    display: flex;
+}
+
+#login_menu {
+    float: right;
+    position: relative;
+    right: 150px;
+    top: -38px;
+    display: flex;
+    color: white;
+    font-size: 20px;
+}
+
+.text-uppercase:hover {
+    color: bisque;
+    text-decoration:none;
+}
+
+.text-uppercase {
+    color: white;
+}

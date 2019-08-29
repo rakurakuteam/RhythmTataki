@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     @yield('style')
     @stack('scripts')
+    {{header("Access-Control-Allow-Origin: *")}}
 </head>
 <body>
     @include('sweetalert::alert')

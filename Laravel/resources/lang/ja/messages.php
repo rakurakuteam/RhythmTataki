@@ -7,6 +7,8 @@ return [
     'localization' => '日本語',
     'store' => 'ストーア',
     'login' => 'ログイン',
+    'join' => '会員加入',
+    'logout' => 'ログアウト',
     'latest' => '最新順',
     'hearts' => '人気順',
     'hits' => '照会順',

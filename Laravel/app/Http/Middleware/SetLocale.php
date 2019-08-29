@@ -17,7 +17,6 @@ class SetLocale
      */
     public function handle($request, Closure $next)
     {
-        Log::info('오나?');
         $locale = Session::get('locale');
         Log::info($locale);
         if($locale) {
