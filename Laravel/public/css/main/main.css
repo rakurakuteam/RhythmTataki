@@ -105,7 +105,7 @@ body {
     margin-right: 75px;
     position: absolute;
     right: 70px;
-    top: 1245px;
+    top: 1170px;
 }
 
 #notice_bg {
@@ -226,4 +226,9 @@ body {
     background-color: #ffffff;
     width: 430px;
     height: 350px;
+}
+
+#footer {
+    position: relative;
+    bottom: -69vh;
 }

@@ -6,7 +6,7 @@
                 @foreach($rankings as $ranking)
                 <div class="post_under">
                     <a href="{{route('board.show', ['id' => $ranking->id])}}">
-                        <img src="{{asset('images/pic/free.png')}}" id="thmb" />
+                        <img src="{{asset('images/pic/thumb_1.png')}}" id="thmb" />
                     </a>
                     <div class="text_area_1">
                         <img src="{{asset('images/pic/view.png')}}" id="view" />
@@ -27,7 +27,7 @@
                 @foreach($boards as $board)
                 <div class="r_post_under">
                     <a href="{{route('board.show', ['id' => $board->id])}}">
-                        <img src="{{asset('images/pic/free.png')}}" id="thmb" />
+                        <img src="{{asset('images/pic/thumb_2.png')}}" id="thmb" />
                     </a>
                     <div class="text_area_1">
                         <img src="{{asset('images/pic/view.png')}}" id="view" />
