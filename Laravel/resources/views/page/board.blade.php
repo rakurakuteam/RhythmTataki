@@ -11,6 +11,10 @@
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 부트스트랩 CSS --}}
 @endsection
 
+@section('head')
+    {{header("Access-Control-Allow-Origin: *")}}
+@endsection
+
 @section('header')
     @include('layouts.header.main')
 @endsection
