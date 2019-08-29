@@ -13,8 +13,6 @@
 
 @section('header')
     @include('layouts.header.main')
-@section('nav')
-
 @endsection
 
 @section('body')
