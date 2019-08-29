@@ -61,7 +61,7 @@
         <strong class="text-uppercase">{{Auth::user()['name']}} <i class="fa fa-caret-down"></i></strong>
         {{-- logout --}}
         <li>
-            <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a href="{{route('logout')}}" class="text-uppercase" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i> {{__('messages.logout')}}
             </a>
         </li>
