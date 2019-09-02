@@ -14,7 +14,7 @@
                         <img src="{{asset('images/pic/like_1.png')}}" id="like" />
                         <p id="like_t">{{$ranking->total_heart}}</p>
                         @if(\Auth::check())
-                        <img src="{{asset('images/pic/download.png')}}" class="download" onclick="download({{$board->id}})" style="cursor:pointer"/>
+                        <img src="{{asset('images/pic/download.png')}}" class="download" onclick="download({{$ranking->id}})" style="cursor:pointer"/>
                         @else
                         <img src="{{asset('images/pic/download.png')}}" class="download"/>
                         @endif
