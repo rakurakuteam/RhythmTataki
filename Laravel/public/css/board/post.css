@@ -150,7 +150,7 @@ body {
     margin-left: 5px;
 }
 
-#download {
+.download {
     width:40px;
     float: left;
     margin-left: 15px;
