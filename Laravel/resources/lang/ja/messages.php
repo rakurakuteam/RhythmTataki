@@ -49,7 +49,7 @@ return [
     'file_select_message' => '編集するファイルを選びください',
     'file_select' => 'ファイル選択',
     'dl_success' => 'ダウンロード成功',
-    'dl_succcess_message' => 'プレーモードでリロードしてください。',
+    'dl_success_message' => 'プレーモードでリロードしてください。',
     'dl_fail' => 'ダウンロード失敗',
     'dl_fail_message' => 'もう、ダウンロードした曲ではありませんか？',
     'video_list' => '録画映像',

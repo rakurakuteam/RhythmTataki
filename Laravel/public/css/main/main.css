@@ -180,7 +180,7 @@ body {
     width: 80px;
 }
 
-#download {
+.download {
     width: 25px;
     float: right;
     margin-right: 60px;

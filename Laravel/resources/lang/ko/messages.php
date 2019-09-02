@@ -49,7 +49,7 @@ return [
     'file_select_message' => '편집 할 파일을 선택 해 주세요!',
     'file_select' => '파일선택',
     'dl_success' => '다운로드 성공',
-    'dl_succcess_message' => '연주모드에서 새로고침 하세요.',
+    'dl_success_message' => '연주모드에서 새로고침 하세요.',
     'dl_fail' => '다운로드 실패',
     'dl_fail_message' => '이미 다운로드한 게시물이 아니신가요?',
     'video_list' => '녹화영상',
