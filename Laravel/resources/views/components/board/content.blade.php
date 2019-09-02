@@ -22,7 +22,11 @@
                     <p id="view_t">{{$board->hits}}</p>
                     <img src="{{asset('images/pic/like_1.png')}}" id="like" />
                     <p id="like_t">{{$board->total_heart}}</p>
-                    <img src="{{asset('images/pic/download.png')}}" id="download" />
+                    @if(\Auth::check())
+                    <img src="{{asset('images/pic/download.png')}}" class="download" onclick="download({{$board->id}})" style="cursor:pointer"/>
+                    @else
+                    <img src="{{asset('images/pic/download.png')}}" class="download"/>
+                    @endif
                 </div>
                 <div class="text_area_2">
                     <p id="title">{{$board->title}}</p>
@@ -30,7 +34,6 @@
             </div>
         </div>
         <div class="package">
-            
             <?php $num=1 ?>
             @foreach($board->files as $list)
             <div class="video_list">
