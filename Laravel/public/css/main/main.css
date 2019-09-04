@@ -229,6 +229,7 @@ body {
 }
 
 #footer {
-    position: relative;
-    bottom: -69vh;
+    position: absolute;
+    bottom: -145vh;
+    left: 3.2vw;
 }

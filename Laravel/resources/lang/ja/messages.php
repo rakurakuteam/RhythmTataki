@@ -5,7 +5,7 @@ return [
     'soundGarden' => '音の庭',
     'workshop' => '音工房',
     'localization' => '日本語',
-    'store' => 'ストーア',
+    'store' => 'ストア',
     'login' => 'ログイン',
     'join' => '会員加入',
     'logout' => 'ログアウト',
