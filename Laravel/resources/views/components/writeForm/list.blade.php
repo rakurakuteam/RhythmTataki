@@ -13,6 +13,7 @@
                 </div>
                 @endforeach
             </div>
+            <button class="btn cust-btn " type="button" id="btn-registration" style="font-size: 20px;letter-spacing: 1px;">Register</button>
         </center>
     </div>
 {{-- </div> --}}
