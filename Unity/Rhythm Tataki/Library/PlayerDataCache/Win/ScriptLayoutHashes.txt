@@ -78,6 +78,8 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 98ad81e9f689a492509f07e75b810aaa Unity.TextMeshPro.dll:TMPro.TMP_InputField
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 948bf046ab0402bca396c8b30095b8c4 Assembly-CSharp.dll:.Visualizer
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -146,7 +148,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 fc901c2a3d5e54229dfdff6b37bf8ed7 Assembly-CSharp.dll:.OutputVolume
-c2873bbd746b383de7967b49ea21ba64 Assembly-CSharp.dll:.NormalSelectLevelManager
+0f4a3dda9cb39bff1ff574ec2e914b38 Assembly-CSharp.dll:.NormalSelectLevelManager
 8b50423b6c86b474d078a38fe7319ee5 Assembly-CSharp.dll:.JoinManager
 f130b23686e493efe381b446091aae29 Assembly-CSharp.dll:NatCorderU.Examples.NatCorderTest
 ba3c136adb3c1d6561d3002dec0626b9 Assembly-CSharp.dll:.Pauses
@@ -178,7 +180,7 @@ aa18a35d28a1794557d0a1fefc8fd2ad Assembly-CSharp.dll:.bg_Move
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
 b737f5c8e1ed3aa544318485beca56cf Assembly-CSharp.dll:.NormalNoteController
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CameraController
-0e44944eb5014ac9c85782d9f3a1b4e1 Assembly-CSharp.dll:.FreeGameManager
+272544891c30cc15f888007514c1cdd0 Assembly-CSharp.dll:.FreeGameManager
 b70388a6cc17ba57a710a36fc2207927 Assembly-CSharp.dll:.CountDown
 52ce6c1115e252044bdc5ad340c55a5e Assembly-CSharp.dll:.WWWManager
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -235,7 +237,7 @@ aa18a35d28a1794557d0a1fefc8fd2ad Assembly-CSharp.dll:.BackMove
 9e6e95305fb0b41bdfb351ab09378b9a Assembly-CSharp.dll:.hearts
 0c05a292d9d1b3d4969e348ffdd28b1e Assembly-CSharp.dll:.MusicListObject
 d8082f296019e4f601e90b3adbc406a9 Assembly-CSharp.dll:.SimpleSpectrum
-c0e4aba0db954151aeff24c29bcb18af Assembly-CSharp.dll:.GameManager
+a9c2fc72836c751932a1b8648c77595e Assembly-CSharp.dll:.GameManager
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 8048064e29560f04ee54aef87c9a034a Assembly-CSharp.dll:.LoginManager
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WhiteBlock

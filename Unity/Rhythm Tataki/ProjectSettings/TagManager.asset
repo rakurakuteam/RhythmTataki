@@ -8,6 +8,19 @@ TagManager:
   - Good Line
   - Bad Line
   - Miss Line
+  - BLOCK
+  - GoodBox
+  - Box
+  - PerfectBox
+  - MissBox
+  - Mini
+  - Block
+  - Trigger
+  - Lower
+  - Blue
+  - White
+  - GoodBox2
+  - MissBox2
   layers:
   - Default
   - TransparentFX
@@ -59,4 +72,7 @@ TagManager:
     locked: 0
   - name: Effect
     uniqueID: 85138451
+    locked: 0
+  - name: 6
+    uniqueID: 16993965
     locked: 0

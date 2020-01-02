@@ -8,6 +8,7 @@ using LitJson;
 using System;
 using System.Text;
 
+
 public class LoginManager : MonoBehaviour
 {
     // 이메일 및 패스워드 UI
@@ -15,22 +16,41 @@ public class LoginManager : MonoBehaviour
     public InputField passwordInputField;
 
     // 데이터를 전송할 URL
-    // private string URL = "https://capstone.rhythmtataki.p-e.kr/unity/getScores/";
-    private string URL = "http://dev.rhythmtataki.p-e.kr/unity/getScores/";
+    private string URL = "http://capstone.rhythmtataki.p-e.kr/unity/getScores/";
+    // private string URL = "http://dev.rhythmtataki.p-e.kr/unity/getScores/";
     public string jsonString;
 
     // 오류에 대한 정보를 보여 줄 UI
     public Text messageUI;
 
     // 데이터를 전송할 URL
-    // private string Login_URL = "https://capstone.rhythmtataki.p-e.kr/unity/login";
-    private string Login_URL = "http://dev.rhythmtataki.p-e.kr/unity/login";
+    private string Login_URL = "http://capstone.rhythmtataki.p-e.kr/unity/login";
+    // private string Login_URL = "http://dev.rhythmtataki.p-e.kr/unity/login";
 
-    // Start is called before the first frame update
-    void Start()
+    public string[] folderNames = { "beats", "records" };
+
+    private void Awake()
     {
         // 화면이 꺼지지 않도록
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        // 게임 실행 시 폴더를 생성해준다.
+        // 유저가 새로 다운 받는 노래와 노트, 녹화영상을 저장하기 위함
+        string dirPath = PlayerInformation.dataPath;
+        CheckDirectory(dirPath, folderNames);
+    }
+
+    public void CheckDirectory(string dirPath, string[] folderArray)
+    {
+        for (int i = 0; i < folderArray.Length; i++)
+        {
+            DirectoryInfo di = new DirectoryInfo(dirPath + folderArray[i]);
+            if (!di.Exists)
+            {
+                di.Create();
+                // Debug.Log("create folder");
+            }
+        }
     }
 
     public void Login()
@@ -48,6 +68,11 @@ public class LoginManager : MonoBehaviour
     public void SignIn()
     {
         SceneManager.LoadScene("JoinScene");
+    }
+
+    public void Test()
+    {
+        Debug.Log("dd");
     }
 
     // 로그인 확인 라라벨로 송부
@@ -95,47 +120,61 @@ public class LoginManager : MonoBehaviour
     public void SetMusicList(string jsonString)
     {
         PlayerInformation.musicCount = 11;
+        PlayerInformation.noteFileNames = new List<string>();
         PlayerInformation.titleSprites = new List<Sprite>();
         PlayerInformation.titleList = new List<string>();
         PlayerInformation.rankSprites = new List<Sprite>();
         PlayerInformation.scores = new List<int>();
 
         // 노래 리스트가 기록된 Text파일을 불러온다.
-        TextAsset textAsset = Resources.Load<TextAsset>("SongImages/List");
-        StringReader reader = new StringReader(textAsset.text);
+        // TextAsset textAsset = Resources.Load<TextAsset>("SongImages/List");
+        // StringReader reader = new StringReader(textAsset);
+        string listFilePath = Application.persistentDataPath + Path.DirectorySeparatorChar + "List.txt";
+        Debug.Log(listFilePath);
+        StreamReader sr = new StreamReader(listFilePath);
+        
+
+        // 노트 파일의 제목이 기록된 Text파일을 불러온다.
+        // TextAsset noteList = Resources.Load<TextAsset>("Beats/Note List");
+        // StringReader noteListReader = new StringReader(noteList.text);
 
         for (int i = 0; i < PlayerInformation.musicCount; i++)
         {
+            string index = (i + 1).ToString();
+            
             // 한줄씩 노래 제목을 가지고온다.
-            string getString = reader.ReadLine();
+            string getString = sr.ReadLine();
+
+            // 노트파일 이름을 가지고 온다.
+            // string noteFileName = noteListReader.ReadLine();
+            // NoteFileNames 리스트에 저장한다.
+            PlayerInformation.noteFileNames.Add(index);
+
             // 타이틀이미지 리스트와 타이틀텍스트리스트, 랭크이미지를 셋팅한다.
-            PlayerInformation.titleSprites.Add(Resources.Load<Sprite>("SongImages/" + getString));
+            PlayerInformation.titleSprites.Add(Resources.Load<Sprite>("SongImages/" + index));
             PlayerInformation.titleList.Add(getString);
 
             // Json 파싱하여 점수를 셋팅한다.
-            LoadMusicDataFromJson(jsonString, getString);
+            LoadMusicDataFromJson(jsonString, index);
         }
-
-        
-
     }
 
     public void SetDrumSoundList()
     {
         // 관련 변수 초기화
-        PlayerInformation.drumSoundCount = 5;
+        PlayerInformation.drumSoundCount = 7;
         PlayerInformation.soundNameList = new List<string>();
         PlayerInformation.soundFileNameList = new List<string>();
 
         // 우선 선택없음 항목을 생성한다.
-        PlayerInformation.soundNameList.Add("선택 없음");
+        PlayerInformation.soundNameList.Add("なし");
         PlayerInformation.soundFileNameList.Add(null);
 
         // 나중에는 서버로부터 사운드 리스트와 노래를 받아서 셋팅한다.
         TextAsset textAsset = Resources.Load<TextAsset>("EffectSounds/List");
         StringReader reader = new StringReader(textAsset.text);
 
-        for (int i = 0; i < PlayerInformation.drumSoundCount; i++)
+        for (int i = 1; i < PlayerInformation.drumSoundCount; i++)
         {
             // 한줄씩 드럼 소리 이름을 가지고온다.
             string getString = reader.ReadLine();
@@ -167,6 +206,7 @@ public class LoginManager : MonoBehaviour
             // 성공한 경우
             // Debug.Log("WWW OK : " + www.text);
             jsonString = www.text;
+            Debug.Log(jsonString);
 
             // 노래 목록 셋팅하는 함수 실행
             SetMusicList(jsonString);

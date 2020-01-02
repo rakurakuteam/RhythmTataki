@@ -12,11 +12,6 @@ public class DrumSoundListViewManager : MonoBehaviour
     public ToggleGroup leftToggleGroup;
     public int drumType; // 왼쪽 드럼인지 오른쪽 드럼인지.
 
-    private void Awake()
-    {
-        
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +19,6 @@ public class DrumSoundListViewManager : MonoBehaviour
         AddListInItem();
         // 바인딩
         Binding();
-        
     }
 
 
@@ -77,12 +71,6 @@ public class DrumSoundListViewManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ToggleClick_Result()
     {
         // Debug.Log("토글버튼 클릭됨");
@@ -112,6 +100,5 @@ public class DrumSoundListViewManager : MonoBehaviour
             // 재생
             audioSource.Play();
         }
-        
     }
 }

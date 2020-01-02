@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System;
 
 public class FreeListViewController : MonoBehaviour
 {
@@ -16,10 +17,12 @@ public class FreeListViewController : MonoBehaviour
     private List<string> normalTitleList;     // title List
     private List<Sprite> normalRankSprites;   // rank Sprites
 
-
+    private int basMusicCount; // 기본 제공하는 노래의 개수.
     // Start is called before the first frame update
     void Start()
     {
+        basMusicCount = 12;
+
         // 노래 리스트 셋팅
         AddListItem();
 
@@ -38,6 +41,7 @@ public class FreeListViewController : MonoBehaviour
             itemTemp.titleImage = PlayerInformation.titleSprites[i];
             itemTemp.title = PlayerInformation.titleList[i];
             itemTemp.rankImage = PlayerInformation.rankSprites[i];
+            itemTemp.noteName = PlayerInformation.noteFileNames[i];
             itemTemp.onItemClick = new Button.ButtonClickedEvent();
             itemTemp.onItemClick.AddListener(delegate { ItemClick_Result(); });
 
@@ -66,7 +70,7 @@ public class FreeListViewController : MonoBehaviour
             itemobjectTemp.titleText.text = item.title;
             itemobjectTemp.titleImage.sprite = item.titleImage;
             itemobjectTemp.rankImage.sprite = item.rankImage;
-            
+            itemobjectTemp.NoteNameText.text = item.noteName;
             itemobjectTemp.item.onClick = item.onItemClick;
 
             //화면에 추가
@@ -89,11 +93,20 @@ public class FreeListViewController : MonoBehaviour
         // Debug.Log(listObject.item);
 
         // 그 뒤 UI에서 text, Image 등을 가지고 와서 PlayerInformation에 저장한다.
-        PlayerInformation.selectedMusic = listObject.titleText.text;
+        PlayerInformation.selectedMusic = listObject.NoteNameText.text;
         PlayerInformation.musicTitle = listObject.titleText.text;
         // Debug.Log(listObject.titleText.text);
         PlayerInformation.titleImage = listObject.titleImage.sprite;
         // Debug.Log(listObject.titleImage.sprite);
+
+
+        // PlayerInformation.musicCount++;
+        // 기존의 노래의 경우 노래파일을 beats폴더로 옮겨준다.
+        // 새로 추가하는 노래의 경우 추가할 때 옮겨지기 때문에 필요 없음.
+        //if(Convert.ToInt32(PlayerInformation.selectedMusic) < basMusicCount)
+        //{
+            
+        //}
 
         // 게임씬으로 이동
         SceneManager.LoadScene("FreeModeGameScene");

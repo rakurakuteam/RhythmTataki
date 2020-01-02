@@ -11,6 +11,7 @@ public class Item
     public string title;        // 타이틀
     public Sprite rankImage;    // 점수에 따른 별의 개수 이미지
     public Sprite titleImage;   // 타이틀 이미지
+    public string noteName;     // 노트 파일 이름
 
     // 클릭 이벤트
     public Button.ButtonClickedEvent onItemClick;

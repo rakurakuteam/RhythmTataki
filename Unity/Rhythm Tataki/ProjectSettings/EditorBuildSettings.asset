@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FreeModeGameScene.unity
     guid: f80f53f424ea649488cae607e6cbefab
   - enabled: 1
+    path: Assets/Scenes/FreeResultScene.unity
+    guid: 988afb5f15b326c48970b34c3761c293
+  - enabled: 1
     path: Assets/Scenes/NormalMusicSelectScene.unity
     guid: 0c9738e6dfadccc4f9d1a348e45c85d9
   - enabled: 1
@@ -38,6 +41,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ArcadeModeScene.unity
     guid: 911d6b48cb8ad7746b85c5bbe35674b1
+  - enabled: 1
+    path: Assets/Scenes/AddBlockGameScene.unity
+    guid: a22088357c1811b41afe4fc0dc6d27ae
+  - enabled: 1
+    path: Assets/Scenes/DeleteBlockGameScene.unity
+    guid: f4207b8489e6b5d4cafcc458120c49f3
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

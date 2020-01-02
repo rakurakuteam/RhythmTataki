@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Examples/S3Example.unity
+- path: Assets/Scenes/JoinScene.unity
   isLoaded: 1
   isActive: 1

@@ -22,7 +22,7 @@ public class FreeNoteController : MonoBehaviour
 
     private ObjectPooler noteObjectPooler;
     private List<Note> notes = new List<Note>();
-    private float x, z, startY = 1.5f; // 노트가 활성화되는 위치
+    private float x, z, startY = -4.0f; // 노트가 활성화되는 위치
 
     // 하나의 노트가 만들어 졌을 때 처리하는 함수
     public void MakeNote(int noteType)
@@ -35,15 +35,12 @@ public class FreeNoteController : MonoBehaviour
         obj.SetActive(true); // 보여줌
     }
 
-
-
     // Start is called before the first frame update
     void Start()
     {
         noteObjectPooler = gameObject.GetComponent<ObjectPooler>(); // 초기화
         // Debug.Log(noteObjectPooler);
         // 노트 생성
-        
     }
 
     // Update is called once per frame

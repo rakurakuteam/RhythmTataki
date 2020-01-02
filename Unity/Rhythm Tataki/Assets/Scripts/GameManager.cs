@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Diagnostics;
+using System;
+using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,19 +18,29 @@ public class GameManager : MonoBehaviour
         else if (instance != this) Destroy(gameObject);
     }
 
-    // 노트 떨어지는 속도
-    public float noteSpeed;
-
     // 화면에 보이는 스코어UI를 가져온다.
     public GameObject scoreUI;
     public float score;
     private Text scoreText;
 
+    // 트럼펫 UI와 트럼펫 Effect UI
+    public GameObject[] leftObjects;
+    public GameObject[] rightObjects;
+    private Animator[] leftAnimator;
+    private Animator[] rightAnimator;
+       
+    // 화면의 실제로 적용될 COMBO UI를 가지고 온다.
+    // 이 UI는 콤보가 증가할 떄 마다 숫자가 증가하여 표시해준다.
     public GameObject comboUI;
     private int combo;
-    private Text comboText;
+    private Text comboCountText;
     private Animator comboAnimator;
 
+    // 화면의 COMBO Text를 가지고 온다.
+    // 이 UI는 COMBO 라는 글의 애니메이션만 계속 반복한다.
+    public GameObject comboTextUI;
+    private Animator comboTextAnimator;
+    
     public GameObject judgeUI;
     private Sprite[] judgeSprites;
     private Image judgementSpriteRenderer;
@@ -39,9 +53,18 @@ public class GameManager : MonoBehaviour
     int soundId1, soundId2;
     public bool IsPause;
     public GameObject pausePanel;
+    public string input;
+
+    Stopwatch sw = new Stopwatch();
+
+    // 시리얼 통신
+    //private SerialPort serial;
+    //private string portName = "COM4";   // 포트이름
+    //private int baudRate = 9600;        // 통신속도
+    
 
     // public RecordManager recordManager;
-    
+
     /*
      * bad : 1
      * good : 2
@@ -61,39 +84,34 @@ public class GameManager : MonoBehaviour
     // 자동 판정 모드
     public bool autoPerfect;
 
-    // 음악실행 함수
-    void MusicStart()
-    {
-        Debug.Log("MusicStart");
-        Debug.Log(PlayerInformation.selectedMusic);
-        // 리소스에서 비트 음악 파일을 불러와 재생
-        AudioClip audioClip = Resources.Load<AudioClip>("Beats/" + PlayerInformation.selectedMusic);
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = audioClip;
-        audioSource.Play();
-        
-        
-    }
-
-    
-
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
+        // 시리얼 포트 셋팅
+        //serial = new SerialPort(portName, baudRate);
+        //serial.ReadTimeout = 1;
+        //serial.Open();
+
+        // StartCoroutine(SerialRead());
         IsPause = false;
         // 패널숨김
         pausePanel.SetActive(false);
 
         // MusicStart함수 실행, 2초 후에
-        Debug.Log("게임매니저 Start 함수");
+        Debug.Log("Game Start");
         Invoke("MusicStart", 2);
         // 초기화
         judgementSpriteRenderer = judgeUI.GetComponent<Image>();
         judgementSpriteAnimator = judgeUI.GetComponent<Animator>();
         scoreText = scoreUI.GetComponent<Text>();
-        comboText = comboUI.GetComponent<Text>();
+        comboCountText = comboUI.GetComponent<Text>();
         comboAnimator = comboUI.GetComponent<Animator>();
+        comboTextAnimator = comboTextUI.GetComponent<Animator>();
 
+        // 애니메이터 초기화
+        SetAnimator();
+        
         // 노래의 제목과 제목 이미지 현재 랭크 보여줌.
 
         // 판정 결과를 보여주는 스프라이트 이미지를 미리 초기화 한다.
@@ -124,6 +142,7 @@ public class GameManager : MonoBehaviour
         // soundId2 = AudioCenter.loadSound("DrumKick");
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -132,6 +151,7 @@ public class GameManager : MonoBehaviour
         {
             ShineTrail(0);
             leftDrumSound.Play();
+            PlayLeftAnimator();
             // AudioCenter.playSound(soundId1);
         }
 
@@ -139,6 +159,7 @@ public class GameManager : MonoBehaviour
         {
             ShineTrail(1);
             rigthDrumSound.Play();
+            PlayRightAnimator();
             // AudioCenter.playSound(soundId2);
         }
         
@@ -150,6 +171,167 @@ public class GameManager : MonoBehaviour
             // 매프레임마다 실행되므로 -= 을 사용
             color.a -= 0.01f;
             trailSpriteRenderes[i].color = color;
+        }
+
+        if (SerialManager.instance.serial.IsOpen)
+        {
+            try
+            {
+                input = SerialManager.instance.serial.ReadLine();
+                // Debug.Log(input);
+                if (input.Equals("1"))
+                {
+                    ShineTrail(0);
+                    // leftDrumSound.Play();
+                }
+
+                if (input.Equals("2"))
+                {
+                    ShineTrail(1);
+                    // rigthDrumSound.Play();
+                }
+            }
+            catch (TimeoutException e)
+            {
+                // Debug.Log("serial Error: " + e.ToString());
+            }
+        }
+
+        //if (SerialManager.instance.serial.IsOpen)
+        //{
+
+        //    try
+        //    {
+        //        // ReadSerialValue();
+
+        //        string input = SerialManager.instance.serial.ReadLine();
+        //        sw.Start();
+
+        //        if (input.Equals("1"))
+        //        {
+        //            ShineTrail(0);
+        //            //Debug.Log("1");
+        //            leftDrumSound.Play();
+        //        }
+
+        //        if (input.Equals("2"))
+        //        {
+        //            ShineTrail(1);
+        //            //Debug.Log("2");
+        //            rigthDrumSound.Play();
+        //        }
+
+        //        //sw.Stop();
+        //        //Debug.Log("sw: " + sw.Elapsed.Milliseconds.ToString() + "ms");
+        //        //sw.Reset();
+
+        //    }
+        //    catch (TimeoutException e)
+        //    {
+        //        // Debug.Log("serial Error: " + e.ToString());
+        //    }
+
+        //}
+
+    }
+
+    // 음악실행 함수
+    void MusicStart()
+    {
+        Debug.Log("MusicStart");
+        // Debug.Log(PlayerInformation.selectedMusic);
+        audioSource = GetComponent<AudioSource>();
+        // 리소스에서 비트 음악 파일을 불러와 재생
+        AudioClip audioClip = Resources.Load<AudioClip>("Beats/" + PlayerInformation.selectedMusic);
+
+        // Resources 폴더에서 찾지 못하면 persistancePath에서 찾는다.
+        if (audioClip == null)
+        {
+            string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "beats" + Path.DirectorySeparatorChar + PlayerInformation.selectedMusic + ".ogg";
+
+            // 노래 찾는 함수 실행
+            StartCoroutine(LoadAudioClip(path, audioClip));
+        }
+        else
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
+    }
+
+    public void PlayDrumSound(int noteType)
+    {
+        if(noteType == 0)
+        {
+            leftDrumSound.Play();
+        }
+        else if(noteType == 1)
+        {
+            rigthDrumSound.Play();
+        }
+    }
+
+    // 왼쪽, 오른쪽 드럼 두드릴때의 애니메이션 초기화
+    public void SetAnimator()
+    {
+        leftAnimator = new Animator[leftObjects.Length];
+        rightAnimator = new Animator[rightObjects.Length];
+        
+        for(int i = 0; i < leftAnimator.Length; i++)
+        {
+            leftAnimator[i] = leftObjects[i].GetComponent<Animator>();
+        }
+
+        for (int i = 0; i < rightAnimator.Length; i++)
+        {
+            rightAnimator[i] = rightObjects[i].GetComponent<Animator>();
+        }
+    }
+
+    public void PlayLeftAnimator()
+    {
+        for(int i = 0; i < leftAnimator.Length; i++)
+        {
+            leftAnimator[i].SetTrigger("Show");
+        }
+    }
+
+    public void PlayRightAnimator()
+    {
+        for (int i = 0; i < rightAnimator.Length; i++)
+        {
+            rightAnimator[i].SetTrigger("Show");
+        }
+    }
+
+    // 노래 파일을 찾는 코루틴
+    IEnumerator LoadAudioClip(string path, AudioClip audioClip)
+    {
+        Debug.Log("Start LoadAudioClip");
+
+        // 파일 존재 여부 확인
+        if (!File.Exists(path))
+        {
+            Debug.Log("Didn't Exist: " + path);
+            yield break;
+        }
+
+        // WWW를 통해 오디오 클립을 가져온다.
+        WWW audioFile = new WWW("file:///" + path);
+        yield return audioFile;
+
+        if (audioFile.error == null)
+        {
+            // 성공적으로 가져오면 노래를 재생시킨다.
+            Debug.Log("Loaded file successfully");
+            audioClip = audioFile.GetAudioClip();
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.Log("Open File Error : " + audioFile.error);
+            yield break; // stop the coroutine here
         }
     }
 
@@ -164,6 +346,7 @@ public class GameManager : MonoBehaviour
     // 노트 판정 이후에 판정 결과를 화면에 보여줍니다.
     void showJudgement()
     {
+
         // 점수 이미지를 보여준다
         string scoreFormat = "000000";
         scoreText.text = score.ToString(scoreFormat);
@@ -175,8 +358,9 @@ public class GameManager : MonoBehaviour
         // 콤보가 2이상일 때만 콤보 이미지를 보여준다.
         if (combo >= 2)
         {
-            comboText.text = "COMBO " + combo.ToString();
+            comboCountText.text = combo.ToString();
             comboAnimator.SetTrigger("Show");
+            comboTextAnimator.SetTrigger("Show");
         }
         if (maxCombo < combo)
         {
@@ -273,4 +457,30 @@ public class GameManager : MonoBehaviour
         CancelInvoke();
         StopAllCoroutines();
     }
+
+
+    // 아두이노에서 보내느 값을 읽고 처리한다.
+    public void ReadSerialValue()
+    {
+        sw.Start();
+        string input = SerialManager.instance.serial.ReadLine();
+        // string input = System.Text.ASCIIEncoding.ASCII.GetString(SerialManager.instance.serial.);
+
+        if(input.Equals("1"))
+        {
+            ShineTrail(0);
+            Debug.Log("1");
+        }
+
+        if(input.Equals("2"))
+        {
+            ShineTrail(1);
+            Debug.Log("2");
+        }
+
+        sw.Stop();
+        Debug.Log("sw: " + sw.Elapsed.Milliseconds.ToString() + "ms");
+        //sw.Reset();
+    }
 }
+

@@ -21,14 +21,28 @@ public class GameResultManager : MonoBehaviour
     {
         musicTitleImage.sprite = PlayerInformation.titleImage;
         musicTitleUI.text = PlayerInformation.musicTitle;
-        scoreUI.text = "점수 : " + (int)PlayerInformation.score;
-        maxComboUI.text = "최대 콤보 : " + PlayerInformation.maxCombo;
+        scoreUI.text = "スコア : " + (int)PlayerInformation.score;
+        maxComboUI.text = "最大コンボ : " + PlayerInformation.maxCombo;
         newRecordUI.enabled = false;
 
         // 리소스에서 노트 파일을 불러온다
         // 별의 개수를 기준에 맞춰서 보여주기 위함.
         TextAsset textAsset = Resources.Load<TextAsset>("Beats/" + PlayerInformation.selectedMusic);
-        StringReader reader = new StringReader(textAsset.text);
+        // StringReader reader = new StringReader(textAsset.text);
+        StreamReader reader;
+        if (textAsset == null)
+        {
+            string txtFilePath = Application.persistentDataPath + Path.DirectorySeparatorChar + "beats" + Path.DirectorySeparatorChar + PlayerInformation.selectedMusic + ".txt";
+            reader = new StreamReader(txtFilePath);
+        }
+        else
+        {
+            // StringReader reader = new StringReader(textAsset.text);
+            // Resources에 있는 txt파일을 streaReader로 읽기 위해서는 MemoryStream을 이용한다.
+            MemoryStream ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(textAsset.text));
+            reader = new StreamReader(ms);
+        }
+
         // 첫번째 두번째 줄을 무시한다.
         reader.ReadLine();
         reader.ReadLine();
@@ -71,24 +85,13 @@ public class GameResultManager : MonoBehaviour
         SceneManager.LoadScene("SelectModeScene");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // DB에 점수를 보낸 후 최고점수가 경신되었는지 확인한다.
     // 최고기록이 경신되었으면 PHP에서는 1을 return 한다.
     IEnumerator CheckNewRecord(string email, float score)
     {
 
         Debug.Log("SetScore실행");
-        // WWWForm form = new WWWForm();
-        // form.AddField("email", email);
-
-
-        Debug.Log(PlayerInformation.URL + email + "?" + score);
-        WWW www = new WWW(PlayerInformation.URL + "setScore/" + email + "/" + musicTitleUI.text + "/" + score);
+        WWW www = new WWW(PlayerInformation.URL + "setScore/" + email + "/" + PlayerInformation.selectedMusic + "/" + score);
         yield return www;
 
         if (www.error == null)
@@ -121,13 +124,13 @@ public class GameResultManager : MonoBehaviour
 
             // 이후 해당곡의 점수와 별 이미지 초기화
             // 타이틀로 index를 알아냄
-            int index = PlayerInformation.titleList.FindIndex(item => item.Equals(PlayerInformation.selectedMusic));
+            int index = PlayerInformation.titleList.FindIndex(item => item.Equals(PlayerInformation.musicTitle));
+            Debug.Log(index);
 
             // 점수 저장
             PlayerInformation.scores[index] = (int) PlayerInformation.score;
             // 이미지 저장
             PlayerInformation.rankSprites[index] = starsUI.sprite;
-            
         }
     }
 }

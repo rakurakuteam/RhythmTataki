@@ -1,5 +1,6 @@
-﻿드럼킥 DrumKick
-드럼스네어 DrumSnare
-물방울 WaterDrop
-기계음 Decision
-기계음2 Decision2
+﻿ドラム1 DrumSnare
+ドラム2 DrumHiHat
+ドラム3 DrumTom
+ドラム4 DrumKick
+たいこ1 Taico
+たいこ2 Taico2

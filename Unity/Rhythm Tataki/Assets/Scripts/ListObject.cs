@@ -10,16 +10,5 @@ public class ListObject : MonoBehaviour
     public Text titleText;      // 제목 String
     public Image rankImage;     // 별의 개수를 보여주는 Image
     public Image titleImage;    // 제목을 보여주는 Image
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Text NoteNameText;   // 노트 파일 이름 String
 }

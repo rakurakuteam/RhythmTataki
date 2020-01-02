@@ -16,14 +16,8 @@ public class JoinManager : MonoBehaviour
     public Text messageUI;
 
     // 데이터를 전송할 URL
-    private string Join_URL = "http://capstone.rhythmtataki.p-e.kr/unity/join";
-    // private string Join_URL = "http://dev.rhythmtataki.p-e.kr/unity/join";
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // private string Join_URL = "http://capstone.rhythmtataki.p-e.kr/unity/join";
+    private string Join_URL = "http://dev.rhythmtataki.p-e.kr/unity/join";
 
     public void Join()
     {
@@ -76,13 +70,5 @@ public class JoinManager : MonoBehaviour
     public void Back()
     {
         SceneManager.LoadScene("LoginScene");
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

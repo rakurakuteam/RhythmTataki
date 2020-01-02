@@ -43,6 +43,7 @@ public class NormalListViewController : MonoBehaviour
             itemTemp.titleImage = PlayerInformation.titleSprites[i];
             itemTemp.title = PlayerInformation.titleList[i];
             itemTemp.rankImage = PlayerInformation.rankSprites[i];
+            itemTemp.noteName = PlayerInformation.noteFileNames[i];
             itemTemp.onItemClick = new Button.ButtonClickedEvent();
             itemTemp.onItemClick.AddListener(delegate { ItemClick_Result(); });
 
@@ -69,7 +70,7 @@ public class NormalListViewController : MonoBehaviour
             itemobjectTemp.titleText.text = item.title;
             itemobjectTemp.titleImage.sprite = item.titleImage;
             itemobjectTemp.rankImage.sprite = item.rankImage;
-
+            itemobjectTemp.NoteNameText.text = item.noteName;
             itemobjectTemp.item.onClick = item.onItemClick;
 
             //화면에 추가
@@ -93,7 +94,7 @@ public class NormalListViewController : MonoBehaviour
         Debug.Log(listObject.item);
 
         // 그 뒤 UI에서 text, Image 등을 가지고 와서 PlayerInformation에 저장한다.
-        PlayerInformation.selectedMusic = listObject.titleText.text;
+        PlayerInformation.selectedMusic = listObject.NoteNameText.text;
         PlayerInformation.musicTitle = listObject.titleText.text;
         Debug.Log(listObject.titleText.text);
         PlayerInformation.titleImage = listObject.titleImage.sprite;

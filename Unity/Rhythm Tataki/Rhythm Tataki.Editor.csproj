@@ -290,17 +290,11 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK.CognitoIdentity">
-      <HintPath>Assets/AWSSDK/AWSSDK.CognitoIdentity.dll</HintPath>
+    <Reference Include="DOTween">
+      <HintPath>Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK.Core">
-      <HintPath>Assets/AWSSDK/AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.S3">
-      <HintPath>Assets/AWSSDK/AWSSDK.S3.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.SecurityToken">
-      <HintPath>Assets/AWSSDK/AWSSDK.SecurityToken.dll</HintPath>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="I18N.CJK">
       <HintPath>Assets/Plugins/I18N.CJK.dll</HintPath>
@@ -319,6 +313,9 @@
     </Reference>
     <Reference Include="I18N.West">
       <HintPath>Assets/Plugins/I18N.West.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="JsonFx.Json">
       <HintPath>Assets/Plugins/JsonFx.Json.dll</HintPath>
@@ -726,29 +723,42 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AudioSEPlugin\Editor\AudioCenterEditor.cs" />
+    <Compile Include="Assets\BGM\AudioSEPlugin\Editor\AudioCenterEditor.cs" />
     <Compile Include="Assets\Cartoon Mobile UI Pack\Editor\SwitchEditor.cs" />
     <Compile Include="Assets\NatCorder\Editor\NatCorderEditor.cs" />
+    <Compile Include="Assets\SimpleSpectrum\Scripts\Editor\OutputVolumeEditor.cs" />
+    <Compile Include="Assets\SimpleSpectrum\Scripts\Editor\SimpleSpectrumEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Examples\License.txt" />
+    <None Include="Assets\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\NatCorder\Examples\GreyWorld\Resources\GreyWorld.shader" />
     <None Include="Assets\NatCorder\Resources\Transform.shader" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Resources\Beats\1.txt" />
-    <None Include="Assets\Resources\Beats\개구리송.txt" />
-    <None Include="Assets\Resources\Beats\곰세마리.txt" />
-    <None Include="Assets\Resources\Beats\뽀뽀뽀.txt" />
-    <None Include="Assets\Resources\Beats\솜사탕.txt" />
-    <None Include="Assets\Resources\Beats\아기염소.txt" />
-    <None Include="Assets\Resources\Beats\엄마돼지 아기돼지.txt" />
-    <None Include="Assets\Resources\Beats\예쁜아기곰.txt" />
-    <None Include="Assets\Resources\Beats\올챙이와 개구리.txt" />
-    <None Include="Assets\Resources\Beats\초록바다.txt" />
-    <None Include="Assets\Resources\Beats\클로버.txt" />
-    <None Include="Assets\Resources\Beats\퐁당퐁당.txt" />
+    <None Include="Assets\Resources\Beats\10.txt" />
+    <None Include="Assets\Resources\Beats\11.txt" />
+    <None Include="Assets\Resources\Beats\2.txt" />
+    <None Include="Assets\Resources\Beats\3.txt" />
+    <None Include="Assets\Resources\Beats\4.txt" />
+    <None Include="Assets\Resources\Beats\5.txt" />
+    <None Include="Assets\Resources\Beats\6.txt" />
+    <None Include="Assets\Resources\Beats\7.txt" />
+    <None Include="Assets\Resources\Beats\8.txt" />
+    <None Include="Assets\Resources\Beats\9.txt" />
+    <None Include="Assets\Resources\Beats\Note List.txt" />
     <None Include="Assets\Resources\EffectSounds\List.txt" />
     <None Include="Assets\Resources\SongImages\List.txt" />
+    <None Include="Assets\SimpleSpectrum\Demos\Music credit to Vexento - Check out his stuff!.txt" />
+    <None Include="Assets\SimpleSpectrum\Misc\SurfaceGradientLerp.shader" />
+    <None Include="Assets\SimpleSpectrum\Misc\lightweightGradientLerp.shader" />
+    <None Include="Assets\SimpleSpectrum\Misc\lightweightGradientLerpSprite.shader" />
+    <None Include="Assets\SimpleSpectrum\Scripts\WebGLInject.txt" />
+    <None Include="Assets\SimpleSpectrum\SimpleSpectrum_Changelog.txt" />
+    <None Include="Assets\SimpleSpectrum\SimpleSpectrum_DOCUMENTATION.txt" />
+    <None Include="Assets\StreamingAssets\Files\test.txt" />
+    <None Include="Assets\Test\test.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />

@@ -226,7 +226,7 @@ public class Swipe : MonoBehaviour
             Box.instance.count2 -= 1;
         }
         Camera.main.transform.DOMove(new Vector3(0, height, 0), 1);
-        Cameras.transform.DOMove(new Vector3(0, height2, 23), 1);
+        Cameras.transform.DOMove(new Vector3(0, height2, 50), 1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

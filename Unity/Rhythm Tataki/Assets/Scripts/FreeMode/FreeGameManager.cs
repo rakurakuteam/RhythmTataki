@@ -5,16 +5,25 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using NatCorderU.Examples;
+using System;
 
 public class FreeGameManager : MonoBehaviour
 {
     public static FreeGameManager instance { get; set; }
+
     private void Awake()
     {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-        Application.targetFrameRate = 50; // 프레임 설정.
+        Application.targetFrameRate = 60; // 프레임 설정.
     }
+
+
+    // 애니메이션 오브젝트와 애니메이션
+    public GameObject[] leftDrumGameObjects;
+    public GameObject[] rightDrumGameObjects;
+    private Animator[] leftDrumAnimators;
+    private Animator[] rightDrumAnimators;
 
     public float noteSpeed;
 
@@ -43,32 +52,35 @@ public class FreeGameManager : MonoBehaviour
     private const float MAX_RECORDING_TIME = 30f; // 30초 설정
 
     private string fileName;
+    private string directoryName = "beats";
+    private string beatsFolderPath;
+    private bool recordingCoroutineIsRuinning = false;
 
-    // 음악실행 함수
-    void MusicStart()
-    {
-        // 리소스에서 비트 음악 파일을 불러와 재생
-        audioSource = GetComponent<AudioSource>();
-        audioClip = Resources.Load<AudioClip>("Beats/" + PlayerInformation.selectedMusic);
-        audioSource.clip = audioClip;
-        audioSource.Play();
-
-        // 녹화 시작.
-        // RecordManager.instance.audioSource = audioSource;
-        // RecordManager.instance.StartRecording();
-        
-    }
-
-    // Start is called before the first frame update
+    //int soundId1, soundId2;
+    
     void Start()
     {
+        // 초기화
+        leftDrumAnimators = new Animator[leftDrumGameObjects.Length];
+        rightDrumAnimators = new Animator[rightDrumGameObjects.Length];
+
+        for (int i = 0; i < leftDrumGameObjects.Length; i++)
+        {
+            leftDrumAnimators[i] = leftDrumGameObjects[i].GetComponent<Animator>();
+        }
+
+        for(int i = 0; i < rightDrumGameObjects.Length; i++)
+        {
+            rightDrumAnimators[i] = rightDrumGameObjects[i].GetComponent<Animator>();
+        }
         IsPause = false;
         // 패널숨김
         pausePanel.SetActive(false);
-
-        // MusicStart함수 실행, 2초 후에
-        Invoke("MusicStart", 2);
+        // MusicStart함수 실행, 1초 후에
+        Invoke("MusicStart", 1);
+        // 30초 후 녹화 종료 코루틴 실행
         // StartCoroutine(StopRecordingPoint());
+
         // 스프라이트 렌더러를 이용하여 스프라이트 이미지를 표시할 수 있음.
         // 스프라이트 렌더러 초기화
         // 트레일들을 index로 넣어줌
@@ -85,35 +97,85 @@ public class FreeGameManager : MonoBehaviour
         leftDrumSound.clip = PlayerInformation.leftDrumSound;
         rigthDrumSound.clip = PlayerInformation.rightDrumSound;
 
+        //soundId1 = AudioCenter.loadSound("DrumSnare");
+        //soundId2 = AudioCenter.loadSound("DrumKick");
+
+        // 비트와 노래 저장하는 경로.
+        beatsFolderPath = Application.persistentDataPath + Path.DirectorySeparatorChar + directoryName + Path.DirectorySeparatorChar;
+
         // 파일명 중복 확인.
         fileName = PlayerInformation.selectedMusic + ".txt";
-        fileName = FileUploadName(Application.persistentDataPath, fileName);
-        // Debug.Log(fileName);
+        fileName = FileUploadName(beatsFolderPath, fileName);
 
         // 파일 생성.
-        sw = new StreamWriter(Application.persistentDataPath + Path.DirectorySeparatorChar + fileName, true);
+        sw = new StreamWriter(beatsFolderPath + fileName, true); // true는 덮어쓴다는 말.
         // 먼저 노래 제목을 첫번째 줄에 넣어준다.
-        sw.WriteLine(PlayerInformation.selectedMusic);
+        sw.WriteLine(PlayerInformation.musicTitle);
         // 그 다음은 제작자 정보
         sw.WriteLine("creater");
         // 그 다음은 노래 정보 그 이후로는 노트 값
         // 점수 기준 정보는 퍼펙트가 기준이므로 계산을 해줘야함
-        sw.WriteLine("123123");
-        
-
+        sw.WriteLine("120 60 3.5 500 400 300");
 
         // 노래가 언제 끝나는지 체크하는 코루틴 시작.
         StartCoroutine("AudioEndPoint");
-        
-        // C:/Users/SAMSUNG9/AppData/LocalLow/DefaultCompany/Rhythm Tataki(On Window)
-        // /storage/emulated/0/Android/data/com.dohyeong.test/files(On Android)
-        // Debug.Log(Application.persistentDataPath);
-        // D:/Unity Project/Rhythm Tataki/Assets(On Window)
-        // /data/app/com.dohyeong.test-mzYDG7qkao00UNLMJ2kUlw==/base.apk(On Android)
-        // Debug.Log(Application.dataPath);
-        // D:/Unity Project/Rhythm Tataki/Assets/StreamingAssets(On Window)
-        // jar:file:///data/app/com.dohyeong.test-mzYDG7qkao00UNLMJ2kUlw==/base.apk!/assets (On Android)
-        // Debug.Log(Application.streamingAssetsPath);
+    }
+
+    // 음악실행 함수
+    void MusicStart()
+    {
+        // 리소스에서 비트 음악 파일을 불러와 재생
+        audioSource = GetComponent<AudioSource>();
+        audioClip = Resources.Load<AudioClip>("Beats/" + PlayerInformation.selectedMusic);
+        // 만약 Resources 폴더에서 찾지 못하면 사용자가 노래를 추가 한 것이므로 persistancePath에서 찾는다.
+        if (audioClip == null)
+        {
+            Debug.Log("audioClip did not Exist");
+            string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "beats" + Path.DirectorySeparatorChar + PlayerInformation.selectedMusic + ".ogg";
+
+            // 노래 찾는 함수 실행
+            StartCoroutine(LoadAudioClip(path, audioClip));
+        }
+        else
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
+
+        // 녹화 시작.
+        // RecordManager.instance.audioSource = audioSource;
+        // RecordManager.instance.StartRecording();
+    }
+
+    // 노래 파일을 찾는 코루틴
+    IEnumerator LoadAudioClip(string path, AudioClip audioClip)
+    {
+        Debug.Log("Start LoadAudioClip");
+
+        // 파일 존재 여부 확인
+        if (!File.Exists(path))
+        {
+            Debug.Log("Didn't Exist: " + path);
+            yield break;
+        }
+
+        // WWW를 통해 오디오 클립을 가져온다.
+        WWW audioFile = new WWW("file:///" + path);
+        yield return audioFile;
+
+        if (audioFile.error == null)
+        {
+            // 성공적으로 가져오면 노래를 재생시킨다.
+            Debug.Log("Loaded file successfully");
+            audioClip = audioFile.GetAudioClip();
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.Log("Open File Error : " + audioFile.error);
+            yield break; // stop the coroutine here
+        }
     }
 
     // Update is called once per frame
@@ -154,30 +216,40 @@ public class FreeGameManager : MonoBehaviour
         //        }
         //    }
         //}
-
-
         // 사용자가 입력한 키에 해당하는 라인을 빛나게 처리
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             ShineTrail(0);
             leftDrumSound.Play();
-            // AudioCenter.playSound(soundId1);
-            // Debug.Log(audioSource);
-            string audioTime = "0 " + audioSource.time.ToString();
+            //AudioCenter.playSound(soundId1);
+            //Debug.Log(audioSource);
+            string audioTime = "0 " + (audioSource.time - PlayerInformation.NOTE_MOVEMENT_TIME).ToString();
             sw.WriteLine(audioTime);    // 기록
             // Debug.Log(audioTime);
             freeNoteController.MakeNote(1);
+
+            // 왼쪽 애니메이션 실행
+            for (int i = 0; i < leftDrumAnimators.Length; i++)
+            {
+                leftDrumAnimators[i].SetTrigger("Show");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             ShineTrail(1);
             rigthDrumSound.Play();
-            // AudioCenter.playSound(soundId2);
-            string audioTime = "1 " + audioSource.timeSamples.ToString();
+            //AudioCenter.playSound(soundId2);
+            string audioTime = "1 " + (audioSource.time - PlayerInformation.NOTE_MOVEMENT_TIME).ToString();
             sw.WriteLine(audioTime);    // 기록
             // Debug.Log(audioTime);
             freeNoteController.MakeNote(2);
+
+            // 오른쪽 애니메이션 실행
+            for(int i = 0; i < rightDrumAnimators.Length; i++)
+            {
+                rightDrumAnimators[i].SetTrigger("Show");
+            }
         }
         
 
@@ -188,6 +260,21 @@ public class FreeGameManager : MonoBehaviour
             // 매프레임마다 실행되므로 -= 을 사용
             color.a -= 0.01f;
             trailSpriteRenderes[i].color = color;
+        }
+
+        if (SerialManager.instance.serial.IsOpen)
+        {
+
+            try
+            {
+                ReadSerialValue();
+
+            }
+            catch (TimeoutException e)
+            {
+                // Debug.Log("serial Error: " + e.ToString());
+            }
+
         }
 
     }
@@ -205,14 +292,14 @@ public class FreeGameManager : MonoBehaviour
     {
         IsPause = true;
         Time.timeScale = 0;
-        // audioSource.Pause();
+        audioSource.Pause();
         pausePanel.SetActive(true);
     }
 
     public void BackButtonEvent()
     {
         Time.timeScale = 1;
-        // audioSource.Play();
+        audioSource.Play();
         IsPause = false;
         pausePanel.SetActive(false);
 
@@ -223,7 +310,7 @@ public class FreeGameManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         Time.timeScale = 1;
-        // audioSource.Play();
+        audioSource.Play();
         IsPause = false;
     }
 
@@ -231,20 +318,26 @@ public class FreeGameManager : MonoBehaviour
     // 파일을 삭제하고 노래 선택 화면으로 가준다.
     public void RetryButtonEvent()
     {
+        Time.timeScale = 1;
         // 파일 삭제 함수 호출
-        DeleteFile(Application.persistentDataPath, fileName);
-
+        DeleteFile(Application.persistentDataPath + Path.DirectorySeparatorChar + "beats", fileName);
         SceneManager.LoadScene("FreeMusicSelectScene");
+
+        CancelInvoke();
+        StopAllCoroutines();
     }
 
     // 홈버튼 클릭 시
     // 파일을 삭제하고 모드선택화면으로 가준다.
     public void HomeButtonEvent()
     {
+        Time.timeScale = 1;
         // 파일 삭제 함수 호출
-        DeleteFile(Application.persistentDataPath, fileName);
-
+        DeleteFile(Application.persistentDataPath + Path.DirectorySeparatorChar + "beats", fileName);
         SceneManager.LoadScene("SelectModeScene");
+
+        CancelInvoke();
+        StopAllCoroutines();
     }
 
     // 홈버튼, 다시하기버튼 클릭 시 기록하던 파일을 삭제한다.
@@ -261,18 +354,40 @@ public class FreeGameManager : MonoBehaviour
         }
     }
 
-    // 노래가 끝나면 창을 띄어준다.
-    public void ShowResultPanel()
+    // 노래가 끝나면 결과창으로 전환한다.
+    public void ShowResultScene()
     {
         Debug.Log("End Music");
-        sw.Close();
+        sw.Close(); // 노트 기록하던 파일 닫는다.
 
-        // 다른 버튼을 누르면 기존 파일 삭제
-
+        // 동영상 복사
+        SaveRecordingFile();
         // StartCoroutine(FileUpload(Application.persistentDataPath, "/솜사탕.ogg"));
-
         // 결과씬으로 전환
-        // SceneManager.LoadScene("FreeResultScene");
+        SceneManager.LoadScene("FreeResultScene");
+    }
+
+    // 동영상 저장.
+    public void SaveRecordingFile()
+    {
+        string fileName = "12.mp4";
+        string originalFilePath = "C:/Users/SAMSUNG9/Music/" + fileName;    //  윈도우
+        string saveFilePath = Application.persistentDataPath + Path.DirectorySeparatorChar + "records" + Path.DirectorySeparatorChar + fileName;
+        
+        if (File.Exists(originalFilePath))
+        {
+            FileInfo fileInfo = new FileInfo(originalFilePath);
+
+            // 파일 복사 (원래파일경로, 이동하고자하는 경로, true)는 중복파일일 경우 덮어쓰기.
+            // false일 경우 해당 파일이 있으면 오류 발생(try catch 문을 이용하여도됨)
+            File.Copy(originalFilePath, saveFilePath, true);
+
+            Debug.Log("File copy complete");
+        }
+        else
+        {
+            Debug.Log("File does not Exist");
+        }
     }
 
     // 노래가 언제 끝나는지 알려주는 코루틴.
@@ -284,7 +399,16 @@ public class FreeGameManager : MonoBehaviour
             yield return new WaitForSeconds(2.0f);
             if (!audioSource.isPlaying)
             {
-                ShowResultPanel();
+                // 끝나면 녹화 종료
+                // RecordManager.instance.StopRecording();
+                // 코루틴이 실행중이라면 종료시킨다.
+                if(recordingCoroutineIsRuinning)
+                {
+                    StopCoroutine("StopRecordingPoint");
+                }
+                   
+                // 결과화면 보여준다.
+                ShowResultScene();
                 break;
             }
         }
@@ -363,6 +487,7 @@ public class FreeGameManager : MonoBehaviour
     // 시간을 30초 체크하는 코루틴 1초마다 실행하게 함.
     IEnumerator StopRecordingPoint()
     {
+        recordingCoroutineIsRuinning = true;
         while (true)
         {
             // 2초마다 체크한다.
@@ -370,10 +495,13 @@ public class FreeGameManager : MonoBehaviour
             time += 2.0f;
             if (time >= MAX_RECORDING_TIME)
             {
+                Debug.Log("end recording");
                 // 게임화면 녹화 중지 함수 호출
                 RecordManager.instance.StopRecording();
                 // 시간 다시 초기화
                 time = 0.0f;
+                // 코루틴 실행 여부 false로 바꿈.
+                recordingCoroutineIsRuinning = false;
                 break;
             }
         }
@@ -415,5 +543,35 @@ public class FreeGameManager : MonoBehaviour
             }
         }
         return fileName;
+    }
+
+    // 아두이노에서 보내느 값을 읽고 처리한다.
+    public void ReadSerialValue()
+    {
+        string input = SerialManager.instance.serial.ReadLine();
+        // string input = System.Text.ASCIIEncoding.ASCII.GetString(SerialManager.instance.serial.);
+
+        if (input.Equals("1"))
+        {
+            ShineTrail(0);
+            leftDrumSound.Play();
+            //AudioCenter.playSound(soundId1);
+            //Debug.Log(audioSource);
+            string audioTime = "0 " + (audioSource.time - PlayerInformation.NOTE_MOVEMENT_TIME).ToString();
+            sw.WriteLine(audioTime);    // 기록
+            // Debug.Log(audioTime);
+            freeNoteController.MakeNote(1);
+        }
+
+        if (input.Equals("2"))
+        {
+            ShineTrail(1);
+            rigthDrumSound.Play();
+            //AudioCenter.playSound(soundId2);
+            string audioTime = "1 " + (audioSource.time - PlayerInformation.NOTE_MOVEMENT_TIME).ToString();
+            sw.WriteLine(audioTime);    // 기록
+            // Debug.Log(audioTime);
+            freeNoteController.MakeNote(2);
+        }
     }
 }
