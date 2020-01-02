@@ -11,18 +11,12 @@ $(function () {
 // 파일 드롭 다운
 function fileDropDown() {
     var dropZone = $("#dropZone");
-    //Drag기능
-    dropZone.on('dragenter', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        // 드롭다운 영역 css
-        dropZone.css('background-color', '#E3F2FC');
-    });
+
     dropZone.on('dragleave', function (e) {
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color', '#FFFFFF');
+        dropZone.css('background-color', 'rgba(236, 234, 234, 0.8)');
         dropZone.css('border-style', 'none');
     });
     dropZone.on('dragover', function (e) {
@@ -36,7 +30,7 @@ function fileDropDown() {
     dropZone.on('drop', function (e) {
         e.preventDefault();
         // 드롭다운 영역 css
-        dropZone.css('background-color', '#FFFFFF');
+        dropZone.css('background-color', 'rgba(236, 234, 234, 0.8)');
         dropZone.css('border-style', 'none');
 
         var files = e.originalEvent.dataTransfer.files;
@@ -97,10 +91,11 @@ function uploadFile(fileObject) {
         return;
     }
 
-    var form = $('#uploadForm');
-    var formData = new FormData(form);
+    var formData = new FormData();
+    formData.id = 'uploadForm';
+
     formData.append('audio', fileObject[0]);
-    
+
     var back = $('<div id="back" style="height:100%; width:100%; background-color:rgba(0,0,0,0.6); top:0; left:0; position:fixed; z-index:100"></div>');
     var loading = $('<img src="images/pic/loading.gif" id="loading"/>'); // 로딩 이미지
 
@@ -116,7 +111,9 @@ function uploadFile(fileObject) {
         processData: false,
         success: function (data) {
             console.log('success');
-            $("#workshop").html(data);
+            $("#workshop_center").unwrap() //부모 요소를 삭제
+            $(".filebox").remove(); //업로드 박스 삭제
+            $(".contents_box").append(data); //웨이브 폼 삽입
         },
         error: function (data) {
             console.log(data.status);

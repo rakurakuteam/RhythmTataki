@@ -16,8 +16,8 @@ use Aws\Laravel\AwsFacade;
 use Alert;
 
 define('LINK', 2);
-define('POSTS', 8);
-define('RANKING', 4);
+define('POSTS', 6);
+define('RANKING', 3);
 
 class HomeController extends Controller
 {
@@ -181,15 +181,18 @@ class HomeController extends Controller
             }
         }
         $first_name = $board->files[0]->song;
+        $writer = User::find($board->user_id);
 
         if(isset($board->files[0])){
             return view('page.board')
             ->with('board', $board)
             ->with('video', $video)
-            ->with('first_name', $first_name);
+            ->with('first_name', $first_name)
+            ->with('writer', $writer->name);
         }else{
             return view('page.board')
-            ->with('board', $board);
+            ->with('board', $board)
+            ->with('writer', $writer->name);
         }
     }
 
@@ -276,7 +279,7 @@ class HomeController extends Controller
             $query->select('user_id', 'board_id', 'heart')
             ->where('user_id', \Auth::user()->id);
          }])->find($request->id);
-
+         
         $end = $this->get_time();
         $time = $end - $start;
         Log::info('heartToggle check / time : '. $time);
@@ -353,10 +356,10 @@ class HomeController extends Controller
                     shell_exec('cp /mnt/mountpoint/files/'.$email.'/'.$original.' /mnt/zip-point/'.$path.'/'.$copy);
                 }
             }
-            Alert::success('다운로드 완료', '연주모드에서 새로고침 하세요.');
+            Alert::success(__('messages.dl_success'), __('messages.dl_success_message'));
             return 1;
         }
-        Alert::question('다운로드 실패', '이미 다운로드한 게시물이 아니신가요?');
+        Alert::question(__('messages.dl_fail'), __('messages.dl_fail_message'));
         return 2;
     }
 

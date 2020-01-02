@@ -44,9 +44,32 @@ body {
     width: 150px;
     font-size: 17px;
     font-weight: bold;
-    font-family: "NanumSquare", "Dotum", "Arial";
+    font-family: "Meiryo", "NanumSquare", "Dotum", "Arial";
 }
 
 #topMenu .menuLink:hover {
     color: #000000;
+}
+
+#upper_bar {
+    display: flex;
+}
+
+#login_menu {
+    float: right;
+    position: relative;
+    right: 150px;
+    top: -38px;
+    display: flex;
+    color: white;
+    font-size: 20px;
+}
+
+.text-uppercase:hover {
+    color: bisque;
+    text-decoration:none;
+}
+
+.text-uppercase {
+    color: white;
 }

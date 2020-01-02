@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="tag">
-                <b><p id="tag_text">상세설명</p></b>
+                <b><p id="tag_text">{{__('messages.intro')}}</p></b>
             </div>
             <div class="detail_img">
                 <img src="{{asset('images/pic/shop_detail_img.png')}}" id="detail_img">

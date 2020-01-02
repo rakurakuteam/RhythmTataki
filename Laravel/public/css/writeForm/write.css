@@ -1,15 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #494949;
 }
 
-#logo {
-    margin-left: 300px;
-    height: 30px;
-    float: left;
-    cursor: pointer;
-    margin-top: 20px;
+#upper_bar {
+    width: 1774px;
 }
 
 #login-logo {
@@ -18,21 +13,30 @@ body {
     margin-top: 16px;
 }
 
+#logo {
+    margin-left: 50px;
+    height: 50px;
+    float: left;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 #topMenu {
     height: 70px;
-    width: 100%;
-    background-color: #4aa3fd;
-    margin-top: 0.5px;
+    width: 1800px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-top: -20px;
 }
 
 #li-1 {
-    margin-left: 600px;
+    margin-left: 150px;
 }
 
 #topMenu ul li {
     list-style: none;
     color: white;
-    background-color: #4aa3fd;
+    background-color: #ffffff;
     float: left;
     line-height: 70px;
     text-align: right
@@ -40,21 +44,16 @@ body {
 
 #topMenu .menuLink {
     text-decoration: none;
-    color: white;
+    color: #000000;
     display: block;
-    width: 150px;
+    width: 200px;
     font-size: 17px;
     font-weight: bold;
-    font-family: "NanumSquare", "Dotum", "Arial";
+    font-family: "Meiryo", "NanumSquare", "Dotum", "Arial";
 }
 
 #topMenu .menuLink:hover {
-    color: #000000;
-}
-
-.contents {
-  background-color: #494949;
-  height: 100%
+    color: #2172F4;
 }
 
 .form_box {
@@ -62,27 +61,28 @@ body {
     height: 1070px;
     background-color: #fff;
     position: relative;
-    margin-top: 19%;
+    margin-top: 22%;
     margin-bottom: 200px;
-    box-shadow: -2px 5px 40px;
+    box-shadow: -2px 5px 20px;
     z-index: 2;
 }
 
 #title_text {
     position: absolute;
-    color: #4aa3fd;
+    color: #008aaf;
     z-index: 1;
     font-size: 60px;
-    top: 20%;
+    top: 22%;
     left: 15%;
     text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
 }
 
-#drum_img {
-    width: 100%;
+#bg_img {
+    width: 1700px;
     height: 600px;
     position: absolute;
-    top: 7.4%;
+    top: 120px;
+    left: 100px;
 }
 
 #name {
@@ -101,16 +101,6 @@ body {
     margin-top: 50px;
     margin-left: 100px;
     font-size: 22px;
-}
-
-#list {
-  height: 50px;
-  font-size: 22px;
-  position: absolute;
-  top: 305px;
-  left: 805px;
-  float: left;
-  display: inline-block;
 }
 
 .name_box {
@@ -143,7 +133,7 @@ body {
     border-left: none;
     border-right: none;
     border-bottom: 2px solid #4aa3fd;
-    width: 450px;
+    width: 600px;
     height: 40px;
     font-size: 18px;
 }
@@ -163,7 +153,7 @@ body {
 }
 
 .comment_input {
-    width: 550px;
+    width: 600px;
     margin-top: 120px;
     height: 450px;
     font-size: 20px;
@@ -179,7 +169,13 @@ body {
     height: 70px;
     border-radius: 50px;
     border: 1px solid #4aa3fd;
-    background-color: #4aa3fd;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#02b9c9+0,008aaf+100 */
+    background: #02b9c9; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #02b9c9 0%, #008aaf 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  #02b9c9 0%,#008aaf 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  #02b9c9 0%,#008aaf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#02b9c9', endColorstr='#008aaf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
     color: #fff;
     font-size: 25px;
     margin-top: 70px;
@@ -205,13 +201,9 @@ h3{
 }
 
 /****/
-.list_box {
-  margin-left: 650px;
-  width: 450px;
-}
-
 .col-md-12
 {
+    width: 460px; 
     height: 450px;
     margin-top: 120px;
     border: 2px solid #4aa3fd;
@@ -232,7 +224,8 @@ h3{
 }
 
 .radio {
-    display: block;
+ 
+     display: block;
     position: relative;
     padding-left: 30px;
     margin-bottom: 12px;
@@ -253,6 +246,7 @@ h3{
 
 /* Create a custom radio button */
 .checkround {
+
     position: absolute;
     top: 6px;
     left: 0;
@@ -291,11 +285,12 @@ h3{
     height: 12px;
     border-radius: 50%;
     background: #4A7AFD;
-
+    
 }
 
 .list {
     width: 300px;
+    left: 140px;
 }
 
 .cust-btn{
@@ -308,12 +303,12 @@ h3{
     height: 50px;
     position: relative;
     bottom: 0;
-    margin-left: 80px;
+    margin-left: 135px;
     margin-top: 20px;
 }
 
 .cust-btn:hover{
-
+	
 	border-color: #4A7AFD;
 	background-color: #fff;
 	color: #4A7AFD;
@@ -323,7 +318,7 @@ h3{
 
 .radio_box {
     width: 400px;
-    margin-left: -100px;
+    margin-left: -160px;
 }
 
 .footer_box {

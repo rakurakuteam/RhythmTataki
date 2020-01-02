@@ -10,9 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// 언어 변경
+Route::middleware('locale')->group(function () {
+
 // 메인 페이지
 Route::get('/', 'HomeController@index')->name('home');
-
 // 유니티 관련
 Route::prefix('unity')->group(function() {
     Route::get('/login', 'UnityController@loginForm')->name('unity.loginPage'); // 로그인 페이지
@@ -73,3 +75,8 @@ Route::prefix('store')->group(function() {
 
 // 스토어 관련
 Route::resource('store', 'StoreController');
+
+});
+
+/* 로케일 체인지 */
+Route::get('localeChange/{locale}', 'LocaleController@localeChange')->name('locale.change');
